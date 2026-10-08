@@ -1,0 +1,82 @@
+{
+  "jira_instance": "https://claudebugbounty.atlassian.net",
+  "project_key": "ECO",
+  "board_id": 38,
+  "board_url": "https://claudebugbounty.atlassian.net/jira/software/c/projects/ECO/boards/38",
+  "sprints": [
+    {
+      "name": "ECO Sprint 1: Security & Auth",
+      "goal": "Deliver authenticated HMAC-SHA256 ingestion, geofence tripwire, and automated CI/CD security gate."
+    },
+    {
+      "name": "ECO Sprint 2: Route & Fleet",
+      "goal": "Implement real geodesic Nearest-Neighbor TSP optimization, map polyline visualization, and interactive Driver Waypoint checklist."
+    },
+    {
+      "name": "ECO Sprint 3: RBAC & Gateway",
+      "goal": "Enforce strict profile boundaries (Driver isolated from security logs), add dedicated Security Gateway Lab tab, and package manifests."
+    }
+  ],
+  "epics": {
+    "ECO-EPIC-1": "ECO-3",
+    "ECO-EPIC-2": "ECO-4",
+    "ECO-EPIC-3": "ECO-5",
+    "ECO-EPIC-4": "ECO-6"
+  },
+  "synced_issues": [
+    {
+      "key": "ECO-7",
+      "summary": "US-01: Implement HMAC-SHA256 Telemetry Signature Ingestion Pipeline",
+      "type": "Story",
+      "points": 8,
+      "sprint": "ECO Sprint 1: Security & Auth",
+      "epic": "ECO-3",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-7"
+    },
+    {
+      "key": "ECO-8",
+      "summary": "US-02: GIS Geofence Anomaly Detection Tripwire (50m Boundary)",
+      "type": "Story",
+      "points": 5,
+      "sprint": "ECO Sprint 1: Security & Auth",
+      "epic": "ECO-3",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-8"
+    },
+    {
+      "key": "ECO-9",
+      "summary": "US-03: Greedy Nearest-Neighbor TSP Route Optimization Engine",
+      "type": "Story",
+      "points": 8,
+      "sprint": "ECO Sprint 2: Route & Fleet",
+      "epic": "ECO-4",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-9"
+    },
+    {
+      "key": "ECO-10",
+      "summary": "US-04: Interactive Field Driver Waypoint Manifest & Collection Checklist",
+      "type": "Story",
+      "points": 5,
+      "sprint": "ECO Sprint 2: Route & Fleet",
+      "epic": "ECO-4",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-10"
+    },
+    {
+      "key": "ECO-11",
+      "summary": "US-05: Strict Profile RBAC Isolation: Driver vs Security Analyst Partitioning",
+      "type": "Story",
+      "points": 5,
+      "sprint": "ECO Sprint 3: RBAC & Gateway",
+      "epic": "ECO-5",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-11"
+    },
+    {
+      "key": "ECO-12",
+      "summary": "US-06: Dedicated Left Sidebar Tab: Security Gateway & Attack Lab",
+      "type": "Story",
+      "points": 5,
+      "sprint": "ECO Sprint 3: RBAC & Gateway",
+      "epic": "ECO-5",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-12"
+    }
+  ]
+}
