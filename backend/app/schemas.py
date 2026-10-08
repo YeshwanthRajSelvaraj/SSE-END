@@ -37,6 +37,8 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
     expires_in: int
     role: str
+    username: Optional[str] = None
+    email: Optional[str] = None
 
 
 # ── Smart Bin Schemas ────────────────────────────────────────────────────────
@@ -86,6 +88,11 @@ class SensorReadingCreate(BaseModel):
     battery_level: Optional[float] = Field(default=None, ge=0, le=100)
     hmac_signature: Optional[str] = Field(default=None, description="HMAC-SHA256 signature")
     device_token: Optional[str] = Field(default=None, description="Device auth token")
+    weight_kg: Optional[float] = Field(default=None, ge=0, le=1000, description="Weight measured by load cell")
+    nonce: Optional[str] = Field(default=None, description="Unique telemetry request nonce")
+    sequence_number: Optional[int] = Field(default=None, ge=0, description="Monotonically increasing sequence number")
+    timestamp_unix: Optional[int] = Field(default=None, description="Device UNIX timestamp")
+    image_ref: Optional[str] = Field(default=None, description="Reference ID for captured camera frame")
 
     @field_validator("sensor_status")
     @classmethod
@@ -244,3 +251,164 @@ class DashboardStats(BaseModel):
     active_routes: int
     total_collections_today: int
     security_alerts_today: int
+
+
+# ── Waste Intelligence & Classification Schemas ─────────────────────────────
+
+class WasteClassificationRequest(BaseModel):
+    bin_id: str
+    image_ref: Optional[str] = None
+    level1_category: Optional[str] = None
+    level2_subcategory: Optional[str] = None
+    level3_object: Optional[str] = None
+    confidence_score: Optional[float] = Field(default=None, ge=0.0, le=100.0)
+    simulated_raw_features: Optional[dict] = None
+
+
+class WasteClassificationResponse(BaseModel):
+    id: int
+    bin_id: str
+    level1_category: str
+    level2_subcategory: Optional[str]
+    level3_object: Optional[str]
+    confidence_score: float
+    status: str
+    model_version: str
+    verification_status: str
+    image_ref: Optional[str]
+    timestamp: datetime.datetime
+
+    model_config = {"from_attributes": True, "protected_namespaces": ()}
+
+
+class BinContaminationResponse(BaseModel):
+    id: int
+    bin_id: str
+    contamination_detected: bool
+    expected_category: Optional[str]
+    found_category: Optional[str]
+    confidence_score: float
+    details: Optional[str]
+    timestamp: datetime.datetime
+
+    class Config:
+        from_attributes = True
+
+
+class BinCompositionResponse(BaseModel):
+    bin_id: str
+    organic_pct: float
+    plastic_pct: float
+    paper_pct: float
+    cardboard_pct: float
+    glass_pct: float
+    metal_pct: float
+    ewaste_pct: float
+    hazardous_pct: float
+    other_pct: float
+    calculated_at: datetime.datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ── Device Registry & Sensor Health Schemas ──────────────────────────────────
+
+class DeviceRegistryCreate(BaseModel):
+    device_id: str = Field(..., min_length=3, max_length=50)
+    bin_id: Optional[str] = None
+    cert_fingerprint: Optional[str] = None
+    assigned_lat: Optional[float] = None
+    assigned_lon: Optional[float] = None
+    firmware_version: str = Field(default="1.0.0")
+
+
+class DeviceRegistryUpdate(BaseModel):
+    status: Optional[str] = None
+    firmware_version: Optional[str] = None
+    assigned_lat: Optional[float] = None
+    assigned_lon: Optional[float] = None
+    revoked_reason: Optional[str] = None
+
+
+class DeviceRegistryResponse(BaseModel):
+    id: int
+    device_id: str
+    bin_id: Optional[str]
+    cert_fingerprint: Optional[str]
+    status: str
+    assigned_lat: Optional[float]
+    assigned_lon: Optional[float]
+    firmware_version: str
+    last_heartbeat: datetime.datetime
+    trust_score: float
+    created_at: datetime.datetime
+    revoked_at: Optional[datetime.datetime]
+    revoked_reason: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class SensorHealthResponse(BaseModel):
+    id: int
+    bin_id: str
+    sensor_type: str
+    status: str
+    last_reading_value: Optional[float]
+    last_heartbeat: datetime.datetime
+    anomaly_count: int
+    details: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class LocationIntegrityResponse(BaseModel):
+    id: int
+    bin_id: str
+    reported_lat: float
+    reported_lon: float
+    prev_lat: Optional[float]
+    prev_lon: Optional[float]
+    distance_meters: float
+    implied_speed_kmh: float
+    trust_score: float
+    status: str
+    anomaly_reason: Optional[str]
+    timestamp: datetime.datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ── Security Event Schemas ───────────────────────────────────────────────────
+
+class SecurityEventResponse(BaseModel):
+    id: int
+    event_id: str
+    event_type: str
+    severity: str
+    source: str
+    user_or_device_id: Optional[str]
+    ip_address: Optional[str]
+    resource: Optional[str]
+    reason: Optional[str]
+    action_taken: str
+    correlation_id: Optional[str]
+    timestamp: datetime.datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ── Route Integrity Schemas ──────────────────────────────────────────────────
+
+class RouteIntegrityResponse(BaseModel):
+    route_id: int
+    version: int
+    route_hash: str
+    is_valid: bool
+    status: str
+    last_modified_by: Optional[int]
+    timestamp: datetime.datetime

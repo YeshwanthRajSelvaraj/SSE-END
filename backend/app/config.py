@@ -47,6 +47,10 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     LOG_FILE: str = "security_audit.log"
 
+    # AI & Gemini Intelligence
+    GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "")
+    GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
+
     class Config:
         env_file = ".env"
         case_sensitive = True

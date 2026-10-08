@@ -58,3 +58,6 @@ def test_api_rate_limiting():
         
     status_codes = [r.status_code for r in responses]
     assert 429 in status_codes # Too Many Requests should be triggered
+    from app.rate_limiter import reset_rate_limits
+    reset_rate_limits()
+

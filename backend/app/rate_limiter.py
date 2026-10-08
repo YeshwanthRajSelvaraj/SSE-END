@@ -29,3 +29,8 @@ def rate_limit_ip(ip_address: str):
         )
         
     request_history[ip_address].append(now)
+
+def reset_rate_limits():
+    """Resets the in-memory request history for testing."""
+    request_history.clear()
+

@@ -31,3 +31,9 @@ venv/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Logs and Binaries
+*.log
+*.exe
+*.zip
+

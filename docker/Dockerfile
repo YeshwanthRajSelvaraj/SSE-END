@@ -37,9 +37,9 @@ USER appuser
 # Expose port
 EXPOSE 8000
 
-# Healthcheck
+# Healthcheck (Native Python standard library, removing need for curl)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8000/api/bins || exit 1
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/bins', timeout=3)" || exit 1
 
 # Run the application securely
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--limit-max-requests", "1000"]

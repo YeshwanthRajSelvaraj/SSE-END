@@ -96,7 +96,12 @@ def main():
         {
             "name": "ECO Sprint 3: RBAC & Gateway",
             "goal": "Enforce strict profile boundaries (Driver isolated from security logs), add dedicated Security Gateway Lab tab, and package manifests."
+        },
+        {
+            "name": "ECO Sprint 4: AI & IoT",
+            "goal": "Deliver Hierarchical Waste Classification, Multi-Sensor Correlation, GPS Spoofing Defense, Device Lifecycle Quarantine, and OWASP API Protection."
         }
+
     ]
     
     sprint_ids = {}
@@ -127,7 +132,7 @@ def main():
             existing_issues[iss["fields"]["summary"].strip()] = iss["key"]
             print(f"Existing Issue in {PROJECT_KEY}: {iss['key']} - {iss['fields']['summary']}")
 
-    # 4. Create Epics
+    # 4. Epics Definitions
     EPICS = [
         {
             "key_alias": "ECO-EPIC-1",
@@ -152,6 +157,24 @@ def main():
             "epic_name": "DevSecOps CI/CD",
             "summary": "EPIC 4: DevSecOps Pipeline & Infrastructure Orchestration",
             "desc": "Automated SAST scanning, container vulnerability verification, and production rollout."
+        },
+        {
+            "key_alias": "ECO-EPIC-5",
+            "epic_name": "Waste AI Intelligence",
+            "summary": "EPIC 5: Waste AI Intelligence & Classification Subsystem",
+            "desc": "Hierarchical classification, 3-tier confidence triage, contamination detection, and 9-stream waste composition analytics."
+        },
+        {
+            "key_alias": "ECO-EPIC-6",
+            "epic_name": "IoT Sensor Trust",
+            "summary": "EPIC 6: IoT Sensor Trust, Multi-Sensor Correlation & Spoofing Defense",
+            "desc": "Physical multi-sensor correlation, waste mass density checks, impossible travel velocity detection, and hardware device lifecycle management."
+        },
+        {
+            "key_alias": "ECO-EPIC-7",
+            "epic_name": "Enterprise API Security",
+            "summary": "EPIC 7: Enterprise Route Security & OWASP Hardening",
+            "desc": "Cryptographic route hashing, anti-override prioritization, OWASP API vulnerability defense, and comprehensive regression verification."
         }
     ]
     
@@ -192,8 +215,9 @@ def main():
             else:
                 print(f"Failed to create Epic '{summary}': {r_ep.status_code} - {r_ep.text}")
 
-    # 5. User Stories & Tasks to create
+    # 5. User Stories & Tasks
     STORIES = [
+        # Sprint 1
         {
             "id": "ECO-101",
             "summary": "US-01: Implement HMAC-SHA256 Telemetry Signature Ingestion Pipeline",
@@ -221,6 +245,21 @@ def main():
             "ac": "Given reported coordinates deviating > 50 meters from registered anchor\nWhen telemetry is ingested\nThen the gateway rejects the packet with HTTP 400 and logs LOCATION_ANOMALY with HIGH severity."
         },
         {
+            "id": "ECO-401",
+            "summary": "TASK-01: GitHub Actions CI/CD Pipeline with Automated SAST & Container Scanning",
+            "epic_ref": "ECO-EPIC-4",
+            "sprint_name": "ECO Sprint 1: Security & Auth",
+            "type": "Task",
+            "type_id": "10042",
+            "points": 3,
+            "priority": "High",
+            "assignee_role": "DevSecOps Engineer",
+            "desc": "As a Release Manager, I want every git push to run automated unit tests, Bandit SAST security scans, and Trivy container vulnerability audits before merge.",
+            "ac": "Given code pushed to main\nWhen GitHub Actions runs\nThen test-and-scan and build-container jobs must pass 100% green without critical vulnerabilities."
+        },
+
+        # Sprint 2
+        {
             "id": "ECO-201",
             "summary": "US-03: Greedy Nearest-Neighbor TSP Route Optimization Engine",
             "epic_ref": "ECO-EPIC-2",
@@ -246,6 +285,8 @@ def main():
             "desc": "As a Field Truck Driver (Rajesh Kumar), I want a turn-by-turn waypoint manifest where I can click [Mark Collected] at each bin so that progress is tracked and bin telemetry resets in real time.",
             "ac": "Given an active dispatched route\nWhen the driver clicks [Mark Collected] on a stop\nThen bin fill resets to 0%, stop is marked with a checkmark badge, and the route progress bar increments towards 100%."
         },
+
+        # Sprint 3
         {
             "id": "ECO-301",
             "summary": "US-05: Strict Profile RBAC Isolation: Driver vs Security Analyst Partitioning",
@@ -272,18 +313,124 @@ def main():
             "desc": "As a Security Analyst, I want a dedicated left sidebar lab below Intrusion Logs to simulate valid HMAC packets, inject spoofed hashes, and test geofence violations with a live monospace terminal.",
             "ac": "Given the user navigates to the 'Security Gateway Lab' tab\nWhen clicking 'Inject Spoofed Hash'\nThen the terminal displays payload and HMAC mismatch in red, and a critical incident is added to Intrusion Logs."
         },
+
+        # Sprint 4: Waste AI & IoT Intelligence
         {
-            "id": "ECO-401",
-            "summary": "TASK-01: GitHub Actions CI/CD Pipeline with Automated SAST & Container Scanning",
-            "epic_ref": "ECO-EPIC-4",
-            "sprint_name": "ECO Sprint 1: Security & Auth",
+            "id": "ECO-501",
+            "summary": "US-07: Hierarchical Waste Classification & 3-Tier Confidence Triage Engine",
+            "epic_ref": "ECO-EPIC-5",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
+            "type": "Story",
+            "type_id": "10009",
+            "points": 8,
+            "priority": "High",
+            "assignee_role": "AI/ML Engineer",
+            "desc": "As an Operations Manager, I want waste images and telemetry to be categorized across 9 Level-1 categories, 5 Level-2 recyclable streams, and 25 Level-3 object typologies with automated 3-tier confidence triage (>=90% Auto, 70-89% Rule check, <70% Human verification).",
+            "ac": "Given camera frame or item metadata\nWhen classification inference executes\nThen predictions >=90% are marked AUTOMATIC, 70-89% trigger RULE_VALIDATED verification, and <70% are flagged UNKNOWN_HUMAN_REQUIRED."
+        },
+        {
+            "id": "ECO-502",
+            "summary": "US-08: Cross-Contamination Detection & Segregation Breach Monitoring",
+            "epic_ref": "ECO-EPIC-5",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
+            "type": "Story",
+            "type_id": "10009",
+            "points": 5,
+            "priority": "Highest",
+            "assignee_role": "Backend Intelligence Developer",
+            "desc": "As an Environmental Compliance Inspector, I want immediate detection when hazardous waste, biomedical materials, or food scraps contaminate recyclable or municipal bins so that penalties and safety alerts are raised.",
+            "ac": "Given hazardous or biological items detected in general bins\nWhen evaluated by contamination rules\nThen a BinContaminationRecord is logged with CRITICAL severity and audit trail is triggered."
+        },
+        {
+            "id": "ECO-503",
+            "summary": "US-09: 9-Stream Waste Composition Distribution & Analytics Rollup",
+            "epic_ref": "ECO-EPIC-5",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
+            "type": "Story",
+            "type_id": "10009",
+            "points": 5,
+            "priority": "Medium",
+            "assignee_role": "Data Analytics Engineer",
+            "desc": "As a Sustainability Officer, I want real-time percentage rollups across 9 material streams (Organic, Plastic, Paper, Cardboard, Glass, Metal, E-Waste, Hazardous, Other) to optimize recycling logistics.",
+            "ac": "Given multiple waste events across a bin\nWhen recalculate_bin_composition is invoked\nThen percentages sum to 100% and provide stream distribution breakdown."
+        },
+        {
+            "id": "ECO-601",
+            "summary": "US-10: Multi-Sensor Correlation & Waste Mass Density Anomaly Telemetry",
+            "epic_ref": "ECO-EPIC-6",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
+            "type": "Story",
+            "type_id": "10009",
+            "points": 8,
+            "priority": "High",
+            "assignee_role": "IoT Firmware & Analytics Engineer",
+            "desc": "As an IoT Field Engineer, I want telemetry to cross-correlate ultrasonic volume, load cell weight, and thermal sensors using calculated mass density (kg/m^3) to uncover stuck ultrasonic heads, drift, or fire hazards.",
+            "ac": "Given ultrasonic reads 90% full but load cell reads 0 kg\nWhen evaluated by correlation engine\nThen an anomaly is flagged for stuck/blocked sensor with SUSPICIOUS status.\n\nGiven internal temperature exceeds 55°C\nWhen evaluated\nThen a thermal smoldering alert is raised immediately."
+        },
+        {
+            "id": "ECO-602",
+            "summary": "US-11: Multi-Point Geodesic GPS Spoofing & Impossible Velocity Detection",
+            "epic_ref": "ECO-EPIC-6",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
+            "type": "Story",
+            "type_id": "10009",
+            "points": 8,
+            "priority": "Highest",
+            "assignee_role": "Location Security Engineer",
+            "desc": "As a Security Operations Center Analyst, I want coordinates evaluated for impossible travel velocity (>100 km/h) and strict 50m anchor geofencing so that GPS spoofing attacks are intercepted.",
+            "ac": "Given coordinate teleportation jump with implied velocity >100 km/h\nWhen received at gateway\nThen telemetry is REJECTED, bin status is set to COMPROMISED, and GPS_SPOOFING_SUSPECTED is audited."
+        },
+        {
+            "id": "ECO-603",
+            "summary": "US-12: Hardware Device Identity, Certificate Fingerprint Rotation & Lifecycle Quarantine",
+            "epic_ref": "ECO-EPIC-6",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
+            "type": "Story",
+            "type_id": "10009",
+            "points": 5,
+            "priority": "High",
+            "assignee_role": "Embedded Security Specialist",
+            "desc": "As an IoT Security Administrator, I want complete device lifecycle management (Active, Suspicious, Quarantined, Revoked) with SHA-256 certificate fingerprint rotation and immediate telemetry cutoff for compromised hardware.",
+            "ac": "Given a device marked QUARANTINED or REVOKED\nWhen it attempts to submit telemetry\nThen the gateway responds with HTTP 403 Forbidden."
+        },
+        {
+            "id": "ECO-701",
+            "summary": "US-13: Cryptographic Route Integrity Hashing & Anti-Override Prioritization",
+            "epic_ref": "ECO-EPIC-7",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
+            "type": "Story",
+            "type_id": "10009",
+            "points": 8,
+            "priority": "High",
+            "assignee_role": "Full-Stack Systems Engineer",
+            "desc": "As a Logistics Director, I want dispatched route sequences secured with SHA-256 integrity hashes to prevent driver tampering, and collection priority calculated so high fill never overrides hazardous emergencies.",
+            "ac": "Given a high fill bin (95%) and a hazardous contamination bin (75%)\nWhen priority score is calculated\nThen the hazardous bin receives higher emergency priority score.\n\nGiven route sequence altered without authorization\nWhen verify_route_integrity executes\nThen hash mismatch is detected and flagged."
+        },
+        {
+            "id": "ECO-702",
+            "summary": "TASK-02: OWASP API Security Gateway Defensive Filters & Hardening",
+            "epic_ref": "ECO-EPIC-7",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
             "type": "Task",
             "type_id": "10042",
-            "points": 3,
+            "points": 5,
+            "priority": "Highest",
+            "assignee_role": "Application Security Engineer",
+            "desc": "As a DevSecOps Lead, I want comprehensive middleware filters to block SQL injection, escape XSS payloads, restrict path traversal, block private RFC-1918 SSRF requests, enforce BOLA authorization, and limit request rates.",
+            "ac": "Given SQLi, XSS, Path Traversal, or SSRF payloads in requests\nWhen evaluated by API gateway\nThen requests are rejected with HTTP 400 Bad Request and logged to security telemetry."
+        },
+        {
+            "id": "ECO-703",
+            "summary": "TASK-03: End-to-End Security & Intelligence Test Automation Suite",
+            "epic_ref": "ECO-EPIC-7",
+            "sprint_name": "ECO Sprint 4: AI & IoT",
+            "type": "Task",
+            "type_id": "10042",
+            "points": 5,
             "priority": "High",
-            "assignee_role": "DevSecOps Engineer",
-            "desc": "As a Release Manager, I want every git push to run automated unit tests, Bandit SAST security scans, and Trivy container vulnerability audits before merge.",
-            "ac": "Given code pushed to main\nWhen GitHub Actions runs\nThen test-and-scan and build-container jobs must pass 100% green without critical vulnerabilities."
+            "assignee_role": "QA & Security Test Automation Engineer",
+            "desc": "As a Quality Assurance Engineer, I want an automated test suite verifying all 22 intelligence, IoT trust, location security, and OWASP controls in CI/CD.",
+            "ac": "Given test_security_and_intelligence.py suite\nWhen pytest runs\nThen all test cases pass 100% green without regression."
         }
     ]
 
@@ -303,17 +450,19 @@ def main():
                 
         if not iss_key:
             adf_doc = adf_from_text(summary, item["desc"], item["ac"], item["points"], item["assignee_role"])
-            payload = {
-                "fields": {
-                    "project": {"key": PROJECT_KEY},
-                    "summary": summary,
-                    "issuetype": {"id": item["type_id"]},
-                    "customfield_10014": epic_target,  # Epic Link
-                    "customfield_10034": float(item["points"]),  # Story points
-                    "priority": {"name": item["priority"]},
-                    "description": adf_doc
-                }
+            fields = {
+                "project": {"key": PROJECT_KEY},
+                "summary": summary,
+                "issuetype": {"id": item["type_id"]},
+                "priority": {"name": item["priority"]},
+                "description": adf_doc
             }
+            if epic_target:
+                fields["customfield_10014"] = epic_target
+            if item["type"] == "Story":
+                fields["customfield_10034"] = float(item["points"])
+            payload = {"fields": fields}
+
             r_iss = requests.post(f"{JIRA_URL}/rest/api/3/issue", headers=HEADERS, json=payload)
             if r_iss.status_code in [200, 201]:
                 iss_key = r_iss.json().get("key")

@@ -3,24 +3,24 @@ const PROFILES = {
     admin: {
         id: 'admin',
         name: 'System Administrator',
-        role: 'Super Admin &bull; Full Access (All 5 Modules)',
+        role: 'Super Admin &bull; Full Access (All 6 Modules)',
         avatar: 'AD',
         avatarBg: 'linear-gradient(135deg, #047857 0%, #064e3b 100%)',
         badge: 'SUPER ADMIN',
-        allowedSections: ['dashboard', 'map-section', 'routes', 'security', 'iot-lab'],
+        allowedSections: ['dashboard', 'map-section', 'routes', 'security', 'security-center', 'iot-lab'],
         defaultSection: 'dashboard',
-        description: 'Complete infrastructure oversight, HMAC key rotation, TSP route execution, and intrusion auditing.'
+        description: 'Complete infrastructure oversight, HMAC key rotation, TSP route execution, IoT trust registry, and intrusion auditing.'
     },
     operator: {
         id: 'operator',
         name: 'Operations Dispatcher',
-        role: 'Fleet Lead &bull; Dashboard, Map & Routes',
+        role: 'Fleet Lead &bull; Dashboard, Map, Routes & Security Center',
         avatar: 'OD',
         avatarBg: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
         badge: 'OPERATOR',
-        allowedSections: ['dashboard', 'map-section', 'routes'],
+        allowedSections: ['dashboard', 'map-section', 'routes', 'security-center'],
         defaultSection: 'dashboard',
-        description: 'Fleet logistics, TSP route dispatch, vehicle assignments, and real-time GIS monitoring.'
+        description: 'Fleet logistics, TSP route dispatch, vehicle assignments, real-time GIS monitoring, and waste classification verification.'
     },
     driver: {
         id: 'driver',
@@ -36,17 +36,324 @@ const PROFILES = {
     analyst: {
         id: 'analyst',
         name: 'SOC Security Analyst',
-        role: 'Threat Analyst &bull; Intrusions & Gateway Lab',
+        role: 'Threat Analyst &bull; Intrusions, Security Center & Gateway Lab',
         avatar: 'SA',
         avatarBg: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
         badge: 'ANALYST',
-        allowedSections: ['security', 'iot-lab', 'dashboard', 'map-section'],
-        defaultSection: 'security',
-        description: 'Real-time intrusion detection, HMAC-SHA256 signature verification, and edge security lab.'
+        allowedSections: ['security', 'security-center', 'iot-lab', 'dashboard', 'map-section'],
+        defaultSection: 'security-center',
+        description: 'Real-time intrusion detection, HMAC-SHA256 signature verification, IoT trust lifecycle, and edge security lab.'
     }
 };
 
 let activeProfile = 'admin';
+let authToken = localStorage.getItem('ecosmart_token') || sessionStorage.getItem('ecosmart_token') || null;
+let selectedLoginProfileId = 'admin';
+
+const PROFILE_LOGIN_DEFAULTS = {
+    admin: {
+        username: 'admin',
+        name: 'System Administrator',
+        badge: 'SUPER ADMIN',
+        badgeClass: 'badge-admin',
+        avatar: 'AD',
+        avatarBg: 'linear-gradient(135deg, #047857 0%, #064e3b 100%)',
+        desc: 'Full administrative access to municipal telemetry nodes, cryptographic trust engines, TSP route solvers, and SOC intrusion audits.',
+        feat1: 'Access: All 6 enterprise control modules enabled'
+    },
+    operator: {
+        username: 'operator',
+        name: 'Operations Dispatcher',
+        badge: 'OPERATOR',
+        badgeClass: 'badge-operator',
+        avatar: 'OD',
+        avatarBg: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+        desc: 'Fleet coordination, truck dispatches, route optimization runs, sensor alerts, and waste classification verification.',
+        feat1: 'Access: 4 modules (Dashboard, Map, Routes TSP, Security Center)'
+    },
+    driver: {
+        username: 'driver',
+        name: 'Rajesh Kumar (Field Driver)',
+        badge: 'DRIVER',
+        badgeClass: 'badge-driver',
+        avatar: 'RK',
+        avatarBg: 'linear-gradient(135deg, #d97706 0%, #b45309 100%)',
+        desc: 'Strict least privilege. Waypoint navigation, bin collection checklists, and route execution logs.',
+        feat1: 'Access: Route Manifest Only (Restricted Least-Privilege)'
+    },
+    analyst: {
+        username: 'analyst',
+        name: 'SOC Security Analyst',
+        badge: 'ANALYST',
+        badgeClass: 'badge-analyst',
+        avatar: 'SA',
+        avatarBg: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
+        desc: 'Cryptographic verification, sensor spoofing analysis, rate limiter telemetry, and device quarantine audits.',
+        feat1: 'Access: Security Center, Intrusion Logs, Security Gateway Lab'
+    }
+};
+
+// ── Auth Gateway Controller ──────────────────────────────────────────────────
+function selectLoginProfile(profileId) {
+    selectedLoginProfileId = profileId;
+    const def = PROFILE_LOGIN_DEFAULTS[profileId];
+    if (!def) return;
+
+    // Highlight card
+    document.querySelectorAll('.auth-profile-card').forEach(c => c.classList.remove('active'));
+    const activeCard = document.getElementById(`auth-card-${profileId}`);
+    if (activeCard) activeCard.classList.add('active');
+
+    // Update preview panel
+    const avatar = document.getElementById('auth-selected-avatar');
+    const badge = document.getElementById('auth-selected-badge');
+    const name = document.getElementById('auth-selected-name');
+    const desc = document.getElementById('auth-selected-desc');
+    const feat1 = document.getElementById('auth-selected-feat1');
+
+    if (avatar) {
+        avatar.innerText = def.avatar;
+        avatar.style.background = def.avatarBg;
+    }
+    if (badge) {
+        badge.innerText = def.badge;
+        badge.className = `auth-profile-badge ${def.badgeClass}`;
+    }
+    if (name) name.innerText = def.name;
+    if (desc) desc.innerText = def.desc;
+    if (feat1) feat1.innerText = def.feat1;
+
+    // Update input values
+    const userInput = document.getElementById('auth-username-input');
+    const passInput = document.getElementById('auth-password-input');
+    if (userInput) userInput.value = def.username;
+    if (passInput) passInput.value = 'abc123';
+
+    // Hide previous error
+    const feedbackBox = document.getElementById('auth-feedback-box');
+    if (feedbackBox) feedbackBox.style.display = 'none';
+}
+
+function fastLoginProfile(profileId) {
+    selectLoginProfile(profileId);
+    const def = PROFILE_LOGIN_DEFAULTS[profileId];
+    performLogin(def ? def.username : profileId, 'abc123');
+}
+
+function handleFormLogin(e) {
+    if (e) e.preventDefault();
+    const username = document.getElementById('auth-username-input')?.value || 'admin';
+    const password = document.getElementById('auth-password-input')?.value || 'abc123';
+    performLogin(username, password);
+}
+
+function autofillPasswordAll(pass) {
+    const passInput = document.getElementById('auth-password-input');
+    if (passInput) {
+        passInput.value = pass;
+        passInput.focus();
+    }
+    showToast('Password Set', `Security password pre-filled to '${pass}'`, 'info');
+}
+
+function resetToSelectedUsername() {
+    const def = PROFILE_LOGIN_DEFAULTS[selectedLoginProfileId];
+    if (def) {
+        const userInput = document.getElementById('auth-username-input');
+        if (userInput) userInput.value = def.username;
+    }
+}
+
+function toggleAuthPasswordVisibility() {
+    const passInput = document.getElementById('auth-password-input');
+    const eyeIcon = document.getElementById('pass-eye-icon');
+    if (!passInput) return;
+
+    if (passInput.type === 'password') {
+        passInput.type = 'text';
+        if (eyeIcon) {
+            eyeIcon.innerHTML = `<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/>`;
+        }
+    } else {
+        passInput.type = 'password';
+        if (eyeIcon) {
+            eyeIcon.innerHTML = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>`;
+        }
+    }
+}
+
+function hideAuthGateway() {
+    const gateway = document.getElementById('auth-gateway-screen');
+    if (gateway) gateway.classList.add('hidden');
+}
+
+function showAuthGateway() {
+    const gateway = document.getElementById('auth-gateway-screen');
+    if (gateway) {
+        gateway.classList.remove('hidden');
+        selectLoginProfile(activeProfile || 'admin');
+    }
+}
+
+function logoutUser() {
+    localStorage.removeItem('ecosmart_token');
+    localStorage.removeItem('ecosmart_profile');
+    sessionStorage.removeItem('ecosmart_token');
+    sessionStorage.removeItem('ecosmart_profile');
+    authToken = null;
+    showAuthGateway();
+    showToast('Session Locked', 'You have been signed out. Please authenticate to continue.', 'info');
+}
+
+async function performLogin(username, password) {
+    const feedbackBox = document.getElementById('auth-feedback-box');
+    const feedbackText = document.getElementById('auth-feedback-text');
+    const submitBtn = document.getElementById('auth-submit-btn');
+    const submitText = document.getElementById('auth-submit-btn-text');
+    const rememberMe = document.getElementById('auth-remember-me')?.checked;
+
+    if (feedbackBox) {
+        feedbackBox.className = 'auth-feedback-box';
+        feedbackBox.style.display = 'none';
+    }
+
+    if (submitBtn) {
+        submitBtn.classList.add('loading');
+        if (submitText) submitText.innerText = 'Authenticating Credentials...';
+    }
+
+    const apiBase = (window.location.port === '8001') ? '' : `${window.location.protocol}//${window.location.hostname}:8001`;
+
+    try {
+        const res = await fetch(`${apiBase}/api/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: username.trim(),
+                password: password.trim()
+            })
+        });
+
+        if (!res.ok) {
+            let errMsg = 'Invalid username or password.';
+            try {
+                const errData = await res.json();
+                if (errData && errData.detail) errMsg = errData.detail;
+            } catch (e) {}
+
+            if (feedbackBox && feedbackText) {
+                feedbackText.innerText = `Authentication Failed: ${errMsg}`;
+                feedbackBox.className = 'auth-feedback-box error';
+                feedbackBox.style.display = 'flex';
+            }
+
+            const formCard = document.querySelector('.auth-form-wrapper');
+            if (formCard) {
+                formCard.style.animation = 'none';
+                formCard.offsetHeight;
+                formCard.style.animation = 'authShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97)';
+            }
+
+            if (submitBtn) {
+                submitBtn.classList.remove('loading');
+                if (submitText) submitText.innerText = 'Authenticate & Enter Console';
+            }
+            return false;
+        }
+
+        const data = await res.json();
+        authToken = data.access_token;
+        const role = data.role;
+
+        // Map backend role to profile ID
+        let profileId = 'admin';
+        if (role === 'operator') profileId = 'operator';
+        else if (role === 'driver') profileId = 'driver';
+        else if (role === 'security_auditor' || role === 'analyst') profileId = 'analyst';
+        else if (role === 'admin') profileId = 'admin';
+        else {
+            const u = username.toLowerCase();
+            if (u.includes('operator')) profileId = 'operator';
+            else if (u.includes('driver') || u.includes('rajesh')) profileId = 'driver';
+            else if (u.includes('analyst')) profileId = 'analyst';
+        }
+
+        // Store session
+        const storage = rememberMe ? localStorage : sessionStorage;
+        storage.setItem('ecosmart_token', authToken);
+        storage.setItem('ecosmart_profile', profileId);
+        storage.setItem('ecosmart_user', data.username || username);
+        if (rememberMe) sessionStorage.removeItem('ecosmart_token');
+        else localStorage.removeItem('ecosmart_token');
+
+        if (feedbackBox && feedbackText) {
+            feedbackText.innerText = `✓ Authenticated as ${PROFILES[profileId]?.name || username} (${PROFILES[profileId]?.badge || role.toUpperCase()}) — Access Granted`;
+            feedbackBox.className = 'auth-feedback-box success';
+            feedbackBox.style.display = 'flex';
+        }
+
+        if (submitBtn) {
+            submitBtn.classList.remove('loading');
+            if (submitText) submitText.innerText = '✓ Access Granted! Entering Console...';
+        }
+
+        setTimeout(() => {
+            hideAuthGateway();
+            switchProfile(profileId);
+            runRealRouteOptimizer();
+            syncLiveTelemetry();
+            if (submitText) submitText.innerText = 'Authenticate & Enter Console';
+        }, 400);
+
+        return true;
+    } catch (err) {
+        console.warn('Backend login request error, checking fallback:', err);
+        // Resilient fallback for demo password
+        if (password === 'abc123') {
+            let profileId = 'admin';
+            const u = username.toLowerCase();
+            if (u.includes('operator')) profileId = 'operator';
+            else if (u.includes('driver') || u.includes('rajesh')) profileId = 'driver';
+            else if (u.includes('analyst')) profileId = 'analyst';
+
+            authToken = 'offline_demo_token_' + Date.now();
+            const storage = rememberMe ? localStorage : sessionStorage;
+            storage.setItem('ecosmart_token', authToken);
+            storage.setItem('ecosmart_profile', profileId);
+
+            if (feedbackBox && feedbackText) {
+                feedbackText.innerText = `✓ Authenticated as ${PROFILES[profileId]?.name} — Access Granted`;
+                feedbackBox.className = 'auth-feedback-box success';
+                feedbackBox.style.display = 'flex';
+            }
+
+            setTimeout(() => {
+                hideAuthGateway();
+                switchProfile(profileId);
+            }, 350);
+            return true;
+        }
+
+        if (feedbackBox && feedbackText) {
+            feedbackText.innerText = `Connection Error: Could not connect to API server at ${apiBase}`;
+            feedbackBox.className = 'auth-feedback-box error';
+            feedbackBox.style.display = 'flex';
+        }
+        if (submitBtn) {
+            submitBtn.classList.remove('loading');
+            if (submitText) submitText.innerText = 'Authenticate & Enter Console';
+        }
+        return false;
+    }
+}
+
+function getAuthHeaders(extraHeaders = {}) {
+    const headers = { ...extraHeaders };
+    if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`;
+    }
+    return headers;
+}
 
 function toggleProfileDropdown() {
     const dropdown = document.getElementById('profile-dropdown');
@@ -71,6 +378,7 @@ function applyRbacNavigation(prof) {
         'map-section': 'nav-map',
         'routes': 'nav-routes',
         'security': 'nav-security',
+        'security-center': 'nav-security-center',
         'iot-lab': 'nav-iot-lab'
     };
 
@@ -213,9 +521,14 @@ function showSection(sectionId) {
             'map-section': 'Live Telemetry GIS Mesh',
             'routes': 'Autonomous Route Optimization & Driver Dispatch',
             'security': 'Intrusion Detection & Security Audit Console',
+            'security-center': 'Enterprise Security Center & AI Intelligence',
             'iot-lab': 'Edge IoT Security Gateway & Cryptographic Lab'
         };
         titleEl.innerText = titles[sectionId] || 'Operations Command Center';
+    }
+
+    if (sectionId === 'security-center') {
+        loadSecurityCenterData();
     }
 
     if (sectionId === 'map-section' && window.map) {
@@ -1335,8 +1648,9 @@ function addSecurityLogEntry(action, target, details, severity) {
 
 // ── Live Backend Synchronization ───────────────────────────────────────────
 async function syncLiveTelemetry() {
+    const apiBase = (window.location.port === '8001') ? '' : `${window.location.protocol}//${window.location.hostname}:8001`;
     try {
-        const res = await fetch('/api/bins');
+        const res = await fetch(`${apiBase}/api/bins`);
         if (res.ok) {
             const data = await res.json();
             if (data && data.length > 0) {
@@ -1351,7 +1665,7 @@ async function syncLiveTelemetry() {
     }
 
     try {
-        const logRes = await fetch('/api/security/logs');
+        const logRes = await fetch(`${apiBase}/api/security/logs`);
         if (logRes.ok) {
             const logs = await logRes.json();
             if (logs && logs.length > 0) {
@@ -1380,11 +1694,368 @@ async function syncLiveTelemetry() {
         // Fallback logs active
     }
 
-    showToast("Telemetry Synchronized", "Refreshed live status across 6 nodes and gateway logs.", "success");
+    // Refresh new intelligence and registry modules
+    await loadSecurityCenterData();
+
+    showToast("Telemetry Synchronized", "Refreshed live status across 6 nodes, AI triage and gateway logs.", "success");
 }
 
-// Initial System Initialization
-applyRbacNavigation(PROFILES[activeProfile]);
-updateLabBinInfo();
-runRealRouteOptimizer();
-syncLiveTelemetry();
+// ── Security Center & Intelligence Data Controller ───────────────────────────
+function getApiBase() {
+    return (window.location.port === '8001') ? '' : `${window.location.protocol}//${window.location.hostname}:8001`;
+}
+
+async function loadSecurityCenterData() {
+    await Promise.allSettled([
+        loadSecurityMetrics(),
+        loadDeviceRegistry(),
+        loadSensorHealthMatrix(),
+        loadWasteClassifications(),
+        renderCompositionAnalytics(),
+        loadSecurityEvents()
+    ]);
+}
+
+async function loadSecurityMetrics() {
+    const apiBase = getApiBase();
+    try {
+        const res = await fetch(`${apiBase}/api/security/metrics`);
+        if (res.ok) {
+            const data = await res.json();
+            const totalDev = document.getElementById('sc-total-devices');
+            const quarDev = document.getElementById('sc-quarantined-devices');
+            const threatBrd = document.getElementById('sc-threat-breakdown-badge');
+            const quarBadge = document.getElementById('sc-revoked-devices-badge');
+            
+            if (quarDev) quarDev.innerText = `${data.quarantined_nodes || 1} Quarantined`;
+            if (quarBadge) quarBadge.innerText = `${data.revoked_nodes || 0} Revoked`;
+            if (threatBrd) threatBrd.innerText = `${data.sqli_attempts_blocked || 0} SQLi, ${data.xss_attempts_blocked || 0} XSS, ${data.gps_spoofing_prevented || 0} GPS Spoof`;
+        }
+    } catch (e) {}
+}
+
+async function loadDeviceRegistry() {
+    const apiBase = getApiBase();
+    const tbody = document.getElementById('device-registry-table-body');
+    if (!tbody) return;
+
+    try {
+        const res = await fetch(`${apiBase}/api/devices`);
+        if (res.ok) {
+            const devices = await res.json();
+            tbody.innerHTML = '';
+            let activeCount = 0;
+
+            devices.forEach(dev => {
+                const tr = document.createElement('tr');
+                const st = (dev.status || 'active').toLowerCase();
+                if (st === 'active') activeCount++;
+
+                let badgeClass = 'badge-success';
+                if (st === 'quarantined') badgeClass = 'badge-warning';
+                else if (st === 'revoked') badgeClass = 'badge-danger';
+                else if (st === 'suspicious') badgeClass = 'badge-purple';
+
+                const scoreColor = dev.trust_score >= 80 ? 'var(--primary-700)' : (dev.trust_score >= 50 ? 'var(--accent-warning-text)' : 'var(--accent-danger-text)');
+                const heartbeat = dev.last_heartbeat ? dev.last_heartbeat.replace('T', ' ').substring(0, 19) : 'Live';
+
+                tr.innerHTML = `
+                    <td><strong>${dev.device_id}</strong></td>
+                    <td><span class="badge-chip badge-purple">${dev.bin_id || 'N/A'}</span></td>
+                    <td><span class="badge-chip ${badgeClass}">${st.toUpperCase()}</span></td>
+                    <td><strong style="color: ${scoreColor};">${dev.trust_score}%</strong></td>
+                    <td class="font-mono-data">${(dev.cert_fingerprint || 'cert_default').substring(0, 16)}...</td>
+                    <td class="font-mono-data">v${dev.firmware_version || '1.2.0'}</td>
+                    <td class="font-mono-data">${heartbeat}</td>
+                    <td>
+                        <div style="display: flex; gap: 6px;">
+                            ${st !== 'quarantined' && st !== 'revoked' ? `
+                                <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.70rem;" onclick="quarantineDevice('${dev.device_id}')">Quarantine</button>
+                            ` : ''}
+                            ${st !== 'revoked' ? `
+                                <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.70rem;" onclick="revokeDevice('${dev.device_id}')">Revoke</button>
+                            ` : '<span style="font-size: 0.72rem; color: var(--accent-danger-text); font-weight: 700;">REVOKED</span>'}
+                            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.70rem;" onclick="rotateDeviceCert('${dev.device_id}')">Rotate Key</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            const totalEl = document.getElementById('sc-total-devices');
+            const actBadge = document.getElementById('sc-active-devices-badge');
+            const navDevCount = document.getElementById('nav-devices-count');
+            if (totalEl) totalEl.innerText = `${devices.length} Nodes`;
+            if (actBadge) actBadge.innerText = `${activeCount} Active`;
+            if (navDevCount) navDevCount.innerText = `${devices.length} Nodes`;
+        }
+    } catch (e) {}
+}
+
+async function quarantineDevice(deviceId) {
+    const apiBase = getApiBase();
+    try {
+        const res = await fetch(`${apiBase}/api/devices/${deviceId}/quarantine`, { method: 'POST' });
+        if (res.ok) {
+            showToast("Device Quarantined", `Node ${deviceId} isolated from mesh telemetry.`, "warning");
+            loadDeviceRegistry();
+        } else {
+            showToast("Action Forbidden", "Only Administrator or Security Auditor can quarantine devices.", "danger");
+        }
+    } catch (e) {
+        showToast("Quarantine Applied (Demo)", `Node ${deviceId} marked as Quarantined.`, "warning");
+    }
+}
+
+async function revokeDevice(deviceId) {
+    if (!confirm(`Are you sure you want to permanently revoke credentials for ${deviceId}?`)) return;
+    const apiBase = getApiBase();
+    try {
+        const res = await fetch(`${apiBase}/api/devices/${deviceId}/revoke`, { method: 'POST' });
+        if (res.ok) {
+            showToast("Device Revoked", `Cryptographic identity for ${deviceId} permanently revoked.`, "danger");
+            loadDeviceRegistry();
+        } else {
+            showToast("Action Forbidden", "Only Administrator can revoke device certificates.", "danger");
+        }
+    } catch (e) {
+        showToast("Revocation Applied (Demo)", `Node ${deviceId} credentials revoked.`, "danger");
+    }
+}
+
+async function rotateDeviceCert(deviceId) {
+    const apiBase = getApiBase();
+    try {
+        const res = await fetch(`${apiBase}/api/devices/${deviceId}/rotate-cert`, { method: 'POST' });
+        if (res.ok) {
+            const data = await res.json();
+            showToast("Key Rotated", `Generated new certificate fingerprint for ${deviceId}: ${data.new_fingerprint.substring(0, 16)}...`, "success");
+            loadDeviceRegistry();
+        }
+    } catch (e) {
+        showToast("Key Rotated (Demo)", `New HMAC & cert rotated for ${deviceId}.`, "success");
+    }
+}
+
+async function loadSensorHealthMatrix() {
+    const apiBase = getApiBase();
+    const tbody = document.getElementById('sensor-health-matrix-body');
+    if (!tbody) return;
+
+    try {
+        const res = await fetch(`${apiBase}/api/sensors/health`);
+        if (res.ok) {
+            const records = await res.json();
+            const byBin = {};
+            records.forEach(r => {
+                if (!byBin[r.bin_id]) byBin[r.bin_id] = {};
+                byBin[r.bin_id][r.sensor_type] = r.status;
+            });
+
+            tbody.innerHTML = '';
+            Object.entries(byBin).forEach(([binId, sensors]) => {
+                const tr = document.createElement('tr');
+                const renderPill = (status) => {
+                    const st = (status || 'HEALTHY').toUpperCase();
+                    let cls = 'badge-success';
+                    if (st === 'WARNING') cls = 'badge-warning';
+                    else if (st === 'FAILED' || st === 'TAMPERED') cls = 'badge-danger';
+                    else if (st === 'SUSPICIOUS') cls = 'badge-purple';
+                    return `<span class="badge-chip ${cls}">${st}</span>`;
+                };
+
+                const isAnyTampered = Object.values(sensors).some(s => s === 'TAMPERED' || s === 'FAILED');
+                const overallBadge = isAnyTampered ? '<span class="badge-chip badge-danger">DEGRADED</span>' : '<span class="badge-chip badge-success">HEALTHY</span>';
+
+                tr.innerHTML = `
+                    <td><strong>${binId}</strong></td>
+                    <td>${renderPill(sensors.ultrasonic)}</td>
+                    <td>${renderPill(sensors.load_cell)}</td>
+                    <td>${renderPill(sensors.temperature)}</td>
+                    <td>${renderPill(sensors.gps)}</td>
+                    <td>${renderPill(sensors.camera)}</td>
+                    <td>${overallBadge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    } catch (e) {}
+}
+
+async function loadWasteClassifications() {
+    const apiBase = getApiBase();
+    const tbody = document.getElementById('waste-classification-table-body');
+    if (!tbody) return;
+
+    try {
+        const res = await fetch(`${apiBase}/api/waste/classifications`);
+        if (res.ok) {
+            const records = await res.json();
+            tbody.innerHTML = '';
+
+            records.forEach(r => {
+                const tr = document.createElement('tr');
+                const conf = r.confidence_score || 94.0;
+                const timeStr = r.timestamp ? r.timestamp.replace('T', ' ').substring(0, 19) : 'Live';
+
+                let triageBadge = '<span class="badge-chip badge-success">AUTOMATIC</span>';
+                if (conf < 70) {
+                    triageBadge = '<span class="badge-chip badge-danger">UNKNOWN &bull; REVIEW</span>';
+                } else if (conf < 90) {
+                    triageBadge = '<span class="badge-chip badge-warning">RULE VALIDATED</span>';
+                }
+
+                const isContam = r.level1_category === 'Hazardous' || r.level1_category === 'Biomedical';
+                const contamBadge = isContam ? '<span class="badge-chip badge-danger">HAZARD TRIPWIRE</span>' : '<span class="badge-chip badge-success">CLEAN STREAM</span>';
+
+                const needsReview = conf < 70 || r.verification_status === 'PENDING_HUMAN_VERIFICATION';
+
+                tr.innerHTML = `
+                    <td class="font-mono-data">${timeStr}</td>
+                    <td><span class="badge-chip badge-purple">${r.bin_id}</span></td>
+                    <td><strong>${r.level1_category}</strong></td>
+                    <td>${r.level2_subcategory || '&mdash;'}</td>
+                    <td><span style="font-weight: 600;">${r.level3_object || 'Packaging'}</span></td>
+                    <td><strong style="color: ${conf >= 90 ? 'var(--primary-700)' : (conf >= 70 ? 'var(--accent-warning-text)' : 'var(--accent-danger-text)')};">${conf.toFixed(1)}%</strong></td>
+                    <td>${triageBadge}</td>
+                    <td>${contamBadge}</td>
+                    <td>
+                        ${needsReview ? `
+                            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.70rem;" onclick="promptVerifyClassification(${r.id})">Verify Item</button>
+                        ` : `<span class="badge-chip badge-success" style="font-size: 0.65rem;">${r.verification_status || 'VERIFIED'}</span>`}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    } catch (e) {}
+}
+
+async function promptVerifyClassification(id) {
+    const verifiedCat = prompt("Enter verified Level 1 category (Organic / Wet, Recyclable, Hazardous, E-Waste):", "Recyclable");
+    if (!verifiedCat) return;
+
+    const apiBase = getApiBase();
+    try {
+        const res = await fetch(`${apiBase}/api/waste/verify/${id}?verified_category=${encodeURIComponent(verifiedCat)}`, {
+            method: 'POST'
+        });
+        if (res.ok) {
+            showToast("Human Verification Recorded", `Classification ${id} validated as ${verifiedCat}.`, "success");
+            loadWasteClassifications();
+            renderCompositionAnalytics();
+        }
+    } catch (e) {
+        showToast("Verified (Demo)", `Classification updated to ${verifiedCat}.`, "success");
+    }
+}
+
+async function renderCompositionAnalytics(selectedBinId = null) {
+    const binId = selectedBinId || document.getElementById('sc-composition-bin-select')?.value || 'BIN-001';
+    const container = document.getElementById('composition-analytics-container');
+    if (!container) return;
+
+    const apiBase = getApiBase();
+    let comp = {
+        organic_pct: 42.5, plastic_pct: 24.0, paper_pct: 14.5, cardboard_pct: 8.0,
+        glass_pct: 4.5, metal_pct: 3.5, ewaste_pct: 1.5, hazardous_pct: 1.0, other_pct: 0.5
+    };
+
+    try {
+        const res = await fetch(`${apiBase}/api/waste/composition/${binId}`);
+        if (res.ok) {
+            comp = await res.json();
+        }
+    } catch (e) {}
+
+    const streams = [
+        { name: "Organic / Wet Waste", pct: comp.organic_pct, color: "#10b981", tag: "Compostable" },
+        { name: "Recyclable Plastic", pct: comp.plastic_pct, color: "#3b82f6", tag: "Polymer Reprocessing" },
+        { name: "Clean Paper", pct: comp.paper_pct, color: "#f59e0b", tag: "Pulp Reclaiming" },
+        { name: "Cardboard Packaging", pct: comp.cardboard_pct, color: "#f97316", tag: "Corrugated Mill" },
+        { name: "Glass Containers", pct: comp.glass_pct, color: "#06b6d4", tag: "Cullet Recycling" },
+        { name: "Metal & Aluminium", pct: comp.metal_pct, color: "#64748b", tag: "Smelter Recovery" },
+        { name: "Electronic E-Waste", pct: comp.ewaste_pct, color: "#8b5cf6", tag: "Precious Metals" },
+        { name: "Hazardous / Biomedical", pct: comp.hazardous_pct, color: "#ef4444", tag: "High-Temp Incineration" },
+        { name: "Other Residuals", pct: comp.other_pct, color: "#94a3b8", tag: "Sanitary Landfill" }
+    ];
+
+    container.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 6px;">
+            ${streams.map(s => `
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 12px 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-heading);">${s.name}</span>
+                        <strong style="color: ${s.color}; font-size: 0.95rem;">${s.pct}%</strong>
+                    </div>
+                    <div class="progress-bar-container" style="width: 100%; height: 7px; margin-bottom: 6px;">
+                        <div class="progress-fill" style="width: ${s.pct}%; background: ${s.color};"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.70rem; color: var(--text-muted);">
+                        <span>${s.tag}</span>
+                        <span>Weight share: ${(s.pct * 1.8).toFixed(1)} kg</span>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+async function loadSecurityEvents() {
+    const apiBase = getApiBase();
+    const tbody = document.getElementById('sc-security-events-body');
+    if (!tbody) return;
+
+    try {
+        const res = await fetch(`${apiBase}/api/security/events`);
+        if (res.ok) {
+            const events = await res.json();
+            tbody.innerHTML = '';
+
+            events.forEach(ev => {
+                const tr = document.createElement('tr');
+                const timeStr = ev.timestamp ? ev.timestamp.replace('T', ' ').substring(0, 19) : 'Live';
+                const sev = ev.severity || 'HIGH';
+                let sevClass = 'badge-danger';
+                if (sev === 'WARNING' || sev === 'MEDIUM') sevClass = 'badge-warning';
+                else if (sev === 'INFO' || sev === 'LOW') sevClass = 'badge-success';
+
+                tr.innerHTML = `
+                    <td class="font-mono-data">${ev.event_id}</td>
+                    <td class="font-mono-data">${timeStr}</td>
+                    <td><strong>${ev.event_type}</strong></td>
+                    <td><span class="badge-chip ${sevClass}">${sev}</span></td>
+                    <td class="font-mono-data">${ev.user_or_device_id || 'EDGE_PROBE'}</td>
+                    <td><span class="badge-chip badge-purple">${ev.resource || 'GATEWAY'}</span></td>
+                    <td><span class="badge-chip badge-info font-mono-data">${ev.action_taken}</span></td>
+                    <td style="font-size: 0.76rem; color: var(--text-secondary);">${ev.reason || 'Security policy enforced'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    } catch (e) {}
+}
+
+// ── Initial System Initialization & Auth Gateway Verification ─────────────────
+function initAuthGateway() {
+    const savedToken = localStorage.getItem('ecosmart_token') || sessionStorage.getItem('ecosmart_token');
+    const savedProfile = localStorage.getItem('ecosmart_profile') || sessionStorage.getItem('ecosmart_profile');
+
+    if (savedToken && savedProfile && PROFILES[savedProfile]) {
+        activeProfile = savedProfile;
+        authToken = savedToken;
+        hideAuthGateway();
+        switchProfile(activeProfile);
+    } else {
+        showAuthGateway();
+        selectLoginProfile('admin');
+    }
+
+    updateLabBinInfo();
+    runRealRouteOptimizer();
+    syncLiveTelemetry();
+}
+
+// Kick off initialization
+initAuthGateway();
+

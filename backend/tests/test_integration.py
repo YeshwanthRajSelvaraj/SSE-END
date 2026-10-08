@@ -25,10 +25,15 @@ def setup_database():
     )
     db.add(test_bin)
     db.commit()
+    from app.rate_limiter import reset_rate_limits
+    reset_rate_limits()
     yield
+
     Base.metadata.drop_all(bind=engine)
 
 def test_telemetry_ingestion_valid():
+    from app.rate_limiter import reset_rate_limits
+    reset_rate_limits()
     import time, hmac, hashlib
     
     timestamp = int(time.time())

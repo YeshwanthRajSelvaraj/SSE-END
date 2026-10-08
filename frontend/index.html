@@ -14,6 +14,289 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Enterprise Auth Gateway & Login Screen -->
+    <div id="auth-gateway-screen" class="auth-gateway-screen">
+        <div class="auth-container">
+            <!-- Header Bar -->
+            <header class="auth-header">
+                <div class="auth-brand">
+                    <div class="auth-brand-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="auth-brand-title">
+                            EcoSmart Enterprise <span class="auth-brand-tag">Cloud Core</span>
+                        </div>
+                        <div style="font-size: 0.76rem; color: #64748b; margin-top: 2px;">Municipal Waste Intelligence &amp; IoT Security Platform</div>
+                    </div>
+                </div>
+
+                <div class="auth-header-meta">
+                    <div class="auth-meta-pill">
+                        <div class="auth-pulse-dot"></div>
+                        <span id="gateway-status-text">AUTH GATEWAY ONLINE &bull; PORT 8001</span>
+                    </div>
+                    <div class="auth-meta-pill" style="color: #38bdf8;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <span>TLS 1.3 &bull; JWT HS256</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Hero Section -->
+            <section class="auth-hero">
+                <div class="auth-hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Enterprise RBAC Identity Gateway</span>
+                </div>
+                <h1 class="auth-hero-title">Sign In to <span>EcoSmart Operations</span></h1>
+                <p class="auth-hero-subtitle">
+                    Select any operational profile below to automatically configure credentials, or authenticate manually.
+                </p>
+                <div class="auth-pass-banner">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <span>Universal Password for All Profiles:</span>
+                    <span class="auth-pass-highlight">abc123</span>
+                    <button type="button" class="auth-quick-fill-pass" onclick="autofillPasswordAll('abc123')">Copy / Set Password</button>
+                </div>
+            </section>
+
+            <!-- Profiles Matrix Cards -->
+            <section>
+                <div class="auth-section-heading">
+                    <div class="auth-section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <span>Select Operational Login Profile</span>
+                    </div>
+                    <span class="auth-section-hint">Click a card to load credentials &bull; Use 1-Click Sign In for instant access</span>
+                </div>
+
+                <div class="auth-profiles-grid" style="margin-top: 14px;">
+                    <!-- Profile 1: Admin -->
+                    <div class="auth-profile-card card-admin active" id="auth-card-admin" onclick="selectLoginProfile('admin')">
+                        <div class="auth-profile-top">
+                            <div class="auth-profile-avatar" style="background: linear-gradient(135deg, #047857 0%, #064e3b 100%);">AD</div>
+                            <span class="auth-profile-badge badge-admin">SUPER ADMIN</span>
+                        </div>
+                        <div class="auth-profile-info">
+                            <div class="auth-profile-name">System Administrator</div>
+                            <div class="auth-profile-role-sub">All 6 Modules &bull; Unrestricted Access</div>
+                            <div class="auth-profile-desc">HMAC-SHA256 key rotations, TSP algorithm triggers, IoT trust registry lifecycle, and compliance logs.</div>
+                        </div>
+                        <div class="auth-profile-perms">
+                            <span class="auth-perms-label">Module Permissions:</span>
+                            <div class="auth-modules-chips">
+                                <span class="auth-module-chip">Dashboard</span>
+                                <span class="auth-module-chip">Live Map</span>
+                                <span class="auth-module-chip">Routes TSP</span>
+                                <span class="auth-module-chip">Intrusions</span>
+                                <span class="auth-module-chip">Security Center</span>
+                                <span class="auth-module-chip">Gateway Lab</span>
+                            </div>
+                        </div>
+                        <div class="auth-profile-footer">
+                            <div class="auth-cred-hint">
+                                <span>USER: <strong>admin</strong></span>
+                                <span>PASS: <strong>abc123</strong></span>
+                            </div>
+                            <button type="button" class="auth-btn-quick-login btn-quick-admin" id="quick-login-admin" onclick="event.stopPropagation(); fastLoginProfile('admin')">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                <span>1-Click Sign In as Admin</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Profile 2: Operator -->
+                    <div class="auth-profile-card card-operator" id="auth-card-operator" onclick="selectLoginProfile('operator')">
+                        <div class="auth-profile-top">
+                            <div class="auth-profile-avatar" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">OD</div>
+                            <span class="auth-profile-badge badge-operator">OPERATOR</span>
+                        </div>
+                        <div class="auth-profile-info">
+                            <div class="auth-profile-name">Operations Dispatcher</div>
+                            <div class="auth-profile-role-sub">Fleet Lead &bull; Operations &amp; Telemetry</div>
+                            <div class="auth-profile-desc">Fleet coordination, truck dispatches, route optimization runs, sensor alerts, and waste classification.</div>
+                        </div>
+                        <div class="auth-profile-perms">
+                            <span class="auth-perms-label">Module Permissions:</span>
+                            <div class="auth-modules-chips">
+                                <span class="auth-module-chip">Dashboard</span>
+                                <span class="auth-module-chip">Live Map</span>
+                                <span class="auth-module-chip">Routes TSP</span>
+                                <span class="auth-module-chip">Security Center</span>
+                            </div>
+                        </div>
+                        <div class="auth-profile-footer">
+                            <div class="auth-cred-hint">
+                                <span>USER: <strong>operator</strong></span>
+                                <span>PASS: <strong>abc123</strong></span>
+                            </div>
+                            <button type="button" class="auth-btn-quick-login btn-quick-operator" id="quick-login-operator" onclick="event.stopPropagation(); fastLoginProfile('operator')">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                <span>1-Click Sign In as Operator</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Profile 3: Driver -->
+                    <div class="auth-profile-card card-driver" id="auth-card-driver" onclick="selectLoginProfile('driver')">
+                        <div class="auth-profile-top">
+                            <div class="auth-profile-avatar" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">RK</div>
+                            <span class="auth-profile-badge badge-driver">DRIVER</span>
+                        </div>
+                        <div class="auth-profile-info">
+                            <div class="auth-profile-name">Rajesh Kumar (Field Driver)</div>
+                            <div class="auth-profile-role-sub">Route Manifest Only &bull; Strict Boundary</div>
+                            <div class="auth-profile-desc">Strict least privilege. Waypoint navigation, bin collection checklists, and route execution logs.</div>
+                        </div>
+                        <div class="auth-profile-perms">
+                            <span class="auth-perms-label">Module Permissions:</span>
+                            <div class="auth-modules-chips">
+                                <span class="auth-module-chip" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">Optimized Routes Only</span>
+                            </div>
+                        </div>
+                        <div class="auth-profile-footer">
+                            <div class="auth-cred-hint">
+                                <span>USER: <strong>driver</strong></span>
+                                <span>PASS: <strong>abc123</strong></span>
+                            </div>
+                            <button type="button" class="auth-btn-quick-login btn-quick-driver" id="quick-login-driver" onclick="event.stopPropagation(); fastLoginProfile('driver')">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                <span>1-Click Sign In as Driver</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Profile 4: Analyst -->
+                    <div class="auth-profile-card card-analyst" id="auth-card-analyst" onclick="selectLoginProfile('analyst')">
+                        <div class="auth-profile-top">
+                            <div class="auth-profile-avatar" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);">SA</div>
+                            <span class="auth-profile-badge badge-analyst">ANALYST</span>
+                        </div>
+                        <div class="auth-profile-info">
+                            <div class="auth-profile-name">SOC Security Analyst</div>
+                            <div class="auth-profile-role-sub">Intrusions &amp; Security Gateway Lab</div>
+                            <div class="auth-profile-desc">Cryptographic verification, sensor spoofing analysis, rate limiter telemetry, and device quarantine audits.</div>
+                        </div>
+                        <div class="auth-profile-perms">
+                            <span class="auth-perms-label">Module Permissions:</span>
+                            <div class="auth-modules-chips">
+                                <span class="auth-module-chip">Intrusions</span>
+                                <span class="auth-module-chip">Security Center</span>
+                                <span class="auth-module-chip">Gateway Lab</span>
+                                <span class="auth-module-chip">Dashboard</span>
+                                <span class="auth-module-chip">Live Map</span>
+                            </div>
+                        </div>
+                        <div class="auth-profile-footer">
+                            <div class="auth-cred-hint">
+                                <span>USER: <strong>analyst</strong></span>
+                                <span>PASS: <strong>abc123</strong></span>
+                            </div>
+                            <button type="button" class="auth-btn-quick-login btn-quick-analyst" id="quick-login-analyst" onclick="event.stopPropagation(); fastLoginProfile('analyst')">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                <span>1-Click Sign In as Analyst</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Authentication Form Card -->
+            <section class="auth-form-wrapper">
+                <!-- Profile Summary Preview Panel -->
+                <div class="auth-preview-panel">
+                    <div class="auth-preview-badge-row">
+                        <div class="auth-profile-avatar" id="auth-selected-avatar" style="background: linear-gradient(135deg, #047857 0%, #064e3b 100%); width: 44px; height: 44px;">AD</div>
+                        <div>
+                            <span class="auth-profile-badge badge-admin" id="auth-selected-badge">SUPER ADMIN</span>
+                            <h3 class="auth-preview-title" id="auth-selected-name" style="margin-top: 4px;">System Administrator</h3>
+                        </div>
+                    </div>
+                    <p class="auth-preview-text" id="auth-selected-desc">
+                        Full administrative access to municipal telemetry nodes, cryptographic trust engines, TSP route solvers, and SOC intrusion audits.
+                    </p>
+                    <div class="auth-preview-features">
+                        <div class="auth-preview-feat-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span id="auth-selected-feat1">Access: All 6 enterprise control modules enabled</span>
+                        </div>
+                        <div class="auth-preview-feat-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>HMAC-SHA256 signature verification &amp; key lifecycle control</span>
+                        </div>
+                        <div class="auth-preview-feat-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Live JWT session creation with cryptographic bearer tokens</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Credential Input Form -->
+                <form class="auth-form" id="auth-login-form" onsubmit="handleFormLogin(event)">
+                    <!-- Feedback box -->
+                    <div class="auth-feedback-box" id="auth-feedback-box">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        <span id="auth-feedback-text">Invalid username or password</span>
+                    </div>
+
+                    <div class="auth-field-group">
+                        <div class="auth-field-label-row">
+                            <label class="auth-field-label" for="auth-username-input">Enterprise Username / Email</label>
+                            <span class="auth-field-helper" onclick="resetToSelectedUsername()">Reset to Selected</span>
+                        </div>
+                        <div class="auth-input-wrapper">
+                            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <input type="text" id="auth-username-input" class="auth-input" value="admin" required autocomplete="username" placeholder="admin, operator, driver, or analyst">
+                        </div>
+                    </div>
+
+                    <div class="auth-field-group">
+                        <div class="auth-field-label-row">
+                            <label class="auth-field-label" for="auth-password-input">Security Password</label>
+                            <span class="auth-quick-fill-pass" id="quick-fill-pass-btn" onclick="autofillPasswordAll('abc123')">Autofill: abc123</span>
+                        </div>
+                        <div class="auth-input-wrapper">
+                            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <input type="password" id="auth-password-input" class="auth-input" value="abc123" required autocomplete="current-password" placeholder="Enter security password">
+                            <button type="button" class="auth-toggle-pass-btn" id="auth-toggle-pass-btn" onclick="toggleAuthPasswordVisibility()" title="Show/Hide password">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="pass-eye-icon"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-form-options">
+                        <label class="auth-checkbox-label">
+                            <input type="checkbox" id="auth-remember-me" class="auth-checkbox" checked>
+                            <span>Keep session authenticated</span>
+                        </label>
+                        <span style="font-size: 0.73rem; color: #64748b; font-family: 'JetBrains Mono', monospace;">Auth Scheme: Bearer JWT</span>
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn" id="auth-submit-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                        <span id="auth-submit-btn-text">Authenticate &amp; Enter Console</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Gateway Footer -->
+            <footer class="auth-footer">
+                <div>
+                    &copy; 2026 EcoSmart Enterprise Cloud &bull; Secure Systems Engineering (SSE-END)
+                </div>
+                <div class="auth-footer-links">
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> OWASP ASVS Level 2</span>
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg> STRIDE Threat-Model Guard</span>
+                    <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Least-Privilege RBAC</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
     <!-- Enterprise Sidebar -->
     <aside class="sidebar">
         <div class="brand-wrapper">
@@ -88,6 +371,20 @@
                     <span class="nav-pill-danger" id="nav-alert-count">3 Alerts</span>
                 </a>
             </li>
+            <li id="nav-security-center">
+                <a href="javascript:void(0)" onclick="showSection('security-center')">
+                    <span class="nav-icon">
+                        <!-- Shield Key / Microchip Symbol -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="18" x="3" y="3" rx="2"/>
+                            <path d="M12 8v8"/>
+                            <path d="m8 12 4 4 4-4"/>
+                        </svg>
+                    </span>
+                    <span>Security Center & AI</span>
+                    <span class="nav-pill-count" id="nav-devices-count" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">6 Nodes</span>
+                </a>
+            </li>
             <li id="nav-iot-lab">
                 <a href="javascript:void(0)" onclick="showSection('iot-lab')">
                     <span class="nav-icon">
@@ -154,11 +451,21 @@
                         <div class="profile-option-avatar" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);">SA</div>
                         <div class="profile-option-details">
                             <span class="profile-option-name">SOC Security Analyst</span>
-                            <span class="profile-option-desc">Threat Analyst &bull; Intrusions & Gateway Lab</span>
+                            <span class="profile-option-desc">Threat Analyst &bull; Intrusions &amp; Gateway Lab</span>
                         </div>
                         <svg class="profile-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"/>
                         </svg>
+                    </div>
+
+                    <div class="profile-option" style="border-top: 1px solid var(--border-light); margin-top: 4px; padding-top: 10px;" onclick="logoutUser()">
+                        <div class="profile-option-avatar" style="background: rgba(239, 68, 68, 0.15); color: #dc2626;">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        </div>
+                        <div class="profile-option-details">
+                            <span class="profile-option-name" style="color: #dc2626;">Sign Out / Switch Gateway</span>
+                            <span class="profile-option-desc">Return to multi-profile login portal</span>
+                        </div>
                     </div>
                 </div>
 
@@ -216,6 +523,14 @@
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                     </svg>
                     <span>Run Route Optimizer</span>
+                </button>
+                <button class="btn-signout-header" id="header-signout-btn" onclick="logoutUser()" title="Sign out and return to Login Gateway">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    <span>Sign Out</span>
                 </button>
             </div>
         </header>
@@ -363,6 +678,116 @@
                         <div class="panel-body">
                             <div class="chart-wrapper">
                                 <canvas id="effChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Waste Composition & Sensor Trust Mesh Row -->
+                <div class="charts-grid" style="margin-top: 20px;">
+                    <!-- Card 1: 9-Stream Waste Composition Preview -->
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="panel-title-group">
+                                <div class="panel-title-icon" style="background: rgba(16, 185, 129, 0.12); color: #059669;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                                        <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="panel-title">Municipal Waste Composition Analytics</div>
+                                    <div class="panel-subtitle">9 segregated waste streams &bull; Network aggregate</div>
+                                </div>
+                            </div>
+                            <span class="badge-chip badge-success">AI Triage Active</span>
+                        </div>
+                        <div class="panel-body">
+                            <div id="dash-composition-bars">
+                                <!-- Populated dynamically by app.js -->
+                                <div style="display: flex; flex-direction: column; gap: 10px;" id="dash-comp-list">
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
+                                        <span>Organic / Wet Waste</span>
+                                        <strong>42.5%</strong>
+                                    </div>
+                                    <div class="progress-bar-container" style="width: 100%; height: 6px;">
+                                        <div class="progress-fill" style="width: 42.5%; background: #10b981;"></div>
+                                    </div>
+
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
+                                        <span>Recyclable Plastic</span>
+                                        <strong>23.0%</strong>
+                                    </div>
+                                    <div class="progress-bar-container" style="width: 100%; height: 6px;">
+                                        <div class="progress-fill" style="width: 23%; background: #3b82f6;"></div>
+                                    </div>
+
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
+                                        <span>Paper & Cardboard</span>
+                                        <strong>18.5%</strong>
+                                    </div>
+                                    <div class="progress-bar-container" style="width: 100%; height: 6px;">
+                                        <div class="progress-fill" style="width: 18.5%; background: #f59e0b;"></div>
+                                    </div>
+
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
+                                        <span>Glass & Metal</span>
+                                        <strong>11.0%</strong>
+                                    </div>
+                                    <div class="progress-bar-container" style="width: 100%; height: 6px;">
+                                        <div class="progress-fill" style="width: 11%; background: #06b6d4;"></div>
+                                    </div>
+
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
+                                        <span>Hazardous & E-Waste</span>
+                                        <strong style="color: #ef4444;">5.0%</strong>
+                                    </div>
+                                    <div class="progress-bar-container" style="width: 100%; height: 6px;">
+                                        <div class="progress-fill" style="width: 5%; background: #ef4444;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: IoT Sensor Health Matrix Preview -->
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="panel-title-group">
+                                <div class="panel-title-icon" style="background: rgba(2, 132, 199, 0.12); color: #0284c7;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="panel-title">IoT Multi-Sensor Integrity Mesh</div>
+                                    <div class="panel-subtitle">Transducer correlation & stuck-at anomaly detection</div>
+                                </div>
+                            </div>
+                            <span class="badge-chip badge-info" id="dash-sensor-summary-badge">30 Sensors Healthy</span>
+                        </div>
+                        <div class="panel-body">
+                            <div style="display: flex; flex-direction: column; gap: 12px;" id="dash-sensor-health-list">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border-light);">
+                                    <span style="font-size: 0.82rem; font-weight: 600;">Ultrasonic Fill Transducers</span>
+                                    <span class="badge-chip badge-success">5 Healthy / 1 Warning</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border-light);">
+                                    <span style="font-size: 0.82rem; font-weight: 600;">Load Cell Mass Scales</span>
+                                    <span class="badge-chip badge-success">6 Healthy (0 Drift)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border-light);">
+                                    <span style="font-size: 0.82rem; font-weight: 600;">Thermal / Temperature Probes</span>
+                                    <span class="badge-chip badge-success">6 Normal (24&deg;C - 33&deg;C)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border-light);">
+                                    <span style="font-size: 0.82rem; font-weight: 600;">GIS GPS Telemetry Modules</span>
+                                    <span class="badge-chip badge-success">6 Anchored (50m bounds)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                                    <span style="font-size: 0.82rem; font-weight: 600;">Optical Inspection Cameras</span>
+                                    <span class="badge-chip badge-success">6 Active (v1.2.0 Model)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -813,6 +1238,281 @@
                                 <div class="term-line term-system">[PIPELINE] HMAC SHA-256 Engine loaded &bull; Geofence Boundary Threshold = 50.0m</div>
                                 <div class="term-line term-system">[READY] Awaiting packet transmission from IoT Sandbox...</div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: NEW - SECURITY CENTER, IOT IDENTITY REGISTRY & WASTE INTELLIGENCE -->
+            <section id="security-center" class="view-section">
+                <!-- Security Threat & Trust Overview Metrics -->
+                <div class="stats-grid" style="margin-bottom: 22px;">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Registered IoT Nodes</span>
+                            <div class="stat-icon-wrapper" style="background: rgba(16, 185, 129, 0.12); color: #059669;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 9h6v6H9z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="sc-total-devices">6 Nodes</div>
+                        <div class="stat-footer">
+                            <span class="trend-badge positive" id="sc-active-devices-badge">5 Active</span>
+                            <span class="trend-caption">mTLS &amp; HMAC Bound</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Quarantined / Revoked</span>
+                            <div class="stat-icon-wrapper" style="background: var(--accent-danger-bg); color: var(--accent-danger-text);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-value danger" id="sc-quarantined-devices">1 Quarantined</div>
+                        <div class="stat-footer">
+                            <span class="trend-badge negative" id="sc-revoked-devices-badge">0 Revoked</span>
+                            <span class="trend-caption">Isolated from Mesh</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">OWASP Threats Neutralized</span>
+                            <div class="stat-icon-wrapper" style="background: var(--accent-purple-bg); color: var(--accent-purple-text);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="sc-threats-blocked" style="color: #7c3aed;">100% Blocked</div>
+                        <div class="stat-footer">
+                            <span class="trend-badge positive" id="sc-threat-breakdown-badge">SQLi, XSS, SSRF, BOLA</span>
+                            <span class="trend-caption">Zero-Trust WAF</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Waste AI Accuracy</span>
+                            <div class="stat-icon-wrapper" style="background: rgba(14, 165, 233, 0.12); color: #0284c7;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="sc-ai-confidence">94.8%</div>
+                        <div class="stat-footer">
+                            <span class="trend-badge positive">3-Tier Triage</span>
+                            <span class="trend-caption">Contamination Tripwire</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 1: Device Trust Registry & Cryptographic Identity -->
+                <div class="panel-card" style="margin-bottom: 22px;">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <div class="panel-title-icon" style="background: rgba(16, 185, 129, 0.12); color: #059669;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 9h6v6H9z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="panel-title">IoT Device Identity &amp; Trust Registry</div>
+                                <div class="panel-subtitle">Lifecycle state machine: REGISTERED &bull; ACTIVE &bull; SUSPICIOUS &bull; QUARANTINED &bull; REVOKED</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-outline" onclick="loadDeviceRegistry()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                </svg>
+                                <span>Refresh Registry</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="enterprise-table">
+                                <thead>
+                                    <tr>
+                                        <th>Device Node</th>
+                                        <th>Target Bin</th>
+                                        <th>Trust State</th>
+                                        <th>Trust Score</th>
+                                        <th>Certificate Fingerprint</th>
+                                        <th>Firmware</th>
+                                        <th>Last Heartbeat</th>
+                                        <th>Administrative Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="device-registry-table-body">
+                                    <!-- Populated by loadDeviceRegistry() -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: Multi-Sensor Integrity Matrix & Hardware Health -->
+                <div class="panel-card" style="margin-bottom: 22px;">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <div class="panel-title-icon" style="background: rgba(245, 158, 11, 0.12); color: #d97706;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="panel-title">Cross-Sensor Trust Engine &amp; Integrity Matrix</div>
+                                <div class="panel-subtitle">Independent health state per transducer: Ultrasonic Fill, Load Cell, Temperature, GPS GIS, Optical Camera</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" onclick="loadSensorHealthMatrix()">
+                            <span>Refresh Matrix</span>
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="enterprise-table">
+                                <thead>
+                                    <tr>
+                                        <th>Node ID</th>
+                                        <th>Ultrasonic Fill Sensor</th>
+                                        <th>Load Cell / Weight</th>
+                                        <th>Temperature Sensor</th>
+                                        <th>GPS Hardware</th>
+                                        <th>Optical Camera</th>
+                                        <th>Overall Node Trust</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sensor-health-matrix-body">
+                                    <!-- Populated by loadSensorHealthMatrix() -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 3: Hierarchical Waste Classification & Contamination Tripwire -->
+                <div class="panel-card" style="margin-bottom: 22px;">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <div class="panel-title-icon" style="background: rgba(2, 132, 199, 0.12); color: #0284c7;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                                    <polyline points="2 17 12 22 22 17"/>
+                                    <polyline points="2 12 12 17 22 12"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="panel-title">Hierarchical Waste Classification &amp; Contamination Stream</div>
+                                <div class="panel-subtitle">Level 1 (Category) &bull; Level 2 (Subcategory) &bull; Level 3 (Object Typology) &bull; AI Confidence Triage</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-outline" onclick="loadWasteClassifications()">
+                                <span>Refresh Predictions</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="enterprise-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Bin Node</th>
+                                        <th>Level 1 Category</th>
+                                        <th>Level 2 Subcategory</th>
+                                        <th>Level 3 Object</th>
+                                        <th>Confidence</th>
+                                        <th>Triage Decision</th>
+                                        <th>Contamination Status</th>
+                                        <th>Operator Verification</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="waste-classification-table-body">
+                                    <!-- Populated by loadWasteClassifications() -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 4: 9-Stream Waste Composition Analytics Breakdown -->
+                <div class="panel-card" style="margin-bottom: 22px;">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <div class="panel-title-icon" style="background: rgba(16, 185, 129, 0.12); color: #059669;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="panel-title">Municipal Waste Composition Analytics (9 Waste Streams)</div>
+                                <div class="panel-subtitle">Calculated distribution: Organic, Plastic, Paper, Cardboard, Glass, Metal, E-Waste, Hazardous, Other</div>
+                            </div>
+                        </div>
+                        <div class="route-control-item" style="margin-bottom: 0;">
+                            <select class="route-select-input" id="sc-composition-bin-select" onchange="renderCompositionAnalytics(this.value)">
+                                <option value="BIN-001">BIN-001 &bull; Central Railway Station</option>
+                                <option value="BIN-002">BIN-002 &bull; Marina Beach Road</option>
+                                <option value="BIN-003">BIN-003 &bull; T. Nagar Market</option>
+                                <option value="BIN-004">BIN-004 &bull; Egmore High Road</option>
+                                <option value="BIN-005">BIN-005 &bull; Nungambakkam High Rd</option>
+                                <option value="BIN-COMP">BIN-COMP &bull; Compromised Probe</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="composition-analytics-container">
+                            <!-- Populated dynamically by renderCompositionAnalytics() -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 5: Security Event Engine Incident Stream -->
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <div class="panel-title-icon" style="background: var(--accent-danger-bg); color: var(--accent-danger-text);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="panel-title">Central Security Event Engine &amp; Threat Forensics</div>
+                                <div class="panel-subtitle">Automated threat mitigation: SQLi, XSS, Path Traversal, SSRF, BOLA, Replay, GPS Spoofing, Route Violations</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" onclick="loadSecurityEvents()">
+                            <span>Refresh Threat Stream</span>
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="enterprise-table">
+                                <thead>
+                                    <tr>
+                                        <th>Incident ID</th>
+                                        <th>Timestamp</th>
+                                        <th>Threat Vector</th>
+                                        <th>Severity</th>
+                                        <th>Actor / Device</th>
+                                        <th>Resource Target</th>
+                                        <th>Security Mitigation Action</th>
+                                        <th>Reason / Forensic Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sc-security-events-body">
+                                    <!-- Populated by loadSecurityEvents() -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

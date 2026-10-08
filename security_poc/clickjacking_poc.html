@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clickjacking Framing Comparison Lab</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 24px;
+    }
+    h1 { font-size: 22px; margin-bottom: 8px; }
+    p { color: #94a3b8; margin-top: 0; margin-bottom: 24px; font-size: 14px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 8px;
+      padding: 16px;
+      border: 1px solid #334155;
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .tag-vuln { color: #f87171; font-family: monospace; font-size: 12px; }
+    .tag-sec { color: #4ade80; font-family: monospace; font-size: 12px; }
+    iframe {
+      width: 100%;
+      height: 480px;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      background: #ffffff;
+    }
+    .explain {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Clickjacking (UI Redressing) Header Test</h1>
+  <p>Comparing iframe embed permissions between Node 01 (Insecure) and Node 02 (Hardened).</p>
+
+  <div class="grid">
+    <!-- Node 01: Insecure -->
+    <div class="card">
+      <div class="card-title">
+        <span>Node 01 — Target: :5173</span>
+        <span class="tag-vuln">VULNERABLE (Framing Allowed)</span>
+      </div>
+      <iframe src="http://localhost:5173/public-cases"></iframe>
+      <div class="explain">
+        Status: <strong>Renders successfully</strong> because no <code>X-Frame-Options</code> or <code>frame-ancestors</code> policy is enforced.
+      </div>
+    </div>
+
+    <!-- Node 02: Hardened -->
+    <div class="card">
+      <div class="card-title">
+        <span>Node 02 — Target: :5174</span>
+        <span class="tag-sec">HARDENED (Framing Blocked)</span>
+      </div>
+      <iframe src="http://localhost:5174/public-cases"></iframe>
+      <div class="explain">
+        Status: <strong>Blocked by browser</strong> if served with <code>X-Frame-Options: DENY</code>.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

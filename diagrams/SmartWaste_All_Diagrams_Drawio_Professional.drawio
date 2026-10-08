@@ -1,0 +1,844 @@
+<mxfile host="app.diagrams.net" agent="OpenAI" pages="9">
+  <diagram id="01_Use_Case_Diagram" name="01 Use Case Diagram">
+    <mxGraphModel dx="1431" dy="781" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uc_t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" value="SmartWaste Secure — UML Use Case Diagram" vertex="1">
+          <mxGeometry height="45" width="920" x="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_s" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" vertex="1">
+          <mxGeometry height="25" width="900" x="30" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_sys" parent="1" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" value="&lt;b&gt;SmartWaste Secure&lt;/b&gt;&lt;br&gt;IoT-Based Smart Waste Management Platform" vertex="1">
+          <mxGeometry height="560" width="680" x="250" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="admin" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="&lt;b&gt;Administrator&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70" width="110" x="965" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="driver" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="&lt;b&gt;Driver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70" width="110" x="965" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="aud" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="&lt;b&gt;Security&lt;br&gt;Auditor&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70" width="110" x="40" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="bin_actor" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="&lt;b&gt;Smart Bin&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70" width="110" x="40" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="u1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="Authenticate User" vertex="1">
+          <mxGeometry height="55" width="175" x="392.5" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="u2" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="Register / Revoke Device" vertex="1">
+          <mxGeometry height="55" width="175" x="300" y="235" as="geometry" />
+        </mxCell>
+        <mxCell id="u3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="View Bin Status" vertex="1">
+          <mxGeometry height="55" width="175" x="580" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="u4" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;" value="Receive Telemetry" vertex="1">
+          <mxGeometry height="55" width="175" x="490" y="197.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;" value="Validate Sensor Data" vertex="1">
+          <mxGeometry height="55" width="175" x="745" y="235" as="geometry" />
+        </mxCell>
+        <mxCell id="u6" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="Detect Anomaly" vertex="1">
+          <mxGeometry height="55" width="175" x="520" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="u7" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="Generate Optimized Route" vertex="1">
+          <mxGeometry height="55" width="175" x="300" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="u8" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="Assign Vehicle &amp; Driver" vertex="1">
+          <mxGeometry height="55" width="175" x="745" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="u9" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="Modify / Cancel Route" vertex="1">
+          <mxGeometry height="55" width="175" x="300" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="u10" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="View Assigned Route" vertex="1">
+          <mxGeometry height="55" width="175" x="745" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="u11" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="Update Collection Status" vertex="1">
+          <mxGeometry height="55" width="175" x="520" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="u12" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="View Audit &amp; Security Events" vertex="1">
+          <mxGeometry height="55" width="175" x="300" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="u13" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="Acknowledge Security Alert" vertex="1">
+          <mxGeometry height="55" width="175" x="745" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_note" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" value="Security focus: device identity is checked before telemetry is accepted; route modification is separated from route viewing and is restricted to authorized administrators." vertex="1">
+          <mxGeometry height="50" width="770" x="170" y="695" as="geometry" />
+        </mxCell>
+        <mxCell id="uce0" edge="1" parent="1" source="bin_actor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce1" edge="1" parent="1" source="bin_actor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce2" edge="1" parent="1" source="bin_actor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce3" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce4" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce5" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce6" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce7" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce8" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce9" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce10" edge="1" parent="1" source="admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u13" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce11" edge="1" parent="1" source="driver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce12" edge="1" parent="1" source="driver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce13" edge="1" parent="1" source="driver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce14" edge="1" parent="1" source="aud" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uce15" edge="1" parent="1" source="aud" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="u12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uci0" edge="1" parent="1" source="u4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;" target="u5" value="&lt;&lt;include&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uci1" edge="1" parent="1" source="u4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;" target="u6" value="&lt;&lt;include&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uci2" edge="1" parent="1" source="u7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;" target="u3" value="&lt;&lt;include&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uci3" edge="1" parent="1" source="u7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;" target="u5" value="&lt;&lt;include&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uci4" edge="1" parent="1" source="u9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;" target="u1" value="&lt;&lt;include&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uci5" edge="1" parent="1" source="u9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;" target="u12" value="&lt;&lt;include&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uci6" edge="1" parent="1" source="u8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;" target="u1" value="&lt;&lt;include&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uci7" edge="1" parent="1" source="u10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;" target="u1" value="&lt;&lt;include&gt;&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="02_ER_Diagram" name="02 ER Diagram">
+    <mxGraphModel dx="1451" dy="792" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="er_t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" value="SmartWaste Secure — Entity Relationship Diagram" vertex="1">
+          <mxGeometry height="45" width="920" x="30" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="er_s" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" vertex="1">
+          <mxGeometry height="25" width="900" x="30" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="er_user" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;USER&lt;/b&gt;&lt;br&gt;PK user_id&lt;br&gt;name • email • password_hash&lt;br&gt;role • status • created_at" vertex="1">
+          <mxGeometry height="125" width="205" x="45" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="er_bin" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;SMART_BIN&lt;/b&gt;&lt;br&gt;PK bin_id&lt;br&gt;device_id (UNIQUE)&lt;br&gt;location_latitude • location_longitude&lt;br&gt;status • device_status • created_at" vertex="1">
+          <mxGeometry height="165" width="245" x="310" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="er_tel" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;TELEMETRY&lt;/b&gt;&lt;br&gt;PK telemetry_id&lt;br&gt;FK bin_id&lt;br&gt;fill_level • temperature&lt;br&gt;latitude • longitude • sensor_status&lt;br&gt;timestamp • signature • sequence_no" vertex="1">
+          <mxGeometry height="180" width="255" x="640" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="er_event" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;SECURITY_EVENT&lt;/b&gt;&lt;br&gt;PK event_id&lt;br&gt;FK user_id / bin_id&lt;br&gt;event_type • severity&lt;br&gt;source_ip • description • timestamp" vertex="1">
+          <mxGeometry height="125" width="210" x="950" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="er_vehicle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;VEHICLE&lt;/b&gt;&lt;br&gt;PK vehicle_id&lt;br&gt;registration_number&lt;br&gt;capacity • status" vertex="1">
+          <mxGeometry height="115" width="205" x="80" y="365" as="geometry" />
+        </mxCell>
+        <mxCell id="er_route" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;ROUTE&lt;/b&gt;&lt;br&gt;PK route_id&lt;br&gt;FK created_by • vehicle_id • driver_id&lt;br&gt;route_status • route_version&lt;br&gt;created_at • updated_at" vertex="1">
+          <mxGeometry height="145" width="265" x="365" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="er_driver" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;DRIVER&lt;/b&gt;&lt;br&gt;PK driver_id&lt;br&gt;FK user_id&lt;br&gt;license_number • status" vertex="1">
+          <mxGeometry height="115" width="220" x="730" y="365" as="geometry" />
+        </mxCell>
+        <mxCell id="er_stop" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;ROUTE_STOP&lt;/b&gt;&lt;br&gt;PK stop_id&lt;br&gt;FK route_id • bin_id&lt;br&gt;sequence_number • planned_time&lt;br&gt;collection_status" vertex="1">
+          <mxGeometry height="135" width="265" x="470" y="555" as="geometry" />
+        </mxCell>
+        <mxCell id="ere0" edge="1" parent="1" source="er_user" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_event" value="1 : many">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ere1" edge="1" parent="1" source="er_bin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_tel" value="1 : many">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ere2" edge="1" parent="1" source="er_user" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_route" value="1 : many (created_by)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ere3" edge="1" parent="1" source="er_vehicle" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_route" value="1 : many">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ere4" edge="1" parent="1" source="er_driver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_route" value="1 : many">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ere5" edge="1" parent="1" source="er_route" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_stop" value="1 : many">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ere6" edge="1" parent="1" source="er_bin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_stop" value="1 : many">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ere7" edge="1" parent="1" source="er_bin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_event" value="1 : many">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ere8" edge="1" parent="1" source="er_user" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="er_driver" value="1 : 0..1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="840" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="er_note" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" value="Design rule: entity names, primary/foreign keys and relationships must be reused consistently in the SQL schema, DFD data stores, API models and later implementation." vertex="1">
+          <mxGeometry height="55" width="1115" x="45" y="715" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="03_Architecture" name="03 Architecture">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ar_t" value="SmartWaste Secure — Secure System Architecture" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="920" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_s" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" vertex="1" parent="1">
+          <mxGeometry x="30" y="65" width="900" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_iot" value="&lt;b&gt;TB-1: IoT / Untrusted Network&lt;/b&gt;" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="35" y="110" width="1125" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_app" value="&lt;b&gt;TB-2: Application / API Network&lt;/b&gt;" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="35" y="305" width="1125" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_data" value="&lt;b&gt;TB-3: Protected Data Layer&lt;/b&gt;" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="35" y="605" width="1125" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_bin" value="Smart Bins&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;sensors • device identity&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="65" y="160" width="180" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_mqtt" value="MQTT / HTTPS&lt;br&gt;TLS" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="175" width="155" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_ui" value="Web UI&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;HTTPS • RBAC&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="905" y="145" width="180" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_api" value="API Gateway&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;TLS • rate limiting • request controls&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="335" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_auth" value="Authentication &amp; RBAC&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;JWT • permissions&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="70" y="350" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_tel" value="Telemetry Service&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;validation • anomaly checks&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="680" y="335" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_route" value="Route Service&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;optimization • assignment • versioning&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="470" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_audit" value="Audit &amp; Alerts&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;security events • monitoring&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="680" y="470" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_db" value="PostgreSQL&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;users • bins • telemetry • routes • audit&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="110" y="635" width="315" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_engine" value="Route Engine&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;constraints • optimization&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="500" y="635" width="230" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_secret" value="Secrets / Config&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;externalized credentials&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;fontSize=11;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="795" y="635" width="245" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="are0" value="telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_bin" target="ar_mqtt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are1" value="secure ingress" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_mqtt" target="ar_api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are2" value="HTTPS API" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_ui" target="ar_api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are3" value="authenticate / authorize" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_api" target="ar_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are4" value="validated telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_api" target="ar_tel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are5" value="route request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_api" target="ar_route">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are6" value="identity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_auth" target="ar_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are7" value="persist telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_tel" target="ar_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are8" value="validated inputs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_tel" target="ar_engine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are9" value="optimized route" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_engine" target="ar_route">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are10" value="route state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_route" target="ar_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are11" value="sensitive action" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_route" target="ar_audit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are12" value="audit events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_audit" target="ar_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="are13" value="secret config" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ar_secret" target="ar_api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_note" value="Security controls: TLS • device authentication • JWT/RBAC • schema/range validation • rate limiting • audit logging • least-privilege database access • secret management." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="55" y="765" width="1105" height="45" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="04_DFD_Level_0" name="04 DFD Level 0">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="l0_t" value="SmartWaste Secure — DFD Level 0 (Context Diagram)" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="920" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_s" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" vertex="1" parent="1">
+          <mxGeometry x="30" y="65" width="900" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_tb" value="TB-1: Internet / Untrusted Client &amp; IoT Requests" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="105" width="1125" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_bin" value="&lt;b&gt;Smart Bin&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="55" y="230" width="150" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_admin" value="&lt;b&gt;Administrator&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="955" y="145" width="160" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_driver" value="&lt;b&gt;Driver&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="955" y="305" width="160" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_aud" value="&lt;b&gt;Security Auditor&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="955" y="455" width="160" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_sys" value="&lt;b&gt;SMARTWASTE SECURE&lt;/b&gt;&lt;br&gt;&lt;br&gt;Telemetry • Bin Monitoring&lt;br&gt;Route Optimization • Assignment&lt;br&gt;Security &amp; Audit" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="205" width="300" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_flow" value="&lt;b&gt;Primary data flows&lt;/b&gt;&lt;br&gt;Telemetry → platform&lt;br&gt;Management requests → platform&lt;br&gt;Assignments / alerts → users&lt;br&gt;Audit/security events → auditor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="570" width="1060" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="l0_trust" value="Trust boundary: client/device requests are untrusted until device/user authentication, authorization and input validation are applied server-side." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="680" width="1060" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="l0e0" value="fill level • location • temperature • sensor status" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d97706;" edge="1" parent="1" source="l0_bin" target="l0_sys">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l0e1" value="login • device/route/resource management" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l0_admin" target="l0_sys">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l0e2" value="collection status • route access" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l0_driver" target="l0_sys">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l0e3" value="audit/security review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l0_aud" target="l0_sys">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l0e4" value="status • route updates • alerts" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l0_sys" target="l0_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l0e5" value="assigned route • collection sequence" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l0_sys" target="l0_driver">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l0e6" value="security events • audit records" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l0_sys" target="l0_aud">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="05_DFD_Level_1" name="05 DFD Level 1">
+    <mxGraphModel dx="1411" dy="770" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="l1_t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" value="SmartWaste Secure — DFD Level 1" vertex="1">
+          <mxGeometry height="45" width="920" x="30" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_s" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" vertex="1">
+          <mxGeometry height="25" width="900" x="30" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_tb" parent="1" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" value="TB-1: Browser / IoT Requests" vertex="1">
+          <mxGeometry height="540" width="1140" x="25" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_bin" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="Smart Bin" vertex="1">
+          <mxGeometry height="65" width="150" x="45" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_admin" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="Administrator" vertex="1">
+          <mxGeometry height="65" width="150" x="980" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_driver" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="Driver" vertex="1">
+          <mxGeometry height="65" width="150" x="980" y="485" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="1.0 Authentication&lt;br&gt;&amp; Device Identity" vertex="1">
+          <mxGeometry height="75" width="190" x="230" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;" value="2.0 Telemetry&lt;br&gt;Processing" vertex="1">
+          <mxGeometry height="75" width="190" x="470" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="3.0 Route&lt;br&gt;Management" vertex="1">
+          <mxGeometry height="75" width="190" x="730" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="4.0 Vehicle / Driver&lt;br&gt;Management" vertex="1">
+          <mxGeometry height="75" width="190" x="710" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="5.0 Audit &amp; Security&lt;br&gt;Monitoring" vertex="1">
+          <mxGeometry height="85" width="220" x="490" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D1 Identity Store" vertex="1">
+          <mxGeometry height="70" width="170" x="60" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D2 Bin Store" vertex="1">
+          <mxGeometry height="70" width="170" x="270" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D3 Telemetry Store" vertex="1">
+          <mxGeometry height="70" width="190" x="480" y="585" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D4 Route Store" vertex="1">
+          <mxGeometry height="70" width="180" x="705" y="585" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D5 Ops Store" vertex="1">
+          <mxGeometry height="70" width="190" x="920" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_note" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" value="Security boundary controls: device/user authentication → validation → authorization → protected persistence. Invalid input or unauthorized operations terminate before sensitive state changes." vertex="1">
+          <mxGeometry height="60" width="1080" x="45" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e0" edge="1" parent="1" source="l1_bin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d97706;" target="p1" value="device identity">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e1" edge="1" parent="1" source="l1_bin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d97706;" target="p2" value="telemetry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e2" edge="1" parent="1" source="l1_admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="p1" value="credentials">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e3" edge="1" parent="1" source="l1_admin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="p3" value="route requests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e4" edge="1" parent="1" source="p1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="d1" value="identity/role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e5" edge="1" parent="1" source="p1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="p2" value="authenticated device">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e6" edge="1" parent="1" source="p1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="p3" value="authorized user">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e7" edge="1" parent="1" source="p2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="d3" value="validated telemetry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e8" edge="1" parent="1" source="p2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="d2" value="device status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e9" edge="1" parent="1" source="p2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="p5" value="anomaly / rejection">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e10" edge="1" parent="1" source="p3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="d4" value="route state">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e11" edge="1" parent="1" source="p3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="p5" value="route change event">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e12" edge="1" parent="1" source="p4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="d5" value="vehicle/driver data">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e13" edge="1" parent="1" source="d4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2e7d32;" target="l1_driver" value="assigned route">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e14" edge="1" parent="1" source="l1_driver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2e7d32;" target="p3" value="collection status / issue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1e15" edge="1" parent="1" source="p5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2e7d32;" target="d1" value="security event">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="06_DFD_Level_2_-_Telemetry" name="06 DFD Level 2 - Telemetry">
+    <mxGraphModel dx="1451" dy="792" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t2_t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" value="SmartWaste Secure — DFD Level 2: Telemetry Processing" vertex="1">
+          <mxGeometry height="45" width="920" x="30" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2_s" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" vertex="1">
+          <mxGeometry height="25" width="900" x="30" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="t2_tb" parent="1" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" value="TB-1: Untrusted Smart Bin Telemetry Request" vertex="1">
+          <mxGeometry height="540" width="1140" x="25" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t2_bin" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="Smart Bin" vertex="1">
+          <mxGeometry height="70" width="150" x="45" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="t21" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="2.1 Authenticate Device" vertex="1">
+          <mxGeometry height="60" width="170" x="260" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="t22" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;" value="2.2 Validate Message Schema" vertex="1">
+          <mxGeometry height="60" width="190" x="505" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="t23" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;" value="2.3 Validate Ranges" vertex="1">
+          <mxGeometry height="60" width="170" x="790" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="t24" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="2.4 Check Timestamp / Sequence" vertex="1">
+          <mxGeometry height="70" width="170" x="260" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="t25" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;strokeWidth=1.5;fontSize=12;" value="2.5 Check Location Consistency" vertex="1">
+          <mxGeometry height="70" width="190" x="500" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="t26" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="2.6 Detect Anomaly" vertex="1">
+          <mxGeometry height="70" width="170" x="860" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="t27" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="2.7 Persist Telemetry" vertex="1">
+          <mxGeometry height="65" width="190" x="380" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="t28" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="2.8 Update Bin Status" vertex="1">
+          <mxGeometry height="65" width="190" x="650" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="t29" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="2.9 Audit / Alert" vertex="1">
+          <mxGeometry height="65" width="190" x="520" y="545" as="geometry" />
+        </mxCell>
+        <mxCell id="td1" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D1 Device / Identity Store" vertex="1">
+          <mxGeometry height="65" width="170" x="45" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="td2" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D2 Telemetry Store" vertex="1">
+          <mxGeometry height="65" width="180" x="820" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="td3" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D3 Audit / Security Store" vertex="1">
+          <mxGeometry height="65" width="200" x="550" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="t_note" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" value="Security decision points: unknown/revoked devices, malformed payloads, impossible ranges, replayed/stale messages and suspicious location changes are rejected or flagged before route optimization can use the data." vertex="1">
+          <mxGeometry height="55" width="1080" x="45" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e0" edge="1" parent="1" source="t2_bin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d97706;" target="t21" value="device credentials">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e1" edge="1" parent="1" source="t21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="td1" value="identity lookup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e2" edge="1" parent="1" source="t21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="t22" value="authenticated">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e3" edge="1" parent="1" source="t22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="t23" value="valid schema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e4" edge="1" parent="1" source="t23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="t24" value="valid ranges">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e5" edge="1" parent="1" source="t24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="t25" value="fresh message">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e6" edge="1" parent="1" source="t25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="t26" value="location check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e7" edge="1" parent="1" source="t26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="t27" value="approved telemetry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e8" edge="1" parent="1" source="t26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d97706;" target="t29" value="anomaly event">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e9" edge="1" parent="1" source="t27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="td2" value="persist">
+          <mxGeometry relative="1" x="0.0971" y="-8" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2e10" edge="1" parent="1" source="t27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="t28" value="stored telemetry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e11" edge="1" parent="1" source="t28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="t29" value="status/security context">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2e12" edge="1" parent="1" source="t29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="td3" value="audit / alert">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="07_DFD_Level_2_-_Route_Management" name="07 DFD Level 2 - Route Management">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="r2_t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" value="SmartWaste Secure — DFD Level 2: Route Management" vertex="1">
+          <mxGeometry height="45" width="920" x="30" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r2_s" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" vertex="1">
+          <mxGeometry height="25" width="900" x="30" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="r2_tb" parent="1" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" value="TB-2: Protected Application / Route Management Boundary" vertex="1">
+          <mxGeometry height="580" width="1140" x="25" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="radmin" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="Administrator" vertex="1">
+          <mxGeometry height="70" width="150" x="45" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="r21" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="3.1 Authenticate Admin" vertex="1">
+          <mxGeometry height="60" width="180" x="260" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="r22" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="3.2 Authorize Route Permission" vertex="1">
+          <mxGeometry height="60" width="190" x="560" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="r23" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="3.3 Select Eligible Bins" vertex="1">
+          <mxGeometry height="60" width="175" x="785" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="r24" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="3.4 Validate Route Inputs" vertex="1">
+          <mxGeometry height="65" width="180" x="260" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="r25" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="3.5 Generate Optimized Route" vertex="1">
+          <mxGeometry height="65" width="190" x="540" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="r26" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;" value="3.6 Validate Vehicle / Driver Assignment" vertex="1">
+          <mxGeometry height="65" width="175" x="785" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="r27" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="3.7 Create / Modify Route" vertex="1">
+          <mxGeometry height="65" width="195" x="390" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="r28" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="3.8 Version &amp; Persist" vertex="1">
+          <mxGeometry height="65" width="180" x="670" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="r29" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=1.5;fontSize=12;" value="3.9 Audit Change" vertex="1">
+          <mxGeometry height="65" width="180" x="530" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="rd1" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D1 Users / Roles" vertex="1">
+          <mxGeometry height="65" width="170" x="45" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="rd2" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D2 Bins / Telemetry" vertex="1">
+          <mxGeometry height="65" width="185" x="45" y="545" as="geometry" />
+        </mxCell>
+        <mxCell id="rd3" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D3 Route Store" vertex="1">
+          <mxGeometry height="65" width="180" x="890" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="rd4" parent="1" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#374151;fontSize=11;" value="D4 Vehicles / Drivers" vertex="1">
+          <mxGeometry height="65" width="190" x="885" y="545" as="geometry" />
+        </mxCell>
+        <mxCell id="rdriver" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;" value="Driver" vertex="1">
+          <mxGeometry height="70" width="150" x="945" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="r_note" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" value="Critical control: a driver may view an assigned route but cannot modify it. The server enforces authorization and object-level access before any route state is changed." vertex="1">
+          <mxGeometry height="60" width="1080" x="45" y="695" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e0" edge="1" parent="1" source="radmin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2e7d32;" target="r21" value="credentials">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e1" edge="1" parent="1" source="r21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="rd1" value="identity / role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e2" edge="1" parent="1" source="r21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r22" value="authenticated">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e3" edge="1" parent="1" source="r22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r23" value="authorized">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e4" edge="1" parent="1" source="r22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r24" value="permission context">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e5" edge="1" parent="1" source="rd2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r23" value="eligible bin data">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e6" edge="1" parent="1" source="r23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r24" value="selected bins">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e7" edge="1" parent="1" source="r24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r25" value="validated input">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e8" edge="1" parent="1" source="r25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r26" value="optimized route">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e9" edge="1" parent="1" source="rd4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r26" value="vehicle / driver data">
+          <mxGeometry relative="1" x="-0.2941" y="10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r2e10" edge="1" parent="1" source="r26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r27" value="assignment valid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e11" edge="1" parent="1" source="r27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r28" value="route state">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e12" edge="1" parent="1" source="r28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="rd3" value="persisted/versioned">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e13" edge="1" parent="1" source="r28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="r29" value="change event">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e14" edge="1" parent="1" source="r29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="rd1" value="audit context">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e15" edge="1" parent="1" source="r28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2e7d32;" target="rdriver" value="assigned route">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e16" edge="1" parent="1" source="rdriver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2e7d32;" target="r28" value="collection status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="08_Trust_Boundaries" name="08 Trust Boundaries">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tb_t" value="SmartWaste Secure — Trust Boundaries &amp; Security Zones" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="950" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="tb_s" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" vertex="1" parent="1">
+          <mxGeometry x="30" y="65" width="900" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="z1" value="&lt;b&gt;TB-1 — IOT / UNTRUSTED DEVICE NETWORK&lt;/b&gt;&lt;br&gt;&lt;br&gt;Smart bins • sensor firmware • MQTT client • device credentials&lt;br&gt;&lt;br&gt;&lt;b&gt;Threats:&lt;/b&gt; device spoofing • telemetry tampering • replay • flooding" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="125" width="1080" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="z2" value="&lt;b&gt;TB-2 — APPLICATION / API NETWORK&lt;/b&gt;&lt;br&gt;&lt;br&gt;API Gateway • Flask services • Web UI • authentication / RBAC&lt;br&gt;&lt;br&gt;&lt;b&gt;Threats:&lt;/b&gt; credential abuse • broken authorization • API abuse" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="320" width="1080" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="z3" value="&lt;b&gt;TB-3 — PROTECTED DATA LAYER&lt;/b&gt;&lt;br&gt;&lt;br&gt;PostgreSQL • routes • telemetry • audit/security records • secrets&lt;br&gt;&lt;br&gt;&lt;b&gt;Threats:&lt;/b&gt; unauthorized access • integrity loss • secret exposure" style="rounded=0;dashed=1;strokeWidth=2;strokeColor=#4b5563;fillColor=none;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=14;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="515" width="1080" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="tb_ctl1" value="Controls: TLS • device authentication • schema/range validation • timestamp/sequence checks • rate limiting" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="245" width="930" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="tb_ctl2" value="Controls: TLS • JWT/RBAC • object-level authorization • input validation • safe errors • audit logging" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="440" width="930" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="tb_ctl3" value="Controls: least-privilege DB access • parameterized queries • network restriction • secret management • backup/restore" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="635" width="930" height="35" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="09_Attack_Tree" name="09 Attack Tree">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="at_t" value="SmartWaste Secure — Attack Tree" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1f2937;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="920" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="at_s" value="Yeshwanth Raj S. | CH.SC.U4CYS23052 | 24CYS401" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#6b7280;" vertex="1" parent="1">
+          <mxGeometry x="30" y="65" width="900" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="at_root" value="&lt;b&gt;ROOT GOAL&lt;/b&gt;&lt;br&gt;Manipulate Waste-Collection Operations" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="115" width="280" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="at1" value="Spoof a Smart Bin" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="100" y="245" width="215" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="at2" value="Manipulate Bin Location" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="355" y="245" width="215" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="at3" value="Modify Collection Route" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="610" y="245" width="215" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="at4" value="Disrupt Platform Availability" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="865" y="245" width="215" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="a11" value="Steal / Clone Device Credential" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="45" y="385" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a12" value="Bypass Device Authentication" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="245" y="385" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a21" value="Forge GPS / Coordinate Data" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="315" y="385" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a22" value="Replay Old Telemetry" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="515" y="385" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a31" value="Steal Admin Session" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="575" y="385" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a32" value="Exploit IDOR / Missing RBAC" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="775" y="385" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a41" value="Flood Telemetry/API" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="860" y="385" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a42" value="Exhaust Container Resources" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d97706;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="385" width="115" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a13" value="Compromise Provisioning" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#dc2626;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="100" y="500" width="180" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a23" value="Change Location AND Suppress Detection" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#dc2626;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="350" y="500" width="220" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a33" value="Find Route ID AND Bypass Authorization" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#dc2626;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="620" y="500" width="235" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="at_controls" value="Preventive / detective controls&lt;br&gt;• unique device identity and revocation&lt;br&gt;• TLS + device authentication&lt;br&gt;• schema/range/location anomaly checks&lt;br&gt;• JWT/RBAC + object-level authorization&lt;br&gt;• rate limiting + resource limits&lt;br&gt;• audit logging + security alerts" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;dashed=1;align=left;verticalAlign=top;spacing=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="45" y="610" width="1100" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="ate0" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at_root" target="at1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate1" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at_root" target="at2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate2" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at_root" target="at3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate3" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at_root" target="at4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate4" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at1" target="a11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate5" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at1" target="a12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate6" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at2" target="a21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate7" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at2" target="a22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate8" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at3" target="a31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate9" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at3" target="a32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate10" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at4" target="a41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate11" value="OR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="at4" target="a42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate12" value="AND" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="a11" target="a13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate13" value="AND" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="a21" target="a23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ate14" value="AND" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="a31" target="a33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

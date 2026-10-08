@@ -20,6 +20,9 @@ class UserRole(str, enum.Enum):
     OPERATOR = "operator"
     DRIVER = "driver"
     VIEWER = "viewer"
+    SECURITY_AUDITOR = "security_auditor"
+    ANALYST = "analyst"
+    DEVICE = "device"
 
 
 class BinStatus(str, enum.Enum):
@@ -59,6 +62,46 @@ class AuditAction(str, enum.Enum):
     DEVICE_REVOKED = "device_revoked"
     RATE_LIMIT_HIT = "rate_limit_hit"
     PRIVILEGE_CHANGE = "privilege_change"
+    SQL_INJECTION_ATTEMPT = "sql_injection_attempt"
+    XSS_ATTEMPT = "xss_attempt"
+    PATH_TRAVERSAL_ATTEMPT = "path_traversal_attempt"
+    SSRF_ATTEMPT = "ssrf_attempt"
+    BOLA_DENIED = "bola_denied"
+    GPS_SPOOFING_SUSPECTED = "gps_spoofing_suspected"
+    SENSOR_SPOOFING_SUSPECTED = "sensor_spoofing_suspected"
+    CONTAMINATION_DETECTED = "contamination_detected"
+    DEVICE_QUARANTINED = "device_quarantined"
+    ROUTE_INTEGRITY_VIOLATION = "route_integrity_violation"
+    AI_ANOMALY_DETECTED = "ai_anomaly_detected"
+
+
+class DeviceStatus(str, enum.Enum):
+    REGISTERED = "registered"
+    ACTIVE = "active"
+    SUSPICIOUS = "suspicious"
+    QUARANTINED = "quarantined"
+    REVOKED = "revoked"
+
+
+class SensorHealthStatus(str, enum.Enum):
+    HEALTHY = "healthy"
+    WARNING = "warning"
+    SUSPICIOUS = "suspicious"
+    FAILED = "failed"
+    TAMPERED = "tampered"
+
+
+class LocationTrustStatus(str, enum.Enum):
+    VALID = "valid"
+    SUSPICIOUS = "suspicious"
+    REJECTED = "rejected"
+    QUARANTINED = "quarantined"
+
+
+class ClassificationConfidenceStatus(str, enum.Enum):
+    AUTOMATIC = "automatic"
+    RULE_VALIDATED = "rule_validated"
+    UNKNOWN_HUMAN_REQUIRED = "unknown_human_required"
 
 
 # ── Models ───────────────────────────────────────────────────────────────────
@@ -219,3 +262,136 @@ class DeviceToken(Base):
     expires_at = Column(DateTime, nullable=False)
     last_used = Column(DateTime)
     revoked_at = Column(DateTime)
+
+
+class DeviceRegistryItem(Base):
+    __tablename__ = "device_registry"
+
+    id = Column(Integer, primary_key=True, index=True)
+    device_id = Column(String(50), unique=True, nullable=False, index=True)
+    bin_id = Column(String(50), index=True)
+    cert_fingerprint = Column(String(128))
+    status = Column(SAEnum(DeviceStatus), default=DeviceStatus.ACTIVE, nullable=False)
+    assigned_lat = Column(Float)
+    assigned_lon = Column(Float)
+    firmware_version = Column(String(50), default="1.0.0")
+    last_heartbeat = Column(DateTime, default=datetime.datetime.utcnow)
+    trust_score = Column(Float, default=100.0)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    revoked_at = Column(DateTime, nullable=True)
+    revoked_reason = Column(String(255), nullable=True)
+
+
+class SensorHealthRecord(Base):
+    __tablename__ = "sensor_health"
+    __table_args__ = (
+        Index("idx_sensor_bin_type", "bin_id", "sensor_type"),
+    )
+
+    id = Column(Integer, primary_key=True, index=True)
+    bin_id = Column(String(50), nullable=False, index=True)
+    sensor_type = Column(String(50), nullable=False)  # ultrasonic, temperature, gps, load_cell, camera
+    status = Column(SAEnum(SensorHealthStatus), default=SensorHealthStatus.HEALTHY, nullable=False)
+    last_reading_value = Column(Float, nullable=True)
+    last_heartbeat = Column(DateTime, default=datetime.datetime.utcnow)
+    anomaly_count = Column(Integer, default=0)
+    details = Column(String(255), nullable=True)
+
+
+class LocationIntegrityRecord(Base):
+    __tablename__ = "location_integrity_records"
+
+    id = Column(Integer, primary_key=True, index=True)
+    bin_id = Column(String(50), nullable=False, index=True)
+    reported_lat = Column(Float, nullable=False)
+    reported_lon = Column(Float, nullable=False)
+    prev_lat = Column(Float, nullable=True)
+    prev_lon = Column(Float, nullable=True)
+    distance_meters = Column(Float, default=0.0)
+    implied_speed_kmh = Column(Float, default=0.0)
+    trust_score = Column(Float, default=100.0)
+    status = Column(SAEnum(LocationTrustStatus), default=LocationTrustStatus.VALID, nullable=False)
+    anomaly_reason = Column(String(255), nullable=True)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class WasteClassificationRecord(Base):
+    __tablename__ = "waste_classifications"
+
+    id = Column(Integer, primary_key=True, index=True)
+    bin_id = Column(String(50), nullable=False, index=True)
+    level1_category = Column(String(50), nullable=False)
+    level2_subcategory = Column(String(50), nullable=True)
+    level3_object = Column(String(100), nullable=True)
+    confidence_score = Column(Float, nullable=False)
+    status = Column(SAEnum(ClassificationConfidenceStatus), nullable=False)
+    model_version = Column(String(50), default="v1.2.0-quantized")
+    verification_status = Column(String(50), default="VERIFIED")
+    image_ref = Column(String(255), nullable=True)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class BinContaminationRecord(Base):
+    __tablename__ = "bin_contaminations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    bin_id = Column(String(50), nullable=False, index=True)
+    contamination_detected = Column(Boolean, default=False)
+    expected_category = Column(String(50))
+    found_category = Column(String(50))
+    confidence_score = Column(Float, default=0.0)
+    details = Column(String(255))
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class BinCompositionRecord(Base):
+    __tablename__ = "bin_compositions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    bin_id = Column(String(50), unique=True, nullable=False, index=True)
+    organic_pct = Column(Float, default=0.0)
+    plastic_pct = Column(Float, default=0.0)
+    paper_pct = Column(Float, default=0.0)
+    cardboard_pct = Column(Float, default=0.0)
+    glass_pct = Column(Float, default=0.0)
+    metal_pct = Column(Float, default=0.0)
+    ewaste_pct = Column(Float, default=0.0)
+    hazardous_pct = Column(Float, default=0.0)
+    other_pct = Column(Float, default=0.0)
+    calculated_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class SecurityEventRecord(Base):
+    __tablename__ = "security_events"
+    __table_args__ = (
+        Index("idx_sec_event_type_ts", "event_type", "timestamp"),
+        Index("idx_sec_severity_ts", "severity", "timestamp"),
+    )
+
+    id = Column(Integer, primary_key=True, index=True)
+    event_id = Column(String(64), unique=True, nullable=False, index=True)
+    event_type = Column(String(64), nullable=False, index=True)
+    severity = Column(String(20), default="INFO", nullable=False)
+    source = Column(String(100), default="api_gateway")
+    user_or_device_id = Column(String(100), nullable=True)
+    ip_address = Column(String(45), nullable=True)
+    resource = Column(String(100), nullable=True)
+    reason = Column(String(255), nullable=True)
+    action_taken = Column(String(100), default="LOGGED")
+    correlation_id = Column(String(64), nullable=True)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class RouteAuditVersion(Base):
+    __tablename__ = "route_audit_versions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    route_id = Column(Integer, ForeignKey("collection_routes.id"), nullable=False)
+    version = Column(Integer, nullable=False)
+    created_by = Column(Integer, nullable=True)
+    modified_by = Column(Integer, nullable=True)
+    approved_by = Column(Integer, nullable=True)
+    route_hash = Column(String(64), nullable=False)
+    status = Column(String(50), default="active")
+    change_summary = Column(Text, nullable=True)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)

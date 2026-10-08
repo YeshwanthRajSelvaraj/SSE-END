@@ -1,0 +1,339 @@
+<mxfile host="app.diagrams.net" modified="2026-10-08T11:30:00.000Z" agent="ChatGPT" version="24.7.17" type="device">
+<diagram id="Architecture" name="Architecture">
+<mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="a_title" value="SmartWaste Secure — Secure System Architecture" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#17365D;fontSize=22;fontStyle=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="25" width="800" height="40" as="geometry"/>
+</mxCell><mxCell id="a_sub" value="Layered modular architecture with security controls at each trust boundary" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#475569;fontSize=12;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="65" width="900" height="25" as="geometry"/>
+</mxCell><mxCell id="a_iot_zone" value="TB-1 • IoT / Untrusted Device Network" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#64748B;dashed=1;dashPattern=8 6;fontColor=#334155;fontStyle=1;fontSize=15;align=left;verticalAlign=top;spacingTop=12;spacingLeft=14;" vertex="1" parent="1">
+  <mxGeometry x="30" y="115" width="900" height="190" as="geometry"/>
+</mxCell><mxCell id="a_app_zone" value="TB-2 • Application / API Network" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#64748B;dashed=1;dashPattern=8 6;fontColor=#334155;fontStyle=1;fontSize=15;align=left;verticalAlign=top;spacingTop=12;spacingLeft=14;" vertex="1" parent="1">
+  <mxGeometry x="30" y="325" width="900" height="230" as="geometry"/>
+</mxCell><mxCell id="a_data_zone" value="TB-3 • Protected Data Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#64748B;dashed=1;dashPattern=8 6;fontColor=#334155;fontStyle=1;fontSize=15;align=left;verticalAlign=top;spacingTop=12;spacingLeft=14;" vertex="1" parent="1">
+  <mxGeometry x="30" y="575" width="900" height="170" as="geometry"/>
+</mxCell><mxCell id="a_bin" value="SMART BIN
+
+Fill level • Location
+Temperature • Sensor status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7E8;strokeColor=#B54708;fontColor=#7A2E0B;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="55" y="165" width="190" height="90" as="geometry"/>
+</mxCell><mxCell id="a_mqtt" value="MQTT / HTTPS
+TLS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="280" y="185" width="140" height="50" as="geometry"/>
+</mxCell><mxCell id="a_ui" value="WEB UI
+
+HTTPS • RBAC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="700" y="155" width="180" height="85" as="geometry"/>
+</mxCell><mxCell id="a_api" value="API GATEWAY
+
+TLS • Rate limiting
+Request validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="320" y="355" width="200" height="95" as="geometry"/>
+</mxCell><mxCell id="a_auth" value="AUTHENTICATION &amp; RBAC
+
+JWT • Permissions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="55" y="365" width="210" height="85" as="geometry"/>
+</mxCell><mxCell id="a_tel" value="TELEMETRY SERVICE
+
+Schema/range validation
+Anomaly checks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="555" y="355" width="220" height="95" as="geometry"/>
+</mxCell><mxCell id="a_route" value="ROUTE SERVICE
+
+Optimization • Assignment
+Route versioning" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="555" y="470" width="220" height="95" as="geometry"/>
+</mxCell><mxCell id="a_audit" value="AUDIT &amp; ALERTS
+
+Security events • Monitoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="790" y="365" width="115" height="200" as="geometry"/>
+</mxCell><mxCell id="a_db" value="POSTGRESQL
+
+Users • Bins • Telemetry
+Routes • Vehicles/Drivers • Audit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="100" y="615" width="270" height="90" as="geometry"/>
+</mxCell><mxCell id="a_engine" value="ROUTE ENGINE
+
+Constraints • Optimization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="470" y="615" width="230" height="90" as="geometry"/>
+</mxCell><mxCell id="a_secrets" value="SECRETS / CONFIG
+
+Externalized credentials" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="735" y="615" width="165" height="90" as="geometry"/>
+</mxCell><mxCell id="ae1" value="telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B54708;" edge="1" parent="1" source="a_bin" target="a_mqtt">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae2" value="secure device flow" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="a_mqtt" target="a_api">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae3" value="HTTPS API" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="a_ui" target="a_api">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae4" value="authenticate / authorize" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="a_api" target="a_auth">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae5" value="validated telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="a_api" target="a_tel">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae6" value="route requests" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="a_api" target="a_route">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae7" value="user/device identity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="a_auth" target="a_db">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae8" value="persist telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="a_tel" target="a_db">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae9" value="validated location/fill" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="a_tel" target="a_engine">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae10" value="optimized path" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="a_engine" target="a_route">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae11" value="route state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="a_route" target="a_db">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae12" value="audit/security events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="a_audit" target="a_db">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae13" value="sensitive action event" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="a_route" target="a_audit">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="ae14" value="secret config" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#17365D;" edge="1" parent="1" source="a_secrets" target="a_api">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="a_controls" value="Controls: TLS • device authentication • JWT/RBAC • input validation • rate limiting • audit logging • least privilege • secret management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontColor=#334155;fontSize=13;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="775" width="860" height="55" as="geometry"/>
+</mxCell>
+  </root>
+</mxGraphModel>
+</diagram><diagram id="ER_Diagram" name="ER Diagram">
+<mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="e_title" value="SmartWaste Secure — Entity Relationship Diagram" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#17365D;fontSize=22;fontStyle=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="25" width="850" height="40" as="geometry"/>
+</mxCell><mxCell id="e_sub" value="Core persistent entities, primary keys, foreign keys and cardinalities" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#475569;fontSize=12;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="65" width="900" height="25" as="geometry"/>
+</mxCell><mxCell id="e_user" value="&lt;b&gt;USER&lt;/b&gt;&lt;br&gt;PK user_id&lt;br&gt;name • email • password_hash&lt;br&gt;role • status • created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="55" y="145" width="210" height="120" as="geometry"/>
+</mxCell><mxCell id="e_bin" value="&lt;b&gt;SMART_BIN&lt;/b&gt;&lt;br&gt;PK bin_id&lt;br&gt;device_id (UNIQUE)&lt;br&gt;location_latitude • location_longitude&lt;br&gt;status • device_status • created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="320" y="130" width="250" height="150" as="geometry"/>
+</mxCell><mxCell id="e_tele" value="&lt;b&gt;TELEMETRY&lt;/b&gt;&lt;br&gt;PK telemetry_id&lt;br&gt;FK bin_id&lt;br&gt;fill_level • temperature&lt;br&gt;latitude • longitude • sensor_status&lt;br&gt;timestamp • signature" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="650" y="120" width="270" height="175" as="geometry"/>
+</mxCell><mxCell id="e_event" value="&lt;b&gt;SECURITY_EVENT&lt;/b&gt;&lt;br&gt;PK event_id&lt;br&gt;FK user_id / bin_id&lt;br&gt;event_type • severity&lt;br&gt;source_ip • description • timestamp" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="980" y="145" width="215" height="125" as="geometry"/>
+</mxCell><mxCell id="e_veh" value="&lt;b&gt;VEHICLE&lt;/b&gt;&lt;br&gt;PK vehicle_id&lt;br&gt;registration_number&lt;br&gt;capacity • status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="95" y="395" width="210" height="110" as="geometry"/>
+</mxCell><mxCell id="e_route" value="&lt;b&gt;ROUTE&lt;/b&gt;&lt;br&gt;PK route_id&lt;br&gt;FK created_by • vehicle_id • driver_id&lt;br&gt;route_status • route_version&lt;br&gt;created_at • updated_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="405" y="370" width="270" height="145" as="geometry"/>
+</mxCell><mxCell id="e_driver" value="&lt;b&gt;DRIVER&lt;/b&gt;&lt;br&gt;PK driver_id&lt;br&gt;FK user_id&lt;br&gt;license_number • status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="785" y="395" width="230" height="120" as="geometry"/>
+</mxCell><mxCell id="e_stop" value="&lt;b&gt;ROUTE_STOP&lt;/b&gt;&lt;br&gt;PK stop_id&lt;br&gt;FK route_id • bin_id&lt;br&gt;sequence_number • planned_time&lt;br&gt;collection_status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="500" y="580" width="270" height="130" as="geometry"/>
+</mxCell><mxCell id="er1" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="e_user" target="e_event">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="er2" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="e_bin" target="e_tele">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="er3" value="1 : M  (created_by)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="e_user" target="e_route">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="er4" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="e_veh" target="e_route">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="er5" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="e_driver" target="e_route">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="er6" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="e_route" target="e_stop">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="er7" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="e_bin" target="e_stop">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="er8" value="1 : M" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="e_bin" target="e_event">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="e_note" value="Consistency baseline: these entity names and relationships should be reused in the SQL schema, DFD data stores, API models and implementation." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontColor=#334155;fontSize=13;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="50" y="755" width="1110" height="55" as="geometry"/>
+</mxCell>
+  </root>
+</mxGraphModel>
+</diagram><diagram id="DFD_Level_0" name="DFD Level 0">
+<mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="d0_title" value="SmartWaste Secure — DFD Level 0 / Context Diagram" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#17365D;fontSize=22;fontStyle=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="25" width="900" height="40" as="geometry"/>
+</mxCell><mxCell id="d0_sub" value="External entities, primary system process and major data flows" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#475569;fontSize=12;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="65" width="900" height="25" as="geometry"/>
+</mxCell><mxCell id="d0_bin" value="E1
+SMART BIN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7E8;strokeColor=#B54708;fontColor=#7A2E0B;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="60" y="250" width="190" height="110" as="geometry"/>
+</mxCell><mxCell id="d0_sys" value="SMART WASTE MANAGEMENT PLATFORM
+
+Telemetry • Bin Status • Routes • Security" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="435" y="205" width="330" height="200" as="geometry"/>
+</mxCell><mxCell id="d0_admin" value="E2
+ADMINISTRATOR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="930" y="125" width="210" height="110" as="geometry"/>
+</mxCell><mxCell id="d0_driver" value="E3
+DRIVER" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="930" y="355" width="210" height="110" as="geometry"/>
+</mxCell><mxCell id="d0e1" value="fill level • location • temperature • sensor status" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B54708;" edge="1" parent="1" source="d0_bin" target="d0_sys">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d0e2" value="status • alerts • route management" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="d0_sys" target="d0_admin">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d0e3" value="login • bin/vehicle/driver management • route requests" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="d0_admin" target="d0_sys">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d0e4" value="assigned route • collection sequence" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="d0_sys" target="d0_driver">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d0e5" value="collection status • issue report" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="d0_driver" target="d0_sys">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d0_note" value="Trust focus: Smart Bin → platform is the primary untrusted ingress. Protected administrator actions must pass authentication/authorization before affecting routes or operational data." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontColor=#334155;fontSize=13;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="570" width="1110" height="80" as="geometry"/>
+</mxCell>
+  </root>
+</mxGraphModel>
+</diagram><diagram id="DFD_Level_1" name="DFD Level 1">
+<mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="d1_title" value="SmartWaste Secure — DFD Level 1" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#17365D;fontSize=22;fontStyle=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="25" width="900" height="40" as="geometry"/>
+</mxCell><mxCell id="d1_sub" value="Process decomposition with data stores and security-sensitive data flows" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#475569;fontSize=12;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="65" width="900" height="25" as="geometry"/>
+</mxCell><mxCell id="d1_bin" value="E1
+SMART BIN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7E8;strokeColor=#B54708;fontColor=#7A2E0B;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="35" y="120" width="160" height="75" as="geometry"/>
+</mxCell><mxCell id="d1_admin" value="E2
+ADMIN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="1025" y="120" width="160" height="75" as="geometry"/>
+</mxCell><mxCell id="d1_driver" value="E3
+DRIVER" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="1025" y="500" width="160" height="75" as="geometry"/>
+</mxCell><mxCell id="p1" value="P1
+AUTHENTICATION" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="250" y="115" width="190" height="85" as="geometry"/>
+</mxCell><mxCell id="p2" value="P2
+TELEMETRY PROCESSING" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="495" y="115" width="220" height="85" as="geometry"/>
+</mxCell><mxCell id="p3" value="P3
+ROUTE MANAGEMENT" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="770" y="115" width="200" height="85" as="geometry"/>
+</mxCell><mxCell id="p4" value="P4
+AUDIT &amp; ALERTS" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="560" y="345" width="220" height="90" as="geometry"/>
+</mxCell><mxCell id="d1_users" value="D1
+USERS" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="70" y="350" width="190" height="70" as="geometry"/>
+</mxCell><mxCell id="d1_bins" value="D2
+SMART BINS" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="290" y="350" width="190" height="70" as="geometry"/>
+</mxCell><mxCell id="d1_tele" value="D3
+TELEMETRY" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="510" y="470" width="190" height="70" as="geometry"/>
+</mxCell><mxCell id="d1_routes" value="D4
+ROUTES" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="730" y="470" width="190" height="70" as="geometry"/>
+</mxCell><mxCell id="d1_ops" value="D5
+VEHICLES / DRIVERS" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="950" y="320" width="190" height="70" as="geometry"/>
+</mxCell><mxCell id="d1e1" value="device identity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B54708;" edge="1" parent="1" source="d1_bin" target="p1">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e2" value="authenticated device" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="p1" target="p2">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e3" value="credentials" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="d1_admin" target="p1">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e4" value="authorized user" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="p1" target="p3">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e5" value="telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B54708;" edge="1" parent="1" source="d1_bin" target="p2">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e6" value="validated telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="p2" target="d1_tele">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e7" value="device status" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="p2" target="d1_bins">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e8" value="rejections / anomalies" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B54708;" edge="1" parent="1" source="p2" target="p4">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e9" value="route state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="p3" target="d1_routes">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e10" value="assigned route" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="d1_routes" target="d1_driver">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e11" value="generate / modify route" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="d1_admin" target="p3">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e12" value="vehicle / driver data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1F5A94;" edge="1" parent="1" source="d1_ops" target="p3">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e13" value="route changes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B54708;" edge="1" parent="1" source="p3" target="p4">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e14" value="user/device auth record" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="p1" target="d1_users">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e15" value="security events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="p4" target="d1_users">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e16" value="telemetry anomaly evidence" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="p4" target="d1_tele">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e17" value="route security events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="p4" target="d1_routes">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1e18" value="collection status / issue" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;" edge="1" parent="1" source="d1_driver" target="p3">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="d1_note" value="Legend: E = external entity • P = process • D = data store. Security controls are applied at device/API entry, authorization points and protected data stores." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontColor=#334155;fontSize=13;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="615" width="1140" height="65" as="geometry"/>
+</mxCell>
+  </root>
+</mxGraphModel>
+</diagram><diagram id="Trust_Boundaries" name="Trust Boundaries">
+<mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="t_title" value="SmartWaste Secure — Trust Boundaries" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#17365D;fontSize=22;fontStyle=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="25" width="900" height="40" as="geometry"/>
+</mxCell><mxCell id="t_sub" value="Security zones and controls at transitions from less-trusted to more-trusted environments" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#475569;fontSize=12;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="65" width="1000" height="25" as="geometry"/>
+</mxCell><mxCell id="tb1" value="TB-1  •  IOT / UNTRUSTED DEVICE NETWORK
+
+Smart bins • sensor firmware • MQTT client • device credentials
+
+Primary threats: device spoofing • telemetry tampering • flooding" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#64748B;dashed=1;dashPattern=8 6;fontColor=#334155;fontStyle=1;fontSize=15;align=left;verticalAlign=top;spacingTop=12;spacingLeft=14;" vertex="1" parent="1">
+  <mxGeometry x="55" y="130" width="1040" height="170" as="geometry"/>
+</mxCell><mxCell id="tb2" value="TB-2  •  APPLICATION / API NETWORK
+
+API Gateway • Flask services • Web UI • Authentication / RBAC
+
+Primary threats: credential abuse • broken authorization • API abuse" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#64748B;dashed=1;dashPattern=8 6;fontColor=#334155;fontStyle=1;fontSize=15;align=left;verticalAlign=top;spacingTop=12;spacingLeft=14;" vertex="1" parent="1">
+  <mxGeometry x="55" y="335" width="1040" height="170" as="geometry"/>
+</mxCell><mxCell id="tb3" value="TB-3  •  PROTECTED DATA LAYER
+
+PostgreSQL • audit records • route data • secrets/configuration
+
+Primary threats: unauthorized reads/writes • secret exposure • data integrity loss" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#64748B;dashed=1;dashPattern=8 6;fontColor=#334155;fontStyle=1;fontSize=15;align=left;verticalAlign=top;spacingTop=12;spacingLeft=14;" vertex="1" parent="1">
+  <mxGeometry x="55" y="540" width="1040" height="170" as="geometry"/>
+</mxCell><mxCell id="ctl1" value="CONTROLS
+TLS • device authentication • schema/range validation • rate limiting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7E8;strokeColor=#B54708;fontColor=#7A2E0B;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="120" y="240" width="910" height="45" as="geometry"/>
+</mxCell><mxCell id="ctl2" value="CONTROLS
+TLS • JWT/RBAC • input validation • rate limiting • audit logging" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="120" y="445" width="910" height="45" as="geometry"/>
+</mxCell><mxCell id="ctl3" value="CONTROLS
+Least privilege • parameterized queries • secret management • network restriction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="120" y="650" width="910" height="45" as="geometry"/>
+</mxCell>
+  </root>
+</mxGraphModel>
+</diagram><diagram id="Security_Design_Summary" name="Security Design Summary">
+<mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="s_title" value="SmartWaste Secure — Security Design Summary" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#17365D;fontSize=22;fontStyle=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="25" width="900" height="40" as="geometry"/>
+</mxCell><mxCell id="s_sub" value="Core assets, threats and controls to carry into STRIDE and implementation" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#475569;fontSize=12;align=left;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="40" y="65" width="1050" height="25" as="geometry"/>
+</mxCell><mxCell id="s_asset" value="HIGH-VALUE ASSETS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF2F8;strokeColor=#1F5A94;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="60" y="125" width="300" height="55" as="geometry"/>
+</mxCell><mxCell id="s_threat" value="CRITICAL THREATS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7E8;strokeColor=#B54708;fontColor=#7A2E0B;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="430" y="125" width="300" height="55" as="geometry"/>
+</mxCell><mxCell id="s_control" value="PRIMARY CONTROLS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF7EE;strokeColor=#2E7D32;fontColor=#1F5D2A;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="800" y="125" width="330" height="55" as="geometry"/>
+</mxCell><mxCell id="s_assets" value="A-02 Device credentials&lt;br&gt;A-03 Telemetry&lt;br&gt;A-04 Bin location&lt;br&gt;A-05 Collection routes&lt;br&gt;A-08 Audit/security logs&lt;br&gt;A-11 Application secrets&lt;br&gt;A-12 Database" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="60" y="205" width="300" height="250" as="geometry"/>
+</mxCell><mxCell id="s_threats" value="Sensor spoofing&lt;br&gt;Location manipulation&lt;br&gt;Unauthorized route modification&lt;br&gt;Availability / DoS&lt;br&gt;Device authentication failure&lt;br&gt;API security abuse" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="430" y="205" width="300" height="250" as="geometry"/>
+</mxCell><mxCell id="s_controls" value="TLS&lt;br&gt;Device authentication&lt;br&gt;JWT + RBAC / object-level auth&lt;br&gt;Input/schema/range validation&lt;br&gt;Rate limiting&lt;br&gt;Audit logging&lt;br&gt;Least privilege + secret management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#17365D;fontColor=#17365D;fontStyle=1;fontSize=14;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="800" y="205" width="330" height="250" as="geometry"/>
+</mxCell><mxCell id="se1" value="protect" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="s_assets" target="s_threat">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="se2" value="mitigate" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="s_threat" target="s_control">
+  <mxGeometry relative="1" as="geometry"></mxGeometry>
+</mxCell><mxCell id="s_trace" value="Critical trace baseline: SR-06 Route Authorization → Modify Route use case → P3 Route Management → unauthorized modification threat → IDOR / missing object-level authorization → implementation with RBAC → negative authorization test → deployment RBAC/audit control." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontColor=#334155;fontSize=13;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="60" y="505" width="1070" height="95" as="geometry"/>
+</mxCell><mxCell id="s_cons" value="Consistency rule: requirements, DFD entities/processes/stores, ER entities, architecture components and later Jira stories/tests must use the same system vocabulary." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontColor=#334155;fontSize=13;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+  <mxGeometry x="60" y="630" width="1070" height="70" as="geometry"/>
+</mxCell>
+  </root>
+</mxGraphModel>
+</diagram>
+</mxfile>

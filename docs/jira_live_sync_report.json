@@ -15,68 +15,165 @@
     {
       "name": "ECO Sprint 3: RBAC & Gateway",
       "goal": "Enforce strict profile boundaries (Driver isolated from security logs), add dedicated Security Gateway Lab tab, and package manifests."
+    },
+    {
+      "name": "ECO Sprint 4: AI & IoT",
+      "goal": "Deliver Hierarchical Waste Classification, Multi-Sensor Correlation, GPS Spoofing Defense, Device Lifecycle Quarantine, and OWASP API Protection."
     }
   ],
   "epics": {
-    "ECO-EPIC-1": "ECO-3",
-    "ECO-EPIC-2": "ECO-4",
-    "ECO-EPIC-3": "ECO-5",
-    "ECO-EPIC-4": "ECO-6"
+    "ECO-EPIC-1": "ECO-34",
+    "ECO-EPIC-2": "ECO-35",
+    "ECO-EPIC-3": "ECO-36",
+    "ECO-EPIC-4": "ECO-37",
+    "ECO-EPIC-5": "ECO-38",
+    "ECO-EPIC-6": "ECO-39",
+    "ECO-EPIC-7": "ECO-40"
   },
   "synced_issues": [
     {
-      "key": "ECO-7",
+      "key": "ECO-41",
       "summary": "US-01: Implement HMAC-SHA256 Telemetry Signature Ingestion Pipeline",
       "type": "Story",
       "points": 8,
       "sprint": "ECO Sprint 1: Security & Auth",
-      "epic": "ECO-3",
-      "url": "https://claudebugbounty.atlassian.net/browse/ECO-7"
+      "epic": "ECO-34",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-41"
     },
     {
-      "key": "ECO-8",
+      "key": "ECO-42",
       "summary": "US-02: GIS Geofence Anomaly Detection Tripwire (50m Boundary)",
       "type": "Story",
       "points": 5,
       "sprint": "ECO Sprint 1: Security & Auth",
-      "epic": "ECO-3",
-      "url": "https://claudebugbounty.atlassian.net/browse/ECO-8"
+      "epic": "ECO-34",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-42"
     },
     {
-      "key": "ECO-9",
+      "key": "ECO-43",
+      "summary": "TASK-01: GitHub Actions CI/CD Pipeline with Automated SAST & Container Scanning",
+      "type": "Task",
+      "points": 3,
+      "sprint": "ECO Sprint 1: Security & Auth",
+      "epic": "ECO-37",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-43"
+    },
+    {
+      "key": "ECO-44",
       "summary": "US-03: Greedy Nearest-Neighbor TSP Route Optimization Engine",
       "type": "Story",
       "points": 8,
       "sprint": "ECO Sprint 2: Route & Fleet",
-      "epic": "ECO-4",
-      "url": "https://claudebugbounty.atlassian.net/browse/ECO-9"
+      "epic": "ECO-35",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-44"
     },
     {
-      "key": "ECO-10",
+      "key": "ECO-45",
       "summary": "US-04: Interactive Field Driver Waypoint Manifest & Collection Checklist",
       "type": "Story",
       "points": 5,
       "sprint": "ECO Sprint 2: Route & Fleet",
-      "epic": "ECO-4",
-      "url": "https://claudebugbounty.atlassian.net/browse/ECO-10"
+      "epic": "ECO-35",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-45"
     },
     {
-      "key": "ECO-11",
+      "key": "ECO-46",
       "summary": "US-05: Strict Profile RBAC Isolation: Driver vs Security Analyst Partitioning",
       "type": "Story",
       "points": 5,
       "sprint": "ECO Sprint 3: RBAC & Gateway",
-      "epic": "ECO-5",
-      "url": "https://claudebugbounty.atlassian.net/browse/ECO-11"
+      "epic": "ECO-36",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-46"
     },
     {
-      "key": "ECO-12",
+      "key": "ECO-47",
       "summary": "US-06: Dedicated Left Sidebar Tab: Security Gateway & Attack Lab",
       "type": "Story",
       "points": 5,
       "sprint": "ECO Sprint 3: RBAC & Gateway",
-      "epic": "ECO-5",
-      "url": "https://claudebugbounty.atlassian.net/browse/ECO-12"
+      "epic": "ECO-36",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-47"
+    },
+    {
+      "key": "ECO-48",
+      "summary": "US-07: Hierarchical Waste Classification & 3-Tier Confidence Triage Engine",
+      "type": "Story",
+      "points": 8,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-38",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-48"
+    },
+    {
+      "key": "ECO-49",
+      "summary": "US-08: Cross-Contamination Detection & Segregation Breach Monitoring",
+      "type": "Story",
+      "points": 5,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-38",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-49"
+    },
+    {
+      "key": "ECO-50",
+      "summary": "US-09: 9-Stream Waste Composition Distribution & Analytics Rollup",
+      "type": "Story",
+      "points": 5,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-38",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-50"
+    },
+    {
+      "key": "ECO-51",
+      "summary": "US-10: Multi-Sensor Correlation & Waste Mass Density Anomaly Telemetry",
+      "type": "Story",
+      "points": 8,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-39",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-51"
+    },
+    {
+      "key": "ECO-52",
+      "summary": "US-11: Multi-Point Geodesic GPS Spoofing & Impossible Velocity Detection",
+      "type": "Story",
+      "points": 8,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-39",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-52"
+    },
+    {
+      "key": "ECO-53",
+      "summary": "US-12: Hardware Device Identity, Certificate Fingerprint Rotation & Lifecycle Quarantine",
+      "type": "Story",
+      "points": 5,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-39",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-53"
+    },
+    {
+      "key": "ECO-54",
+      "summary": "US-13: Cryptographic Route Integrity Hashing & Anti-Override Prioritization",
+      "type": "Story",
+      "points": 8,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-40",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-54"
+    },
+    {
+      "key": "ECO-55",
+      "summary": "TASK-02: OWASP API Security Gateway Defensive Filters & Hardening",
+      "type": "Task",
+      "points": 5,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-40",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-55"
+    },
+    {
+      "key": "ECO-56",
+      "summary": "TASK-03: End-to-End Security & Intelligence Test Automation Suite",
+      "type": "Task",
+      "points": 5,
+      "sprint": "ECO Sprint 4: AI & IoT",
+      "epic": "ECO-40",
+      "url": "https://claudebugbounty.atlassian.net/browse/ECO-56"
     }
   ]
 }

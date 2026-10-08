@@ -1,0 +1,377 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SmartWaste Secure - Software Requirements Specification</title>
+<style>
+@page {
+  size: A4;
+  margin: 18mm 16mm 17mm 16mm;
+  @top-right {
+    content: "SMARTWASTE SECURE • SRS";
+    color: #718096;
+    font-size: 7.2pt;
+    font-weight: 700;
+  }
+  @bottom-left {
+    content: "24CYS401 Secure Software Engineering | Yeshwanth Raj S. | CH.SC.U4CYS23052";
+    color: #718096;
+    font-size: 6.9pt;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    color: #718096;
+    font-size: 6.9pt;
+  }
+}
+@page:first {
+  margin: 15mm 16mm 15mm 16mm;
+  @top-right { content: ""; }
+  @bottom-left { content: ""; }
+  @bottom-right { content: ""; }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; color: #202938; background: #f2f5f8;
+  font-family: Arial, Helvetica, sans-serif; font-size: 9pt; line-height: 1.45;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 22px; }
+.cover {
+  min-height: 255mm;
+  background: linear-gradient(145deg, #17365d 0%, #245a86 100%);
+  color: white; border-radius: 18px; padding: 34px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.cover .eyebrow {
+  font-size: 8.5pt; font-weight: 800; letter-spacing: .15em;
+  text-transform: uppercase; opacity: .78;
+}
+.cover h1 { font-size: 28pt; margin: 9px 0 4px; letter-spacing: -.5px; }
+.cover h2 { color: #fff; font-size: 18pt; margin: 0 0 8px; }
+.cover .subtitle { font-size: 11pt; opacity: .92; margin-bottom: 24px; }
+.meta {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 10px;
+}
+.meta-card {
+  background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.16);
+  border-radius: 11px; padding: 11px 13px;
+}
+.meta-card b { display:block; font-size: 7.2pt; text-transform:uppercase; letter-spacing:.08em; opacity:.7; margin-bottom:3px; }
+.meta-card span { font-size:8.8pt; font-weight:700; }
+.cover-note {
+  margin-top: 22px; background:#f8fbff; color:#17365d;
+  border-left:4px solid #9fc5e7; border-radius:8px; padding:13px 15px;
+}
+.toc {
+  background:#fff; border:1px solid #d7dee7; border-radius:14px;
+  padding:22px 24px; margin-top:16px;
+}
+.toc h2 { margin-top:0; }
+.toc a { display:block; padding:6px 2px; color:#344054; text-decoration:none; border-bottom:1px solid #eef2f6; }
+.section {
+  background:#fff; border:1px solid #d7dee7; border-radius:14px;
+  padding:22px 24px; margin:16px 0; break-inside:auto;
+}
+.section h2 { color:#17365d; font-size:17pt; margin:3px 0 12px; }
+.section h3 { color:#25486c; font-size:11.7pt; margin:17px 0 7px; }
+.section h4 { color:#344e68; font-size:10pt; margin:13px 0 5px; }
+.kicker { color:#245a86; font-weight:800; font-size:7.5pt; text-transform:uppercase; letter-spacing:.13em; }
+.lead { color:#526171; font-size:10pt; }
+.callout { background:#eef5fb; border-left:4px solid #245a86; border-radius:0 8px 8px 0; padding:10px 12px; margin:11px 0; }
+.callout.ok { background:#eef8f0; border-left-color:#2f7d40; }
+.callout.warn { background:#fff7e8; border-left-color:#b56a16; }
+table { width:100%; border-collapse:collapse; margin:8px 0 12px; font-size:7.5pt; }
+thead { display:table-header-group; }
+tr { break-inside:avoid; }
+th { background:#17365d; color:#fff; text-align:left; padding:6px 7px; border:1px solid #c7d1dc; font-size:7.1pt; text-transform:uppercase; letter-spacing:.03em; }
+td { padding:6px 7px; border:1px solid #d6dee8; vertical-align:top; }
+tbody tr:nth-child(even) td { background:#fafbfd; }
+ul { margin:6px 0 10px 19px; }
+li { margin:3px 0; }
+ol { margin:6px 0 10px 20px; }
+code, pre { font-family:"Courier New", monospace; }
+pre { background:#f3f5f7; border:1px solid #d7dee7; padding:10px; border-radius:7px; font-size:7.3pt; white-space:pre-wrap; }
+.badge {
+  display:inline-block; border-radius:999px; padding:2px 6px; font-size:6.7pt;
+  font-weight:800; border:1px solid #d4dce5;
+}
+.critical { background:#fdecec; color:#b42318; border-color:#efc8c3; }
+.high { background:#fff4e5; color:#b54708; border-color:#eed0a8; }
+.medium { background:#eef2f6; color:#475467; border-color:#d6dee8; }
+.low { background:#eef8f0; color:#2f7d40; border-color:#c7e0cc; }
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.card {
+  border:1px solid #d7dee7; border-radius:10px; padding:11px;
+  background:#fbfcfe; break-inside:avoid;
+}
+.card strong { color:#17365d; }
+.small { font-size:7.5pt; color:#6b7280; }
+hr { border:0; border-top:1px solid #e5eaf0; margin:14px 0; }
+.pagebreak { break-before:page; }
+@media print {
+  body { background:#fff; }
+  .wrap { max-width:none; padding:0; }
+  .section, .toc { box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="cover">
+  <div class="eyebrow">24CYS401 • Secure Software Engineering • Phase 2</div>
+  <h1>SOFTWARE REQUIREMENTS SPECIFICATION</h1>
+  <h2>SmartWaste Secure</h2>
+  <div class="subtitle">IoT-Based Smart Waste Management and Secure Route Optimization Platform</div>
+  <div class="meta">
+    <div class="meta-card"><b>Student</b><span>Yeshwanth Raj S.</span></div>
+    <div class="meta-card"><b>Register Number</b><span>CH.SC.U4CYS23052</span></div>
+    <div class="meta-card"><b>Institution</b><span>Amrita Vishwa Vidyapeetham - Chennai Campus</span></div>
+    <div class="meta-card"><b>Course</b><span>24CYS401 - Secure Software Engineering</span></div>
+    <div class="meta-card"><b>Document Version</b><span>1.0</span></div>
+    <div class="meta-card"><b>Status</b><span>Requirements Baseline</span></div>
+    <div class="meta-card"><b>Prepared</b><span>08 October 2026</span></div>
+    <div class="meta-card"><b>Document Type</b><span>Academic SRS</span></div>
+  </div>
+  <div class="cover-note">
+    <b>Document purpose</b><br>
+    Define the authoritative functional, non-functional and security requirements for the SmartWaste Secure system. The hardware and IoT section identifies a proposed laboratory prototype so that the software requirements are grounded in an implementable physical device without introducing the hardware as a requirement of the supplied problem statement.
+  </div>
+</section>
+
+<section class="toc">
+  <div class="kicker">Document control</div>
+  <h2>Table of Contents</h2>
+  <a href="#intro">1. Introduction</a>
+  <a href="#overall">2. Overall Description</a>
+  <a href="#stakeholders">3. Stakeholders and User Classes</a>
+  <a href="#interfaces">4. External Interface Requirements</a>
+  <a href="#hardware">5. Hardware and IoT Device Requirements</a>
+  <a href="#features">6. Functional Requirements</a>
+  <a href="#nfr">7. Non-Functional Requirements</a>
+  <a href="#security">8. Security Requirements</a>
+  <a href="#data">9. Data Requirements and Data Rules</a>
+  <a href="#business">10. Business and Operational Rules</a>
+  <a href="#constraints">11. Assumptions and Constraints</a>
+  <a href="#priority">12. Requirement Prioritization</a>
+  <a href="#acceptance">13. Acceptance Criteria</a>
+  <a href="#trace">14. Requirements Traceability Baseline</a>
+  <a href="#appendix">Appendices and References</a>
+</section>
+
+<section class="section" id="intro">
+  <div class="kicker">SRS foundation</div>
+  <h2>1. Introduction</h2>
+  <h3>1.1 Purpose</h3>
+  <p>This Software Requirements Specification (SRS) defines the requirements for SmartWaste Secure, an IoT-based waste-management platform that receives smart-bin telemetry, validates and stores it, detects suspicious behaviour, generates optimized collection routes, and supports authorized vehicle and driver assignment.</p>
+  <h3>1.2 Problem statement</h3>
+  <p>Smart bins periodically send <strong>fill level, location, temperature and sensor status</strong>. The platform uses these measurements to support collection decisions and route optimization. The security problem is that the telemetry originates from devices and networks that cannot be assumed trustworthy. The system therefore has to protect both the device-to-platform boundary and the platform's high-impact operational functions.</p>
+  <h3>1.3 Security challenges in the supplied problem</h3>
+  <div class="grid-3">
+    <div class="card"><strong>Sensor spoofing</strong><br>False sensor measurements could change collection priority or status.</div>
+    <div class="card"><strong>Location manipulation</strong><br>Incorrect coordinates could lead to incorrect routes.</div>
+    <div class="card"><strong>Unauthorized route modification</strong><br>Unauthorized users could disrupt physical operations.</div>
+    <div class="card"><strong>Availability</strong><br>Flooding or resource exhaustion could block telemetry or routing.</div>
+    <div class="card"><strong>Device authentication</strong><br>Unknown or revoked devices must not be trusted.</div>
+    <div class="card"><strong>API security</strong><br>Protected APIs must resist broken authorization, abuse and data exposure.</div>
+  </div>
+  <h3>1.4 Document conventions</h3>
+  <p><strong>FR</strong> = Functional Requirement; <strong>NFR</strong> = Non-Functional Requirement; <strong>SEC</strong> = Security Requirement; <strong>A</strong> = Asset; <strong>AC</strong> = Acceptance Criterion; <strong>HI</strong> = Hardware Interface; <strong>SI</strong> = Software/Communication Interface.</p>
+</section>
+
+<section class="section" id="overall">
+  <div class="kicker">System definition</div>
+  <h2>2. Overall Description</h2>
+  <h3>2.1 Product perspective</h3>
+  <p>SmartWaste Secure is a layered application system consisting of an IoT/edge device layer, secure telemetry transport, backend API services, persistent storage, a route-optimization component and role-specific user interfaces. The system is intended for an academic laboratory environment and is designed so that IoT hardware can be simulated or prototyped without changing the logical requirements.</p>
+  <h3>2.2 Major capabilities</h3>
+  <table><thead><tr><th>Capability</th><th>Description</th></tr></thead><tbody><tr><td>Device lifecycle</td><td>Register, activate, monitor and revoke smart bins.</td></tr><tr><td>Telemetry</td><td>Receive and validate periodic fill, location, temperature and sensor-status data.</td></tr><tr><td>Monitoring</td><td>Show current bin status, health, alerts and last-seen state.</td></tr><tr><td>Route optimization</td><td>Generate collection routes from validated operational inputs.</td></tr><tr><td>Resource assignment</td><td>Assign vehicles and drivers to routes.</td></tr><tr><td>Route security</td><td>Restrict route modification to authorized administrators.</td></tr><tr><td>Security monitoring</td><td>Detect anomalous telemetry and suspicious access.</td></tr><tr><td>Audit</td><td>Record security-sensitive and administrative events.</td></tr></tbody></table>
+  <h3>2.3 Operating environment</h3>
+  <p>The academic baseline is designed to run on a laptop or laboratory host. The backend may use Docker, the message broker may use Mosquitto, the database may use PostgreSQL, and the application may be deployed locally with Minikube/Kubernetes in later phases.</p>
+  <h3>2.4 User characteristics</h3>
+  <p>Administrators are trusted operational users but are still subject to authorization and audit controls. Drivers require operational access but not administrative route modification privileges. Security auditors require evidence access without unnecessary modification privilege. Smart bins are treated as untrusted technical actors even after device authentication.</p>
+</section>
+
+<section class="section" id="stakeholders">
+  <div class="kicker">Stakeholder baseline</div>
+  <h2>3. Stakeholders and User Classes</h2>
+  <table><thead><tr><th>Actor</th><th>Primary interaction</th><th>Security concern</th><th>Access model</th></tr></thead><tbody><tr><td>Administrator</td><td>Register devices; view status; generate, assign, modify and cancel routes; manage vehicles and drivers.</td><td>Privilege abuse; route tampering; credential compromise.</td><td>Authenticated + administrator permissions.</td></tr><tr><td>Driver</td><td>View assigned route; update collection status; report an issue.</td><td>Unauthorized access to other routes.</td><td>Authenticated + assigned-route authorization.</td></tr><tr><td>System Operator</td><td>Monitor system/device health and operational alerts.</td><td>Excessive privileges; operational data exposure.</td><td>Authenticated operational role.</td></tr><tr><td>Security Auditor</td><td>Review security events and audit history.</td><td>Audit leakage or unauthorized alteration.</td><td>Read-only audit access.</td></tr><tr><td>Smart Bin</td><td>Submit periodic telemetry and device health.</td><td>Spoofing; credential compromise; tampering.</td><td>Device identity + telemetry-only privilege.</td></tr><tr><td>Faculty / Evaluator</td><td>Assess requirements and engineering evidence.</td><td>Consistency and verifiability.</td><td>Document/evidence review.</td></tr></tbody></table>
+  <div class="callout ok"><strong>Requirements decision:</strong> The generic examination instructions list Student, Faculty and Administrator as example actor types, but this problem statement is an operational IoT system. Student is therefore not a system actor; Faculty/Evaluator is included as an evidence stakeholder, while Smart Bin, Driver, System Operator and Security Auditor are justified domain actors.</div>
+</section>
+
+<section class="section" id="interfaces">
+  <div class="kicker">External interfaces</div>
+  <h2>4. External Interface Requirements</h2>
+  <h3>4.1 Hardware interfaces</h3>
+  <table><thead><tr><th>ID</th><th>Interface</th><th>Protocol / electrical interface</th><th>Data exchanged</th><th>Requirement</th></tr></thead><tbody><tr><td>HI-01</td><td>HC-SR04 -> ESP32</td><td>Digital GPIO trigger/echo</td><td>Distance measurement</td><td>The controller shall sample the sensor and convert distance to fill-level input.</td></tr><tr><td>HI-02</td><td>NEO-6M -> ESP32</td><td>UART</td><td>GPS/NMEA position</td><td>The controller shall read latitude/longitude data when available.</td></tr><tr><td>HI-03</td><td>DS18B20 -> ESP32</td><td>1-Wire</td><td>Temperature</td><td>The controller shall read temperature and report sensor-health state.</td></tr><tr><td>HI-04</td><td>ATECC608A -> ESP32</td><td>I2C / secure-element library</td><td>Device cryptographic operations</td><td>The controller shall use protected key material for device identity operations.</td></tr></tbody></table>
+  <h3>4.2 Software and communication interfaces</h3>
+  <table><thead><tr><th>ID</th><th>Source -> Destination</th><th>Interface</th><th>Data / purpose</th><th>Security requirement</th></tr></thead><tbody><tr><td>HI-01</td><td>HC-SR04 -> ESP32</td><td>Digital GPIO trigger/echo</td><td>Distance sample</td><td>Local sensor interface</td></tr><tr><td>HI-02</td><td>NEO-6M -> ESP32</td><td>UART</td><td>NMEA/GPS coordinates</td><td>Location input</td></tr><tr><td>HI-03</td><td>DS18B20 -> ESP32</td><td>1-Wire</td><td>Temperature reading</td><td>Temperature input</td></tr><tr><td>HI-04</td><td>ATECC608A -> ESP32</td><td>I2C / secure-element library</td><td>Cryptographic operations</td><td>Protected device identity</td></tr><tr><td>SI-01</td><td>ESP32 -> MQTT broker</td><td>MQTT over TLS</td><td>Telemetry payload</td><td>Authenticated device connection</td></tr><tr><td>SI-02</td><td>Web UI -> backend</td><td>HTTPS REST API</td><td>Authentication, dashboard, route operations</td><td>User authentication / RBAC</td></tr><tr><td>SI-03</td><td>Backend -> PostgreSQL</td><td>SQL/TLS as deployed</td><td>Users, bins, telemetry, routes, audit</td><td>Least privilege</td></tr><tr><td>SI-04</td><td>Backend -> route engine</td><td>Internal service interface</td><td>Validated bin/route data</td><td>No direct raw-device input</td></tr></tbody></table>
+  <h3>4.3 User interface boundary</h3>
+  <p>The browser-facing UI shall communicate with the backend through HTTPS. The server, not the browser, shall enforce authentication and authorization. UI visibility may be role-aware, but hiding a button is not considered an authorization control.</p>
+</section>
+
+<section class="section" id="hardware">
+  <div class="kicker">Physical / IoT baseline</div>
+  <h2>5. Hardware and IoT Device Requirements</h2>
+  <p class="lead">The supplied problem statement specifies the telemetry outputs but does not prescribe hardware part numbers. The following devices are therefore defined as the <strong>proposed laboratory prototype baseline</strong>, not as mandatory hardware supplied by the problem statement.</p>
+  <table><thead><tr><th>Component</th><th>Purpose</th><th>Output / function</th><th>Security / design note</th></tr></thead><tbody><tr><td>ESP32-WROOM</td><td>Edge controller + Wi-Fi</td><td>Reads sensors, executes firmware and packages telemetry.</td><td>Proposed laboratory hardware baseline; not prescribed by problem statement.</td></tr><tr><td>HC-SR04 ultrasonic sensor</td><td>Fill-level sensing</td><td>Distance from sensor to waste surface; converted to fill percentage.</td><td>Server-side range/plausibility checks are mandatory.</td></tr><tr><td>NEO-6M GPS module</td><td>Location sensing</td><td>Latitude and longitude.</td><td>Coordinate bounds and movement-consistency checks.</td></tr><tr><td>DS18B20 temperature sensor</td><td>Temperature sensing</td><td>Temperature in degrees C.</td><td>Type/range/plausibility validation.</td></tr><tr><td>ATECC608A secure element</td><td>Device cryptographic identity</td><td>Hardware-backed key operations / protected identity material.</td><td>Intended to keep private keys out of ordinary application memory.</td></tr><tr><td>5V regulated power</td><td>Power subsystem</td><td>Stable electrical supply; battery-backed option for prototype.</td><td>Brownout/reset events can be surfaced as device-health signals.</td></tr><tr><td>Protected enclosure</td><td>Physical protection</td><td>Housing for ESP32 and security-sensitive electronics.</td><td>Restrict physical access to provisioning and debug interfaces.</td></tr><tr><td>Mosquitto MQTT broker</td><td>IoT message broker</td><td>Routes device telemetry to backend topics.</td><td>Broker authentication and topic-level ACLs.</td></tr></tbody></table>
+  <h3>5.1 Telemetry-to-hardware mapping</h3>
+  <table><thead><tr><th>Problem statement output</th><th>Hardware source</th><th>Processing requirement</th><th>Stored field</th></tr></thead><tbody><tr><td>Fill level</td><td>HC-SR04</td><td>Distance -> percentage; range and plausibility validation</td><td>fill_level</td></tr><tr><td>Location</td><td>NEO-6M GPS</td><td>Coordinate validation + movement-consistency analysis</td><td>latitude, longitude</td></tr><tr><td>Temperature</td><td>DS18B20</td><td>Type/range/plausibility validation</td><td>temperature</td></tr><tr><td>Sensor status</td><td>ESP32 firmware diagnostics</td><td>Heartbeat + connectivity + sensor-health state</td><td>sensor_status, device_status</td></tr></tbody></table>
+  <h3>5.2 Device security requirements</h3>
+  <ul>
+    <li>The smart bin shall have a unique device identity.</li>
+    <li>Device identity shall be checked before telemetry is accepted.</li>
+    <li>Device credentials/keys shall not be hard-coded in public source files.</li>
+    <li>Where the secure element is used, private key material should remain in the secure element rather than ordinary firmware storage.</li>
+    <li>A revoked/disabled device shall be rejected even if it presents structurally valid telemetry.</li>
+    <li>The device shall have no permission to modify routes, read other devices' telemetry, or access the database directly.</li>
+  </ul>
+  <h3>5.3 Device reporting requirements</h3>
+  <p>Each report should contain a device identifier, timestamp, message/sequence identifier where implemented, fill level, latitude, longitude, temperature and sensor/device status. The exact reporting interval is configuration data and shall be defined by the deployment profile rather than hard-coded into the SRS.</p>
+</section>
+
+<section class="section" id="features">
+  <div class="kicker">Functional specification</div>
+  <h2>6. Functional Requirements</h2>
+  <p>These requirements form the primary functional baseline for later use cases, data models, backlog items and tests.</p>
+  <table><thead><tr><th>ID</th><th>Requirement name</th><th>Specification</th><th>Priority</th></tr></thead><tbody><tr><td>FR-01</td><td>Secure user authentication</td><td>Administrator, Driver, System Operator and Security Auditor shall authenticate before protected functions are accessed.</td><td><span class="badge critical">Critical</span></td></tr><tr><td>FR-02</td><td>Device registration</td><td>Administrator shall register a smart bin with a unique device identity and lifecycle state.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-03</td><td>Device authentication</td><td>The platform shall authenticate a smart bin before accepting telemetry.</td><td><span class="badge critical">Critical</span></td></tr><tr><td>FR-04</td><td>Telemetry ingestion</td><td>The platform shall receive fill level, location, temperature and sensor-status readings at the configured reporting interval.</td><td><span class="badge critical">Critical</span></td></tr><tr><td>FR-05</td><td>Telemetry validation</td><td>The platform shall validate message schema, required fields, types and ranges before persistence.</td><td><span class="badge critical">Critical</span></td></tr><tr><td>FR-06</td><td>Telemetry persistence</td><td>The platform shall store accepted telemetry with device association and timestamp information.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-07</td><td>Bin status</td><td>The platform shall calculate and display current bin status from accepted telemetry.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-08</td><td>Anomaly detection</td><td>The platform shall flag suspicious sensor behaviour or inconsistent location changes.</td><td><span class="badge critical">Critical</span></td></tr><tr><td>FR-09</td><td>Route generation</td><td>The platform shall generate a collection route using eligible and validated bin data.</td><td><span class="badge critical">Critical</span></td></tr><tr><td>FR-10</td><td>Vehicle assignment</td><td>The platform shall allow authorized administrators to associate vehicles with routes.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-11</td><td>Driver assignment</td><td>The platform shall allow authorized administrators to associate drivers with routes.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-12</td><td>Driver route access</td><td>A driver shall be able to view only routes assigned to that driver.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-13</td><td>Route modification</td><td>Authorized administrators shall be able to modify or cancel a route subject to validation and lifecycle rules.</td><td><span class="badge critical">Critical</span></td></tr><tr><td>FR-14</td><td>Audit events</td><td>The platform shall record security-sensitive and administrative actions.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-15</td><td>Security alerts</td><td>The platform shall generate alerts for suspicious telemetry, repeated authentication failures and unauthorized sensitive actions.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-16</td><td>Device revocation</td><td>The platform shall allow authorized administrators to disable or revoke a compromised device.</td><td><span class="badge high">High</span></td></tr><tr><td>FR-17</td><td>Operational status</td><td>The platform shall expose device last-seen state and offline/health indicators.</td><td><span class="badge medium">Medium</span></td></tr><tr><td>FR-18</td><td>Safe API errors</td><td>The platform shall return controlled errors without exposing passwords, tokens, stack traces or internal secrets.</td><td><span class="badge high">High</span></td></tr></tbody></table>
+  <h3>6.1 Functional requirement dependencies</h3>
+  <div class="grid-2">
+    <div class="card"><strong>Telemetry chain</strong><br>FR-02/03 -> FR-04 -> FR-05 -> FR-06 -> FR-07/08 -> FR-09.</div>
+    <div class="card"><strong>Route security chain</strong><br>FR-01 -> FR-13 -> FR-14 -> FR-15.</div>
+    <div class="card"><strong>Device lifecycle chain</strong><br>FR-02 -> active/revoked state -> FR-03 -> FR-16.</div>
+    <div class="card"><strong>Driver access chain</strong><br>FR-01 -> driver role -> assigned-route authorization -> FR-12.</div>
+  </div>
+</section>
+
+<section class="section" id="nfr">
+  <div class="kicker">Quality attributes</div>
+  <h2>7. Non-Functional Requirements</h2>
+  <table><thead><tr><th>ID</th><th>Category</th><th>Quality area</th><th>Requirement</th></tr></thead><tbody><tr><td>NFR-01</td><td>Security</td><td>Transport</td><td>Protected traffic shall use TLS; plaintext protected communication is not permitted.</td></tr><tr><td>NFR-02</td><td>Security</td><td>Authorization</td><td>Protected operations shall be deny-by-default and checked server-side.</td></tr><tr><td>NFR-03</td><td>Security</td><td>Least privilege</td><td>IoT devices, API services and database identities shall receive only required permissions.</td></tr><tr><td>NFR-04</td><td>Security</td><td>Auditability</td><td>Security-sensitive operations shall be attributable to a user/device and timestamp.</td></tr><tr><td>NFR-05</td><td>Availability</td><td>Resilience</td><td>Health checks, bounded resources and rate limiting shall reduce abuse impact.</td></tr><tr><td>NFR-06</td><td>Performance</td><td>Responsiveness</td><td>Normal telemetry ingestion shall not materially block dashboard operations.</td></tr><tr><td>NFR-07</td><td>Reliability</td><td>Data integrity</td><td>Invalid telemetry shall not alter trusted operational state.</td></tr><tr><td>NFR-08</td><td>Maintainability</td><td>Modularity</td><td>Authentication, telemetry, route and audit responsibilities shall remain separable.</td></tr><tr><td>NFR-09</td><td>Scalability</td><td>Deployment</td><td>The application shall be suitable for containerized and horizontally deployable operation.</td></tr><tr><td>NFR-10</td><td>Portability</td><td>Laboratory</td><td>The system shall be reproducible in a local Docker/Minikube environment.</td></tr><tr><td>NFR-11</td><td>Usability</td><td>Administration</td><td>Status, alerts and errors shall be understandable without exposing sensitive implementation details.</td></tr><tr><td>NFR-12</td><td>Operability</td><td>Monitoring</td><td>Core security and availability indicators shall be observable through structured logs/metrics.</td></tr></tbody></table>
+  <h3>7.1 Priority interpretation</h3>
+  <p><strong>Critical</strong> means failure can directly compromise the core security or operational integrity of the platform. <strong>High</strong> means materially affects secure operation and should be present in the baseline implementation. <strong>Medium</strong> supports usability/operability but does not by itself determine trust of the core workflow.</p>
+</section>
+
+<section class="section" id="security">
+  <div class="kicker">Security baseline</div>
+  <h2>8. Security Requirements</h2>
+  <table><thead><tr><th>ID</th><th>Area</th><th>Requirement</th><th>Security property</th></tr></thead><tbody><tr><td>SEC-01</td><td>Device identity</td><td>Every smart bin shall have a unique device identity and an active/revoked lifecycle state.</td><td>Authentication / Integrity</td></tr><tr><td>SEC-02</td><td>Secure device transport</td><td>Telemetry shall use TLS-protected MQTT/HTTPS.</td><td>Confidentiality / Integrity</td></tr><tr><td>SEC-03</td><td>Device access control</td><td>A device shall be allowed to submit only the telemetry operation assigned to its identity.</td><td>Authorization</td></tr><tr><td>SEC-04</td><td>Telemetry validation</td><td>Server-side schema, type and range checks shall be mandatory.</td><td>Integrity</td></tr><tr><td>SEC-05</td><td>Location integrity</td><td>Latitude/longitude values shall be range-checked and evaluated for suspicious movement.</td><td>Integrity</td></tr><tr><td>SEC-06</td><td>Freshness / replay</td><td>Telemetry shall contain time/sequence information sufficient to detect stale or repeated messages where implemented.</td><td>Integrity</td></tr><tr><td>SEC-07</td><td>Route authorization</td><td>Only authorized administrators with route-management permission may modify routes.</td><td>Integrity / Authorization</td></tr><tr><td>SEC-08</td><td>Object-level authorization</td><td>The server shall validate access to the specific route resource, not only the user's role.</td><td>Authorization</td></tr><tr><td>SEC-09</td><td>API abuse protection</td><td>Authentication and abuse-prone endpoints shall use rate limiting and bounded request sizes.</td><td>Availability</td></tr><tr><td>SEC-10</td><td>Secret management</td><td>Passwords, API keys, device secrets and private keys shall not be hard-coded or logged.</td><td>Confidentiality</td></tr><tr><td>SEC-11</td><td>Audit</td><td>Route changes, privilege changes, authentication failures and suspicious device events shall be auditable.</td><td>Accountability</td></tr><tr><td>SEC-12</td><td>Database protection</td><td>Application access to PostgreSQL shall use least-privilege credentials and parameterized queries.</td><td>Confidentiality / Integrity</td></tr><tr><td>SEC-13</td><td>Runtime security</td><td>Application containers shall run without unnecessary privileges.</td><td>Defense in depth</td></tr><tr><td>SEC-14</td><td>Physical IoT security</td><td>The prototype controller and secure element shall be enclosed and provisioning access restricted.</td><td>Physical security</td></tr></tbody></table>
+  <h3>8.1 Authentication requirements</h3>
+  <ul>
+    <li>User authentication shall precede access to protected UI/API operations.</li>
+    <li>Smart-bin authentication shall precede accepted telemetry processing.</li>
+    <li>Authentication failures shall not reveal whether a credential or account exists beyond the minimum required response.</li>
+    <li>Device revocation shall be enforceable server-side.</li>
+  </ul>
+  <h3>8.2 Authorization requirements</h3>
+  <ul>
+    <li>Authorization shall be checked server-side on every protected operation.</li>
+    <li>Role checks shall be supplemented by object-level checks for specific routes and operational resources.</li>
+    <li>Drivers shall be denied route modification by default.</li>
+    <li>Security auditors shall have read-only access to audit evidence.</li>
+  </ul>
+  <h3>8.3 Audit requirements</h3>
+  <p>At minimum, the system shall audit successful and failed login attempts, device authentication failures, route creation/modification/cancellation, privilege changes, device revocation, significant telemetry anomalies and rate-limit/security events. Logs shall exclude passwords, raw access tokens and private keys.</p>
+</section>
+
+<section class="section" id="data">
+  <div class="kicker">Data requirements</div>
+  <h2>9. Data Requirements and Data Rules</h2>
+  <h3>9.1 Core data entities</h3>
+  <table><thead><tr><th>Entity</th><th>Purpose</th><th>Required data</th></tr></thead><tbody><tr><td>User</td><td>Identity and access control.</td><td>user_id, name, email, password_hash, role, status, timestamps.</td></tr><tr><td>Smart Bin</td><td>Device registry and nominal location.</td><td>bin_id, device_id, coordinates, status, device_status.</td></tr><tr><td>Telemetry</td><td>Measurements from a specific device at a point in time.</td><td>telemetry_id, bin_id, fill_level, temperature, latitude, longitude, sensor_status, timestamp, sequence/signature where implemented.</td></tr><tr><td>Vehicle</td><td>Collection resource.</td><td>vehicle_id, registration number, capacity, status.</td></tr><tr><td>Driver</td><td>Operational user resource.</td><td>driver_id, user_id, license number, status.</td></tr><tr><td>Route</td><td>Collection plan and lifecycle state.</td><td>route_id, created_by, vehicle_id, driver_id, route_status, route_version, timestamps.</td></tr><tr><td>Route Stop</td><td>Ordered bin stop within a route.</td><td>stop_id, route_id, bin_id, sequence_number, planned_time, collection_status.</td></tr><tr><td>Security Event</td><td>Security and administrative event record.</td><td>event_id, actor/device reference, event_type, severity, description, timestamp.</td></tr></tbody></table>
+  <h3>9.2 Data integrity rules</h3>
+  <ul>
+    <li>Primary keys and foreign keys shall preserve referential integrity.</li>
+    <li>Device IDs shall be unique within the platform.</li>
+    <li>Telemetry shall be validated before persistence into trusted operational state.</li>
+    <li>Route updates shall use version/state checks to reduce stale or illegal updates.</li>
+    <li>Database queries shall use parameterized access patterns / ORM controls.</li>
+  </ul>
+</section>
+
+<section class="section" id="business">
+  <div class="kicker">Operational rules</div>
+  <h2>10. Business and Operational Rules</h2>
+  <table><thead><tr><th>Rule</th><th>Business / security rule</th></tr></thead><tbody><tr><td>BR-01</td><td>Fill level must be between 0 and 100 percent before it is accepted as trusted operational data.</td></tr><tr><td>BR-02</td><td>Latitude must be within -90 to 90 degrees; longitude must be within -180 to 180 degrees.</td></tr><tr><td>BR-03</td><td>A revoked or disabled device cannot submit accepted telemetry.</td></tr><tr><td>BR-04</td><td>An authenticated driver cannot modify routes unless a separate explicit permission is granted; the default policy is deny.</td></tr><tr><td>BR-05</td><td>Route modifications must pass route-state validation and create an audit event.</td></tr><tr><td>BR-06</td><td>Security logs must not contain passwords, raw tokens or private keys.</td></tr><tr><td>BR-07</td><td>Suspicious but syntactically valid telemetry may be retained as an anomaly/security event but must not be blindly trusted by route optimization.</td></tr><tr><td>BR-08</td><td>A device can be taken out of service without deleting historical telemetry needed for audit or analysis.</td></tr></tbody></table>
+  <h3>10.1 Route decision policy</h3>
+  <p>The route engine shall use <strong>validated</strong> application data. Raw unvalidated sensor payloads shall not be passed directly to route optimization. A suspicious measurement may be retained as evidence, but the operational decision path shall follow the defined trust policy.</p>
+</section>
+
+<section class="section" id="constraints">
+  <div class="kicker">System boundaries</div>
+  <h2>11. Assumptions and Constraints</h2>
+  <h3>11.1 Assumptions</h3>
+  <ul>
+    <li>Smart bins have network connectivity sufficient to reach the secure telemetry endpoint.</li>
+    <li>Each device can maintain a unique identity/credential.</li>
+    <li>A route-optimization algorithm can operate on simulated or predefined coordinates in the laboratory.</li>
+    <li>Docker and a local Kubernetes distribution can be used for later deployment exercises.</li>
+  </ul>
+  <h3>11.2 Constraints</h3>
+  <ul>
+    <li>This SRS defines an academic laboratory system and does not claim production municipal deployment certification.</li>
+    <li>The exact hardware models are a proposed prototype baseline because the problem statement only specifies telemetry categories.</li>
+    <li>External mapping services are not assumed to be available; route optimization must have a laboratory fallback.</li>
+    <li>Real-world GPS spoofing cannot be fully eliminated through application software alone.</li>
+  </ul>
+  <h3>11.3 Out of scope</h3>
+  <ul>
+    <li>Manufacture and certification of municipal smart-bin hardware.</li>
+    <li>National-scale fleet management and production SLAs.</li>
+    <li>Autonomous vehicle control.</li>
+    <li>Government identity-provider integration.</li>
+  </ul>
+</section>
+
+<section class="section" id="priority">
+  <div class="kicker">Prioritization</div>
+  <h2>12. Requirement Prioritization</h2>
+  <table><thead><tr><th>Priority</th><th>Interpretation</th><th>Representative requirements</th></tr></thead><tbody><tr><td>Critical</td><td>Must be present for a secure, valid core workflow.</td><td>FR-01, FR-03, FR-04, FR-05, FR-08, FR-09, FR-13; SEC-01, SEC-04, SEC-05, SEC-07, SEC-08.</td></tr><tr><td>High</td><td>Required for complete and defensible secure operation.</td><td>FR-02, FR-06, FR-07, FR-10, FR-11, FR-12, FR-14, FR-15, FR-16, FR-18; most NFR/SEC requirements.</td></tr><tr><td>Medium</td><td>Supports operational quality and visibility.</td><td>FR-17; some monitoring/usability refinements.</td></tr></tbody></table>
+  <div class="callout ok"><strong>Security prioritization principle:</strong> authentication, authorization, telemetry integrity, route integrity, auditability and availability controls take priority over optional UI or convenience functionality.</div>
+</section>
+
+<section class="section" id="acceptance">
+  <div class="kicker">Verification baseline</div>
+  <h2>13. Acceptance Criteria</h2>
+  <table><thead><tr><th>ID</th><th>Area</th><th>Acceptance criterion</th></tr></thead><tbody><tr><td>AC-01</td><td>Authenticated user access</td><td>Valid Administrator/Driver can log in; invalid credentials are rejected safely.</td></tr><tr><td>AC-02</td><td>Device authentication</td><td>Registered active device is accepted; unknown/revoked device is rejected and logged.</td></tr><tr><td>AC-03</td><td>Telemetry validation</td><td>Malformed or out-of-range telemetry is rejected before it influences trusted state.</td></tr><tr><td>AC-04</td><td>Location integrity</td><td>Invalid coordinates are rejected; suspicious movement is flagged.</td></tr><tr><td>AC-05</td><td>Route authorization</td><td>Driver or unauthorized role attempting route modification receives 403 and causes no state change.</td></tr><tr><td>AC-06</td><td>Route auditability</td><td>Successful route modification creates an auditable event with actor/resource/time.</td></tr><tr><td>AC-07</td><td>Availability control</td><td>Excessive authentication/telemetry requests are rate-limited.</td></tr><tr><td>AC-08</td><td>Secret handling</td><td>No passwords/tokens/private keys are present in source or normal logs.</td></tr><tr><td>AC-09</td><td>Deployment security</td><td>Application can run in a non-root container and protected local Kubernetes environment.</td></tr></tbody></table>
+  <h3>13.1 Definition of done for a security-sensitive requirement</h3>
+  <ol>
+    <li>Requirement has an implementation location.</li>
+    <li>Positive and negative behaviour are defined.</li>
+    <li>At least one repeatable verification activity exists.</li>
+    <li>Security-relevant failures create the expected audit/security event where applicable.</li>
+    <li>No sensitive secret is exposed in the response or logs.</li>
+  </ol>
+</section>
+
+<section class="section" id="trace">
+  <div class="kicker">Traceability baseline</div>
+  <h2>14. Requirements Traceability Baseline</h2>
+  <table><thead><tr><th>Requirement / security control</th><th>Later artifact</th><th>Implementation target</th><th>Verification</th></tr></thead><tbody><tr><td>SEC-01 / SEC-03</td><td>Smart-bin device authentication</td><td>Device Service + Authentication</td><td>Valid/invalid/revoked device test</td></tr><tr><td>SEC-04</td><td>Telemetry validation</td><td>Telemetry Service</td><td>Unit + fuzz tests</td></tr><tr><td>SEC-05</td><td>Location integrity</td><td>Telemetry / anomaly logic</td><td>Invalid coordinate + movement anomaly tests</td></tr><tr><td>SEC-07 / SEC-08</td><td>Route authorization</td><td>Route Service + RBAC</td><td>Unauthorized role receives 403</td></tr><tr><td>SEC-09</td><td>API abuse protection</td><td>API Gateway / middleware</td><td>Rate-limit test</td></tr><tr><td>SEC-10</td><td>Secret management</td><td>Build + runtime configuration</td><td>Secret scan</td></tr><tr><td>SEC-11</td><td>Audit</td><td>Audit Service / security log</td><td>Sensitive-action audit test</td></tr><tr><td>SEC-12</td><td>Database security</td><td>Repository / DB role</td><td>Least-privilege review</td></tr></tbody></table>
+  <div class="callout"><strong>Traceability rule:</strong> The requirements in this SRS are the baseline for later UML, ER, DFD, trust-boundary, architecture, threat-model, attack-tree, backlog and testing activities. A later artifact must not introduce an unexplained security-sensitive concept that has no requirements basis.</div>
+</section>
+
+<section class="section" id="appendix">
+  <div class="kicker">Appendices</div>
+  <h2>Appendix A - Security Asset Classification</h2>
+  <table><thead><tr><th>ID</th><th>Asset</th><th>Confidentiality</th><th>Integrity</th><th>Availability</th><th>Reason</th></tr></thead><tbody><tr><td>A-01</td><td>User credentials</td><td>High</td><td>High</td><td>Medium</td><td>Account takeover can expose administrative functions.</td></tr><tr><td>A-02</td><td>Device credentials</td><td>High</td><td>Critical</td><td>High</td><td>Compromise can enable telemetry spoofing.</td></tr><tr><td>A-03</td><td>Bin telemetry</td><td>Medium</td><td>High</td><td>High</td><td>Corruption can affect operational decisions.</td></tr><tr><td>A-04</td><td>Bin location</td><td>High</td><td>Critical</td><td>High</td><td>Manipulation can route vehicles incorrectly.</td></tr><tr><td>A-05</td><td>Collection routes</td><td>High</td><td>Critical</td><td>High</td><td>Unauthorized changes directly affect operations.</td></tr><tr><td>A-06</td><td>Vehicle data</td><td>Medium</td><td>High</td><td>High</td><td>Incorrect assignments can disrupt collection.</td></tr><tr><td>A-07</td><td>Driver data</td><td>High</td><td>High</td><td>Medium</td><td>Contains identity and operational information.</td></tr><tr><td>A-08</td><td>Audit/security events</td><td>High</td><td>Critical</td><td>High</td><td>Evidence must remain trustworthy.</td></tr><tr><td>A-09</td><td>Application secrets</td><td>Critical</td><td>Critical</td><td>High</td><td>Exposure can compromise the platform.</td></tr><tr><td>A-10</td><td>Database</td><td>High</td><td>Critical</td><td>Critical</td><td>Central operational data store.</td></tr></tbody></table>
+  <h2>Appendix B - Requirement Review Checklist</h2>
+  <table><thead><tr><th>Check</th><th>Status / criterion</th></tr></thead><tbody><tr><td>Stakeholders identified</td><td>Administrator, Driver, System Operator, Security Auditor, Smart Bin, Faculty/Evaluator.</td></tr><tr><td>Functional requirements</td><td>FR-01 to FR-18.</td></tr><tr><td>Non-functional requirements</td><td>NFR-01 to NFR-12.</td></tr><tr><td>Security requirements</td><td>SEC-01 to SEC-14.</td></tr><tr><td>Prioritization</td><td>Critical / High / Medium defined.</td></tr><tr><td>CIA classification</td><td>10 core assets classified.</td></tr><tr><td>Authentication</td><td>User + device authentication specified.</td></tr><tr><td>Authorization</td><td>RBAC + object-level authorization specified.</td></tr><tr><td>Audit</td><td>Security-sensitive event requirements specified.</td></tr><tr><td>IoT hardware</td><td>Proposed laboratory hardware and interfaces specified.</td></tr><tr><td>Acceptance criteria</td><td>AC-01 to AC-09 defined.</td></tr><tr><td>Traceability</td><td>Security requirements mapped to implementation and verification targets.</td></tr></tbody></table>
+  <h2>Appendix C - Document Control</h2>
+  <table><thead><tr><th>Version</th><th>Date</th><th>Status</th><th>Change</th></tr></thead><tbody><tr><td>0.1</td><td>08 October 2026</td><td>Draft</td><td>Initial requirements baseline.</td></tr><tr><td>1.0</td><td>08 October 2026</td><td>Baseline</td><td>Professional SRS including proposed IoT hardware/device requirements, CIA, authentication, authorization, audit and acceptance criteria.</td></tr></tbody></table>
+  <h2>References and Source Basis</h2>
+  <ol>
+    <li>24CYS401 Secure Software Engineering End Semester Laboratory Examination - supplied course instructions.</li>
+    <li>Secure Digital Voting System Capstone Report - supplied academic reference report; structure used as a presentation/reference model.</li>
+    <li>OWASP Foundation - OWASP Top 10 and OWASP API Security Top 10.</li>
+    <li>NIST SP 800-218 - Secure Software Development Framework (SSDF).</li>
+    <li>NIST SP 800-207 - Zero Trust Architecture.</li>
+  </ol>
+  <div class="callout warn"><strong>Integrity note:</strong> Hardware part numbers in Section 5 are explicitly labeled as a proposed laboratory prototype because the supplied Smart Waste problem statement specifies telemetry functions, not a mandated bill of materials. Live Jira metrics, executed test results and deployment evidence are intentionally not presented as completed facts in this SRS.</div>
+</section>
+
+</div>
+</body>
+</html>
