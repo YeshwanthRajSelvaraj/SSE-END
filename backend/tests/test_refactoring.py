@@ -9,8 +9,13 @@ import hmac
 import hashlib
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from backend.refactoring.before_vulnerable import ingest_telemetry_vulnerable
-from backend.refactoring.after_secured import ingest_telemetry_secured
+try:
+    from backend.refactoring.before_vulnerable import ingest_telemetry_vulnerable
+    from backend.refactoring.after_secured import ingest_telemetry_secured
+except (ModuleNotFoundError, ImportError):
+    from refactoring.before_vulnerable import ingest_telemetry_vulnerable
+    from refactoring.after_secured import ingest_telemetry_secured
+
 from app.models import Base, SmartBin, SensorReading, AuditLog, AuditAction
 
 TEST_DB_FILE = "test_refactoring.db"
@@ -62,7 +67,7 @@ def test_vulnerable_accepts_arbitrary_unauthenticated_data():
     Any caller without credentials or cryptographic signature can invoke the function.
     """
     # Create isolated sqlite file for vulnerable module test
-    vuln_db = "waste_management.db"
+    vuln_db = "test_vuln_temp.db"
     conn = sqlite3.connect(vuln_db)
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS sensor_readings (id INTEGER PRIMARY KEY, bin_id TEXT, fill_level REAL, temperature REAL)")
@@ -72,21 +77,42 @@ def test_vulnerable_accepts_arbitrary_unauthenticated_data():
     result = ingest_telemetry_vulnerable(
         bin_id="FAKE-UNAUTHORIZED-BIN",
         fill_level=99.9,
-        temperature=25.0
+        temperature=25.0,
+        db_path=vuln_db
     )
     assert result == "Data inserted successfully"
+
+    if os.path.exists(vuln_db):
+        try:
+            os.remove(vuln_db)
+        except OSError:
+            pass
 
 def test_vulnerable_lacks_input_validation():
     """
     Weakness 2: Missing Input Validation & Bounds Checking (CWE-20).
     Physically impossible values (negative fill level, 99999C temperature) are accepted without warning.
     """
+    vuln_db = "test_vuln_temp.db"
+    conn = sqlite3.connect(vuln_db)
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE IF NOT EXISTS sensor_readings (id INTEGER PRIMARY KEY, bin_id TEXT, fill_level REAL, temperature REAL)")
+    conn.commit()
+    conn.close()
+
     result = ingest_telemetry_vulnerable(
         bin_id="BIN-BAD-VAL",
         fill_level=-500.0,
-        temperature=99999.0
+        temperature=99999.0,
+        db_path=vuln_db
     )
     assert result == "Data inserted successfully"
+
+    if os.path.exists(vuln_db):
+        try:
+            os.remove(vuln_db)
+        except OSError:
+            pass
 
 def test_vulnerable_susceptible_to_sql_injection():
     """

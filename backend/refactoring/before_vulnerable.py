@@ -8,11 +8,11 @@ Security Weaknesses:
 """
 import sqlite3
 
-def ingest_telemetry_vulnerable(bin_id, fill_level, temperature):
+def ingest_telemetry_vulnerable(bin_id, fill_level, temperature, db_path="waste_management.db"):
     # 1. No auth check! Anyone calling this function can inject data.
     
     # 2. SQL Injection vulnerability
-    conn = sqlite3.connect('waste_management.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     query = f"INSERT INTO sensor_readings (bin_id, fill_level, temperature) VALUES ('{bin_id}', {fill_level}, {temperature})"
