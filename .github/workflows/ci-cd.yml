@@ -22,6 +22,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r backend/requirements.txt
 
+    - name: Secret Scanning (No Hardcoded Secrets)
+      run: |
+        python scripts/scan_secrets.py
+
     - name: SAST Scanning (Bandit)
       run: |
         bandit -r backend/app -ll
@@ -56,3 +60,16 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
+
+    - name: Package & Archive Deployment Bundle
+      run: |
+        mkdir -p dist
+        docker save smart-waste-backend:latest | gzip > dist/smart-waste-backend-latest.tar.gz
+        cp -r k8s dist/
+
+    - name: Upload Deployment Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: production-deployment-bundle
+        path: dist/
+
