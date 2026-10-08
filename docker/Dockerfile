@@ -2,10 +2,10 @@
 # Multi-stage secure Dockerfile
 
 # Build stage
-FROM python:3.12-slim as builder
+FROM python:3.12-slim AS builder
 
 WORKDIR /app
-COPY requirements.txt .
+COPY backend/requirements.txt ./requirements.txt
 
 # Install dependencies into a virtual environment
 RUN python -m venv /opt/venv
@@ -26,7 +26,7 @@ COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Copy application code
-COPY ./app ./app
+COPY backend/app ./app
 # Ensure database directory is writable by non-root user
 RUN mkdir -p /app/data && chown -R appuser:appgroup /app/data
 ENV DATABASE_URL="sqlite:////app/data/waste_management.db"
