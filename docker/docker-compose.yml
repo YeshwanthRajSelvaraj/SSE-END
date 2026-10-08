@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile
+    image: smart-waste-backend:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=Smart Waste Management System
+      - SECRET_KEY=compose_secret_key_change_in_prod
+      - HMAC_SECRET=compose_hmac_secret
+      - LOG_LEVEL=INFO
+    volumes:
+      - waste_data:/app/data
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+    mem_limit: 512m
+    cpus: 1.0
+
+volumes:
+  waste_data:

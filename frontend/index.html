@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSmart Enterprise | Autonomous Waste Management & IoT Security</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Leaflet Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Enterprise Sidebar -->
+    <aside class="sidebar">
+        <div class="brand-wrapper">
+            <div class="brand-icon">
+                <!-- Leaf / Cycle Symbol -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                </svg>
+            </div>
+            <div class="brand-info">
+                <span class="brand-title">EcoSmart</span>
+                <span class="brand-badge">Enterprise Cloud</span>
+            </div>
+        </div>
+
+        <div class="nav-section-title">Operations Console</div>
+        <ul class="nav-links">
+            <li class="active" id="nav-dashboard">
+                <a href="javascript:void(0)" onclick="showSection('dashboard')">
+                    <span class="nav-icon">
+                        <!-- Dashboard Grid Symbol -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="9" x="3" y="3" rx="1"/>
+                            <rect width="7" height="5" x="14" y="3" rx="1"/>
+                            <rect width="7" height="9" x="14" y="12" rx="1"/>
+                            <rect width="7" height="5" x="3" y="16" rx="1"/>
+                        </svg>
+                    </span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li id="nav-map">
+                <a href="javascript:void(0)" onclick="showSection('map-section')">
+                    <span class="nav-icon">
+                        <!-- Map Location Symbol -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+                            <line x1="9" x2="9" y1="3" y2="18"/>
+                            <line x1="15" x2="15" y1="6" y2="21"/>
+                        </svg>
+                    </span>
+                    <span>Live Telemetry Map</span>
+                    <span class="nav-pill-count" id="nav-bin-count">6 Bins</span>
+                </a>
+            </li>
+            <li id="nav-routes">
+                <a href="javascript:void(0)" onclick="showSection('routes')">
+                    <span class="nav-icon">
+                        <!-- Route / Truck Symbol -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+                            <path d="M15 18H9"/>
+                            <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
+                            <circle cx="17" cy="18" r="2"/>
+                            <circle cx="7" cy="18" r="2"/>
+                        </svg>
+                    </span>
+                    <span>Optimized Routes</span>
+                    <span class="nav-pill-count">TSP Active</span>
+                </a>
+            </li>
+            <li id="nav-security">
+                <a href="javascript:void(0)" onclick="showSection('security')">
+                    <span class="nav-icon">
+                        <!-- Shield Security Symbol -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                            <path d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </span>
+                    <span>Intrusion Logs</span>
+                    <span class="nav-pill-danger" id="nav-alert-count">3 Alerts</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="compliance-status">
+                <div class="compliance-dot"></div>
+                <div class="compliance-text">HMAC SHA-256 Validated</div>
+            </div>
+            <div style="position: relative;">
+                <!-- Profile Switcher Dropdown Menu -->
+                <div class="profile-dropdown-menu" id="profile-dropdown">
+                    <div class="profile-menu-header">Switch Active Role</div>
+                    
+                    <div class="profile-option active" id="prof-admin" onclick="switchProfile('admin')">
+                        <div class="profile-option-avatar" style="background: linear-gradient(135deg, #047857 0%, #064e3b 100%);">AD</div>
+                        <div class="profile-option-details">
+                            <span class="profile-option-name">System Administrator</span>
+                            <span class="profile-option-desc">Super Admin &bull; Full Access</span>
+                        </div>
+                        <svg class="profile-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+
+                    <div class="profile-option" id="prof-operator" onclick="switchProfile('operator')">
+                        <div class="profile-option-avatar" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">OD</div>
+                        <div class="profile-option-details">
+                            <span class="profile-option-name">Operations Dispatcher</span>
+                            <span class="profile-option-desc">Fleet Dispatch &bull; Zone A/B</span>
+                        </div>
+                        <svg class="profile-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+
+                    <div class="profile-option" id="prof-driver" onclick="switchProfile('driver')">
+                        <div class="profile-option-avatar" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">RK</div>
+                        <div class="profile-option-details">
+                            <span class="profile-option-name">Rajesh Kumar (Driver)</span>
+                            <span class="profile-option-desc">Vehicle TRUCK-01 &bull; Active</span>
+                        </div>
+                        <svg class="profile-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+
+                    <div class="profile-option" id="prof-viewer" onclick="switchProfile('viewer')">
+                        <div class="profile-option-avatar" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);">EA</div>
+                        <div class="profile-option-details">
+                            <span class="profile-option-name">ESG Compliance Auditor</span>
+                            <span class="profile-option-desc">Read-Only &bull; Metrics & Logs</span>
+                        </div>
+                        <svg class="profile-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Active Profile Card (Click to open menu) -->
+                <div class="user-profile" id="user-profile-card" onclick="toggleProfileDropdown()" title="Click to switch active role">
+                    <div class="user-avatar" id="current-user-avatar">AD</div>
+                    <div class="user-details">
+                        <span class="user-name" id="current-user-name">System Administrator</span>
+                        <span class="user-role" id="current-user-role">Super Admin &bull; Full Access</span>
+                    </div>
+                    <svg class="profile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+        <!-- Top Enterprise Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <div class="breadcrumbs">
+                    <span>Enterprise Network</span>
+                    <span class="breadcrumb-sep">/</span>
+                    <span>South Sector (Chennai Metro)</span>
+                    <span class="breadcrumb-sep">/</span>
+                    <span style="color: var(--primary-700); font-weight: 600;">Real-Time Operations</span>
+                </div>
+                <div class="header-title-row">
+                    <h1 class="header-title" id="page-heading">Operations Command Center</h1>
+                    <div class="live-indicator">
+                        <div class="pulse-dot"></div>
+                        <span>GATEWAY OPERATIONAL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="timestamp-clock">
+                    <!-- Clock Symbol -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <span id="live-clock">10:45:00 UTC</span>
+                </div>
+                <button class="btn btn-outline" onclick="syncLiveTelemetry()">
+                    <!-- Sync Symbol -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                        <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                        <path d="M16 21h5v-5"/>
+                    </svg>
+                    <span>Refresh</span>
+                </button>
+                <button class="btn btn-primary" onclick="optimizeRoutes()">
+                    <!-- Spark / Zap Symbol -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    <span>Run Route Optimizer</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Body Content -->
+        <main class="content-body">
+            <!-- SECTION 1: DASHBOARD -->
+            <section id="dashboard" class="view-section active">
+                <!-- Interactive IoT Simulator Testing Strip -->
+                <div class="quick-action-strip">
+                    <div class="strip-left">
+                        <div class="strip-icon">
+                            <!-- Signal Transmit Symbol -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12h2"/>
+                                <path d="M20 12h2"/>
+                                <path d="m4.93 4.93 1.41 1.41"/>
+                                <path d="m17.66 17.66 1.41 1.41"/>
+                                <path d="M12 2v2"/>
+                                <path d="M12 20v2"/>
+                                <circle cx="12" cy="12" r="4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="strip-title">IoT Telemetry & Security Verification Strip</div>
+                            <div class="strip-desc">Trigger real-time telemetry packets directly against the FastAPI HMAC anti-spoofing gateway</div>
+                        </div>
+                    </div>
+                    <div class="strip-buttons">
+                        <button class="btn btn-outline" onclick="triggerTestTelemetry('valid')">
+                            <!-- Check Symbol -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Transmit Valid (HMAC)</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="triggerTestTelemetry('spoofed')">
+                            <!-- Shield Alert Symbol -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" x2="12" y1="8" y2="12"/>
+                                <line x1="12" x2="12.01" y1="16" y2="16"/>
+                            </svg>
+                            <span>Inject Spoofed Hash</span>
+                        </button>
+                        <button class="btn btn-danger" onclick="triggerTestTelemetry('geofence')">
+                            <!-- Map Pin Alert Symbol -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" x2="6" y1="6" y2="18"/>
+                                <line x1="6" x2="18" y1="6" y2="18"/>
+                            </svg>
+                            <span>Inject Geofence Breach</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPI Metric Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Active Smart Bins</span>
+                            <div class="stat-icon-wrapper">
+                                <!-- Trash Bin Symbol -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6h18"/>
+                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="kpi-total-bins">142</div>
+                        <div class="stat-footer">
+                            <span class="trend-badge positive">
+                                <!-- Trending Up Symbol -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                                    <polyline points="16 7 22 7 22 13"/>
+                                </svg>
+                                <span>+12.4%</span>
+                            </span>
+                            <span class="trend-caption">vs past billing cycle</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Critical Fill (&gt;80%)</span>
+                            <div class="stat-icon-wrapper" style="background: var(--accent-warning-bg); border-color: var(--accent-warning-border); color: var(--accent-warning-text);">
+                                <!-- Alert Triangle Symbol -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                                    <line x1="12" x2="12" y1="9" y2="13"/>
+                                    <line x1="12" x2="12.01" y1="17" y2="17"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-value warning" id="kpi-critical-bins">28</div>
+                        <div class="stat-footer">
+                            <span class="trend-badge warning">
+                                <span>Immediate Dispatch</span>
+                            </span>
+                            <span class="trend-caption">3 clusters priority</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Fleet Vehicles</span>
+                            <div class="stat-icon-wrapper">
+                                <!-- Truck Symbol -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+                                    <path d="M15 18H9"/>
+                                    <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
+                                    <circle cx="17" cy="18" r="2"/>
+                                    <circle cx="7" cy="18" r="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="kpi-vehicles">15 / 20</div>
+                        <div class="stat-footer">
+                            <span class="trend-badge positive">
+                                <span>5 Ready</span>
+                            </span>
+                            <span class="trend-caption">Electric & CNG fleet</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Security Incidents</span>
+                            <div class="stat-icon-wrapper" style="background: var(--accent-danger-bg); border-color: var(--accent-danger-border); color: var(--accent-danger-text);">
+                                <!-- Shield Alert Symbol -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                                    <line x1="12" x2="12" y1="8" y2="12"/>
+                                    <line x1="12" x2="12.01" y1="16" y2="16"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-value danger" id="kpi-alerts">3</div>
+                        <div class="stat-footer">
+                            <span class="trend-badge negative">
+                                <span>Mitigated</span>
+                            </span>
+                            <span class="trend-caption">HMAC & Geofence blocks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enterprise Charts -->
+                <div class="charts-grid">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="panel-title-group">
+                                <div class="panel-title-icon">
+                                    <!-- Activity Wave Symbol -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="panel-title">Average Bin Fill Level Trajectory</div>
+                                    <div class="panel-subtitle">Hourly sensor aggregation across metropolitan zones</div>
+                                </div>
+                            </div>
+                            <span class="badge-chip badge-success">Telemetry Stream Active</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="chart-wrapper">
+                                <canvas id="fillChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="panel-title-group">
+                                <div class="panel-title-icon">
+                                    <!-- Pie Chart Symbol -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                                        <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="panel-title">Route Efficiency</div>
+                                    <div class="panel-subtitle">Current collection cycle ratio</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="chart-wrapper">
+                                <canvas id="effChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: LIVE TELEMETRY MAP -->
+            <section id="map-section" class="view-section">
+                <div class="map-view-container">
+                    <div class="map-control-bar">
+                        <div class="map-filters">
+                            <span class="filter-chip active" onclick="filterMapMarkers('all')">All Nodes (6)</span>
+                            <span class="filter-chip" onclick="filterMapMarkers('critical')">Critical (&gt;80%)</span>
+                            <span class="filter-chip" onclick="filterMapMarkers('normal')">Normal (&lt;80%)</span>
+                            <span class="filter-chip" onclick="filterMapMarkers('compromised')">Compromised / Quarantined</span>
+                        </div>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <span style="font-size: 0.75rem; color: var(--primary-700); font-weight: 600; background: var(--primary-50); padding: 4px 8px; border-radius: var(--radius-sm); border: 1px solid var(--primary-200);">Tile Provider: OpenStreetMap (Zero API Key)</span>
+                            <button class="btn btn-outline" style="padding: 6px 12px;" onclick="map.setView([13.0827, 80.2707], 13)">
+                                <!-- Crosshair Symbol -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="22" x2="18" y1="12" y2="12"/>
+                                    <line x1="6" x2="2" y1="12" y2="12"/>
+                                    <line x1="12" x2="12" y1="6" y2="2"/>
+                                    <line x1="12" x2="12" y1="22" y2="18"/>
+                                </svg>
+                                <span>Recenter</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="map-wrapper" id="map"></div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: OPTIMIZED ROUTES -->
+            <section id="routes" class="view-section">
+                <div class="panel-card" style="margin-bottom: 24px;">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <div class="panel-title-icon">
+                                <!-- Route Navigation Symbol -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="6" cy="19" r="3"/>
+                                    <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/>
+                                    <circle cx="18" cy="5" r="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="panel-title">Autonomous Route Optimization Engine</div>
+                                <div class="panel-subtitle">Greedy Traveling Salesperson (TSP) heuristic computed against threshold bins</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="optimizeRoutes()">
+                            <!-- Zap Symbol -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                            <span>Re-Compute Routes</span>
+                        </button>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="stats-grid" style="margin-bottom: 20px;">
+                            <div class="stat-card" style="box-shadow: none; border-color: var(--border-light);">
+                                <div class="stat-title">Active Dispatches</div>
+                                <div class="stat-value" id="active-routes-count">2</div>
+                                <div class="stat-footer"><span class="trend-badge positive">All Zones Online</span></div>
+                            </div>
+                            <div class="stat-card" style="box-shadow: none; border-color: var(--border-light);">
+                                <div class="stat-title">Cumulative Distance</div>
+                                <div class="stat-value">14.2 km</div>
+                                <div class="stat-footer"><span class="trend-badge positive">-24% Fuel Delta</span></div>
+                            </div>
+                            <div class="stat-card" style="box-shadow: none; border-color: var(--border-light);">
+                                <div class="stat-title">Collection Rate</div>
+                                <div class="stat-value" style="color: var(--primary-700);">78.4%</div>
+                                <div class="stat-footer"><span class="trend-badge positive">Optimal Window</span></div>
+                            </div>
+                            <div class="stat-card" style="box-shadow: none; border-color: var(--border-light);">
+                                <div class="stat-title">Carbon Offset</div>
+                                <div class="stat-value" style="color: var(--primary-600);">48.2 kg</div>
+                                <div class="stat-footer"><span class="trend-badge positive">Green Certified</span></div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="enterprise-table">
+                                <thead>
+                                    <tr>
+                                        <th>Route Identifier</th>
+                                        <th>Zone</th>
+                                        <th>Vehicle Assigned</th>
+                                        <th>Driver</th>
+                                        <th>Execution Status</th>
+                                        <th>Capacity Progress</th>
+                                        <th>Waypoints Order</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="routes-table-body">
+                                    <tr>
+                                        <td><strong>Morning Zone A Priority</strong></td>
+                                        <td><span class="badge-chip badge-info">Zone A</span></td>
+                                        <td><strong>TRUCK-01</strong> (Compactor)</td>
+                                        <td>Rajesh Kumar</td>
+                                        <td><span class="badge-chip badge-warning">In Progress</span></td>
+                                        <td>
+                                            <div class="progress-bar-container"><div class="progress-fill warning" style="width: 75%;"></div></div>
+                                            <span class="font-mono-data">75%</span>
+                                        </td>
+                                        <td class="font-mono-data">BIN-002 &rarr; BIN-001 &rarr; BIN-004</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Afternoon Zone B Regular</strong></td>
+                                        <td><span class="badge-chip badge-info">Zone B</span></td>
+                                        <td><strong>TRUCK-02</strong> (Tipper)</td>
+                                        <td>Suresh Babu</td>
+                                        <td><span class="badge-chip badge-success">Scheduled</span></td>
+                                        <td>
+                                            <div class="progress-bar-container"><div class="progress-fill" style="width: 45%;"></div></div>
+                                            <span class="font-mono-data">45%</span>
+                                        </td>
+                                        <td class="font-mono-data">BIN-003 &rarr; BIN-005</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: SECURITY & INTRUSION LOGS -->
+            <section id="security" class="view-section">
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <div class="panel-title-icon" style="background: var(--accent-danger-bg); color: var(--accent-danger-text);">
+                                <!-- Shield Alert Symbol -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                                    <path d="m9 12 2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="panel-title">Intrusion Detection & Security Audit Console</div>
+                                <div class="panel-subtitle">Hardware-level HMAC-SHA256 signature verification & physical geofence bounds monitor</div>
+                            </div>
+                        </div>
+                        <span class="badge-chip badge-danger" id="security-active-alerts-badge">3 High Severity Anomalies</span>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="enterprise-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Event Classification</th>
+                                        <th>Resource Target</th>
+                                        <th>Origin Host / IP</th>
+                                        <th>Severity Level</th>
+                                        <th>Cryptographic Incident Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="audit-logs">
+                                    <tr>
+                                        <td class="font-mono-data">2026-10-08 10:14:22</td>
+                                        <td><strong style="color: var(--accent-danger-text);">SPOOFING_DETECTED</strong></td>
+                                        <td><span class="badge-chip badge-purple">BIN-001</span></td>
+                                        <td class="font-mono-data">192.168.1.105</td>
+                                        <td><span class="badge-chip badge-danger">CRITICAL</span></td>
+                                        <td>Invalid HMAC-SHA256 signature. Ingestion pipeline terminated.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-mono-data">2026-10-08 09:42:10</td>
+                                        <td><strong style="color: var(--accent-warning-text);">LOCATION_ANOMALY</strong></td>
+                                        <td><span class="badge-chip badge-purple">BIN-003</span></td>
+                                        <td class="font-mono-data">192.168.1.106</td>
+                                        <td><span class="badge-chip badge-warning">HIGH</span></td>
+                                        <td>Geofence breach: Coordinates deviated by &gt; 50 meters from registered GIS anchor.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-mono-data">2026-10-08 08:30:00</td>
+                                        <td><strong style="color: var(--primary-700);">ROUTE_CREATED</strong></td>
+                                        <td><span class="badge-chip badge-info">Route_Zone_A</span></td>
+                                        <td class="font-mono-data">127.0.0.1</td>
+                                        <td><span class="badge-chip badge-success">INFO</span></td>
+                                        <td>Autonomous TSP algorithm dispatched Morning Priority Route.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-mono-data">2026-10-08 08:00:15</td>
+                                        <td><strong style="color: var(--primary-700);">ADMIN_LOGIN</strong></td>
+                                        <td><span class="badge-chip badge-info">admin</span></td>
+                                        <td class="font-mono-data">127.0.0.1</td>
+                                        <td><span class="badge-chip badge-success">INFO</span></td>
+                                        <td>Encrypted session established with role `admin`.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Live Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
