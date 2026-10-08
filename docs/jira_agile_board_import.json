@@ -1,0 +1,146 @@
+{
+  "project": {
+    "key": "ECO",
+    "name": "EcoSmart Autonomous Waste Management & IoT Security",
+    "projectTypeKey": "software",
+    "projectTemplateKey": "com.pyxis.greenhopper.jira:gh-simplified-agility-scrum"
+  },
+  "sprints": [
+    {
+      "name": "Sprint 1: IoT Gateway Hardening & Cryptographic Pipeline",
+      "goal": "Deliver authenticated HMAC-SHA256 ingestion, geofencing bounds check, and automated CI/CD security gate.",
+      "state": "closed",
+      "startDate": "2026-09-15T09:00:00Z",
+      "endDate": "2026-09-29T18:00:00Z"
+    },
+    {
+      "name": "Sprint 2: Autonomous TSP Route Engine & Driver Manifest",
+      "goal": "Implement real geodesic Nearest-Neighbor TSP optimization, map polyline visualization, and interactive Driver Waypoint checklist.",
+      "state": "active",
+      "startDate": "2026-09-29T09:00:00Z",
+      "endDate": "2026-10-13T18:00:00Z"
+    },
+    {
+      "name": "Sprint 3: Enterprise RBAC Isolation & Security Gateway Lab",
+      "goal": "Enforce strict profile boundaries (Driver isolated from security logs), add dedicated Security Gateway Lab tab, and package Kubernetes manifests.",
+      "state": "future",
+      "startDate": "2026-10-13T09:00:00Z",
+      "endDate": "2026-10-27T18:00:00Z"
+    }
+  ],
+  "epics": [
+    {
+      "key": "ECO-EPIC-1",
+      "name": "Cryptographic Anti-Spoofing & Gateway Integrity",
+      "summary": "Hardware-level HMAC-SHA256 signing, anti-replay nonces, and physical geofence validation"
+    },
+    {
+      "key": "ECO-EPIC-2",
+      "name": "Autonomous Route Optimization & Fleet Logistics",
+      "summary": "Traveling Salesperson Problem (TSP) heuristic, vehicle allocation, and driver collection checklists"
+    },
+    {
+      "key": "ECO-EPIC-3",
+      "name": "Role-Based Access Control (RBAC) & Boundary Isolation",
+      "summary": "Least-privilege operational isolation between field truck drivers and SOC security analysts"
+    },
+    {
+      "key": "ECO-EPIC-4",
+      "name": "DevSecOps Pipeline & Infrastructure Orchestration",
+      "summary": "Automated SAST scanning, container vulnerability verification, and Kubernetes production rollout"
+    }
+  ],
+  "issues": [
+    {
+      "issueType": "Story",
+      "key": "ECO-101",
+      "epicKey": "ECO-EPIC-1",
+      "sprint": "Sprint 1: IoT Gateway Hardening & Cryptographic Pipeline",
+      "summary": "Implement HMAC-SHA256 Telemetry Signature Ingestion Pipeline",
+      "priority": "Highest",
+      "storyPoints": 8,
+      "assignee": "Backend Security Engineer",
+      "description": "As a Security Operations Center Analyst, I want all incoming smart bin telemetry to be verified with HMAC-SHA256 using edge hardware device keys so that adversaries cannot spoof false fill levels.",
+      "acceptanceCriteria": "Given a telemetry packet with valid HMAC signature\nWhen it hits POST /api/iot/telemetry\nThen the gateway responds with HTTP 201 Created and saves reading.\n\nGiven a packet with tampered payload or forged signature\nWhen it hits POST /api/iot/telemetry\nThen the gateway responds with HTTP 400 Bad Request, marks node as COMPROMISED, and logs a CRITICAL audit event.",
+      "status": "Done"
+    },
+    {
+      "issueType": "Story",
+      "key": "ECO-102",
+      "epicKey": "ECO-EPIC-1",
+      "sprint": "Sprint 1: IoT Gateway Hardening & Cryptographic Pipeline",
+      "summary": "GIS Geofence Anomaly Detection Tripwire (50m Boundary)",
+      "priority": "High",
+      "storyPoints": 5,
+      "assignee": "GIS Engineer",
+      "description": "As an Operations Dispatcher, I want reported bin coordinates to be verified against registered GPS anchors using geodesic calculation so that physically relocated or GPS-spoofed nodes are instantly detected.",
+      "acceptanceCriteria": "Given reported coordinates deviating > 50 meters from registered anchor\nWhen telemetry is ingested\nThen the gateway rejects the packet with HTTP 400 and logs LOCATION_ANOMALY with HIGH severity.",
+      "status": "Done"
+    },
+    {
+      "issueType": "Story",
+      "key": "ECO-201",
+      "epicKey": "ECO-EPIC-2",
+      "sprint": "Sprint 2: Autonomous TSP Route Engine & Driver Manifest",
+      "summary": "Greedy Nearest-Neighbor TSP Route Optimization Engine",
+      "priority": "High",
+      "storyPoints": 8,
+      "assignee": "Full-Stack Logistics Developer",
+      "description": "As a Municipal Fleet Dispatcher, I want an autonomous optimization algorithm to calculate the shortest round-trip path from Chennai Central Depot visiting all high-fill bins so that fuel and drive time are minimized.",
+      "acceptanceCriteria": "Given a set of bins with fill >= threshold\nWhen route optimizer is triggered\nThen it starts at Depot [13.0827, 80.2707], greedily visits the nearest unvisited node, returns to Depot, and outputs cumulative distance, duration, and carbon savings.",
+      "status": "Done"
+    },
+    {
+      "issueType": "Story",
+      "key": "ECO-202",
+      "epicKey": "ECO-EPIC-2",
+      "sprint": "Sprint 2: Autonomous TSP Route Engine & Driver Manifest",
+      "summary": "Interactive Field Driver Waypoint Manifest & Collection Checklist",
+      "priority": "High",
+      "storyPoints": 5,
+      "assignee": "Frontend Engineer",
+      "description": "As a Field Truck Driver (Rajesh Kumar), I want a turn-by-turn waypoint manifest where I can click [Mark Collected] at each bin so that progress is tracked and bin telemetry resets in real time.",
+      "acceptanceCriteria": "Given an active dispatched route\nWhen the driver clicks [Mark Collected] on a stop\nThen bin fill resets to 0%, stop is marked with a checkmark badge, and the route progress bar increments towards 100%.",
+      "status": "Done"
+    },
+    {
+      "issueType": "Story",
+      "key": "ECO-301",
+      "epicKey": "ECO-EPIC-3",
+      "sprint": "Sprint 3: Enterprise RBAC Isolation & Security Gateway Lab",
+      "summary": "Strict Profile RBAC Isolation: Driver vs Security Analyst Partitioning",
+      "priority": "Highest",
+      "storyPoints": 5,
+      "assignee": "Frontend & Security Engineer",
+      "description": "As a Chief Information Security Officer, I want field drivers to be strictly partitioned to their route manifest without access to intrusion logs, while security analysts have access to threat logs and gateway testing.",
+      "acceptanceCriteria": "Given active profile is 'Rajesh Kumar (Field Driver)'\nWhen navigating the sidebar\nThen Intrusion Logs and Security Gateway Lab are hidden, and unauthorized access attempts trigger the Access Control Barrier.\n\nGiven active profile is 'SOC Security Analyst'\nWhen inspecting the sidebar\nThen Intrusion Logs and Security Gateway Lab are visible, and Route Dispatching is hidden.",
+      "status": "Done"
+    },
+    {
+      "issueType": "Story",
+      "key": "ECO-302",
+      "epicKey": "ECO-EPIC-3",
+      "sprint": "Sprint 3: Enterprise RBAC Isolation & Security Gateway Lab",
+      "summary": "Dedicated Left Sidebar Tab: Security Gateway & Attack Lab",
+      "priority": "Medium",
+      "storyPoints": 5,
+      "assignee": "Full-Stack Security Developer",
+      "description": "As a Security Analyst, I want a dedicated left sidebar lab below Intrusion Logs to simulate valid HMAC packets, inject spoofed hashes, and test geofence violations with a live monospace terminal.",
+      "acceptanceCriteria": "Given the user navigates to the 'Security Gateway Lab' tab\nWhen clicking 'Inject Spoofed Hash'\nThen the terminal displays payload and HMAC mismatch in red, and a critical incident is added to Intrusion Logs.",
+      "status": "Done"
+    },
+    {
+      "issueType": "Task",
+      "key": "ECO-401",
+      "epicKey": "ECO-EPIC-4",
+      "sprint": "Sprint 1: IoT Gateway Hardening & Cryptographic Pipeline",
+      "summary": "GitHub Actions CI/CD Pipeline with Automated SAST & Container Scanning",
+      "priority": "High",
+      "storyPoints": 3,
+      "assignee": "DevSecOps Engineer",
+      "description": "As a Release Manager, I want every git push to run automated unit tests, Bandit SAST security scans, and Trivy container vulnerability audits before merge.",
+      "acceptanceCriteria": "Given code pushed to main\nWhen GitHub Actions runs\nThen test-and-scan and build-container jobs must pass 100% green without critical vulnerabilities.",
+      "status": "Done"
+    }
+  ]
+}
