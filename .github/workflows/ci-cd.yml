@@ -37,9 +37,9 @@ jobs:
 
     - name: Security Fuzz Testing
       run: |
-        PYTHONPATH=backend uvicorn app.main:app --port 8000 &
+        PYTHONPATH=backend:. uvicorn app.main:app --port 8000 &
         sleep 5
-        python backend/tests/fuzz_test.py
+        PYTHONPATH=backend:. API_URL=http://127.0.0.1:8000/api/iot/telemetry python backend/tests/fuzz_test.py
         kill $(jobs -p)
 
   build-container:

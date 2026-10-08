@@ -4,14 +4,23 @@ Phase 14 - CI/CD and Security Testing
 Evaluates input validation boundaries, type mismatches, buffer sizes, and injection payloads.
 """
 import os
+import sys
 import random
 import string
 import json
 import requests
 from fastapi.testclient import TestClient
 
+# Ensure backend and root paths are on sys.path
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+_backend_dir = os.path.abspath(os.path.join(_current_dir, ".."))
+_root_dir = os.path.abspath(os.path.join(_current_dir, "../.."))
+for p in [_backend_dir, _root_dir]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
 # Default to running container or local port, configurable via API_URL
-DEFAULT_URL = os.environ.get("API_URL", "http://127.0.0.1:8085/api/iot/telemetry")
+DEFAULT_URL = os.environ.get("API_URL", "http://127.0.0.1:8000/api/iot/telemetry")
 
 def generate_random_string(length=10):
     return ''.join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=length))
@@ -36,10 +45,14 @@ def fuzz_test_telemetry():
     print("=================================================================")
     
     # Try HTTP endpoint first, otherwise fallback to TestClient
-    use_http = True
+    use_http = False
     try:
-        test_ping = requests.get(DEFAULT_URL.replace("/api/iot/telemetry", "/api/bins"), timeout=2)
-        print(f"Live API detected at {DEFAULT_URL} (Status: {test_ping.status_code})")
+        test_ping = requests.get(DEFAULT_URL.replace("/api/iot/telemetry", "/docs"), timeout=2)
+        if test_ping.status_code == 200:
+            print(f"Live API detected at {DEFAULT_URL} (Status: {test_ping.status_code})")
+            use_http = True
+        else:
+            print(f"Endpoint at {DEFAULT_URL} returned non-200 ({test_ping.status_code}). Falling back to FastAPI TestClient...")
     except Exception:
         print(f"Direct HTTP connection failed to {DEFAULT_URL}. Falling back to FastAPI TestClient...")
         use_http = False
@@ -48,7 +61,10 @@ def fuzz_test_telemetry():
         poster = requests
         target_url = DEFAULT_URL
     else:
-        from app.main import app
+        try:
+            from app.main import app
+        except ImportError:
+            from backend.app.main import app
         poster = TestClient(app)
         target_url = "/api/iot/telemetry"
 
