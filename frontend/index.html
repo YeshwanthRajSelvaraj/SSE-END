@@ -26,7 +26,6 @@
             </div>
             <div class="brand-info">
                 <span class="brand-title">EcoSmart</span>
-                <span class="brand-badge">Enterprise Cloud</span>
             </div>
         </div>
 
@@ -410,29 +409,97 @@
             <!-- SECTION 2: LIVE TELEMETRY MAP -->
             <section id="map-section" class="view-section">
                 <div class="map-view-container">
+                    <!-- Area Navigation & Discovery Bar -->
+                    <div class="map-search-bar-wrapper">
+                        <div class="search-input-box">
+                            <!-- Search Magnifier Icon -->
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="area-search-input" class="area-search-input" placeholder="Type area or neighborhood name (e.g. Marina Beach, T. Nagar, Central Station...)" onkeydown="if(event.key === 'Enter') searchAreaLocality()" oninput="toggleSearchClearBtn()">
+                            <button class="search-clear-btn" id="search-clear-btn" onclick="clearAreaSearch()" title="Clear search" style="display: none;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" onclick="searchAreaLocality()">
+                            <!-- Navigation Pin Symbol -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                            </svg>
+                            <span>Locate & View Bins</span>
+                        </button>
+                        <button class="btn btn-outline" onclick="recenterMap()" title="Recenter to Central Hub">
+                            <!-- Crosshair Symbol -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="22" x2="18" y1="12" y2="12"/>
+                                <line x1="6" x2="2" y1="12" y2="12"/>
+                                <line x1="12" x2="12" y1="6" y2="2"/>
+                                <line x1="12" x2="12" y1="22" y2="18"/>
+                            </svg>
+                            <span>Recenter</span>
+                        </button>
+                    </div>
+
+                    <!-- Filter Chips & Quick Area Shortcuts -->
                     <div class="map-control-bar">
                         <div class="map-filters">
                             <span class="filter-chip active" onclick="filterMapMarkers('all')">All Nodes (6)</span>
                             <span class="filter-chip" onclick="filterMapMarkers('critical')">Critical (&gt;80%)</span>
                             <span class="filter-chip" onclick="filterMapMarkers('normal')">Normal (&lt;80%)</span>
-                            <span class="filter-chip" onclick="filterMapMarkers('compromised')">Compromised / Quarantined</span>
+                            <span class="filter-chip" onclick="filterMapMarkers('compromised')">Compromised</span>
                         </div>
-                        <div style="display: flex; gap: 12px; align-items: center;">
-                            <span style="font-size: 0.75rem; color: var(--primary-700); font-weight: 600; background: var(--primary-50); padding: 4px 8px; border-radius: var(--radius-sm); border: 1px solid var(--primary-200);">Tile Provider: OpenStreetMap (Zero API Key)</span>
-                            <button class="btn btn-outline" style="padding: 6px 12px;" onclick="map.setView([13.0827, 80.2707], 13)">
-                                <!-- Crosshair Symbol -->
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="22" x2="18" y1="12" y2="12"/>
-                                    <line x1="6" x2="2" y1="12" y2="12"/>
-                                    <line x1="12" x2="12" y1="6" y2="2"/>
-                                    <line x1="12" x2="12" y1="22" y2="18"/>
-                                </svg>
-                                <span>Recenter</span>
-                            </button>
+                        <div class="quick-areas-wrapper">
+                            <span class="quick-areas-label">Quick Navigate:</span>
+                            <div class="quick-area-chips">
+                                <button class="area-chip" onclick="selectQuickArea('Central Station')">Central Station</button>
+                                <button class="area-chip" onclick="selectQuickArea('Marina Beach')">Marina Beach</button>
+                                <button class="area-chip" onclick="selectQuickArea('T. Nagar')">T. Nagar</button>
+                                <button class="area-chip" onclick="selectQuickArea('Egmore')">Egmore</button>
+                                <button class="area-chip" onclick="selectQuickArea('Nungambakkam')">Nungambakkam</button>
+                                <button class="area-chip" onclick="selectQuickArea('Perambur')">Perambur</button>
+                                <button class="area-chip" onclick="selectQuickArea('Guindy')">Guindy</button>
+                                <button class="area-chip" onclick="selectQuickArea('Adyar')">Adyar</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="map-wrapper" id="map"></div>
+
+                    <!-- Map Canvas & Interactive Vicinity Overlay -->
+                    <div class="map-wrapper" id="map">
+                        <!-- Floating Area Vicinity Service Overview Card -->
+                        <div class="area-vicinity-card" id="area-vicinity-card" style="display: none;">
+                            <div class="vicinity-card-header">
+                                <div class="vicinity-header-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    <span id="vicinity-area-name">Marina Beach</span>
+                                </div>
+                                <button class="vicinity-close-btn" onclick="closeAreaVicinityCard()" title="Close Card">✕</button>
+                            </div>
+                            <div class="vicinity-card-body">
+                                <div class="vicinity-status-row">
+                                    <span class="vicinity-badge" id="vicinity-coverage-badge">Active Serviced Zone</span>
+                                    <span class="vicinity-radius-info" id="vicinity-radius-info">Perimeter: 3.0 km</span>
+                                </div>
+                                <div class="vicinity-bins-count" id="vicinity-bins-count">2 Bins Servicing This Area</div>
+                                <div class="vicinity-bins-list" id="vicinity-bins-list"></div>
+                                <div class="vicinity-actions">
+                                    <button class="btn btn-primary" style="width: 100%; justify-content: center; padding: 7px 12px;" onclick="dispatchRouteForArea()">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                                        </svg>
+                                        <span>Dispatch Route to this Area</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 

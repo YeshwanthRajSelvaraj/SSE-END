@@ -205,9 +205,11 @@ let activeBins = [
 ];
 
 let markerGroup = L.layerGroup().addTo(map);
+let binMarkersMap = {};
 
 function renderMapMarkers(filteredList) {
     markerGroup.clearLayers();
+    binMarkersMap = {};
 
     filteredList.forEach(bin => {
         const fill = bin.fill || (bin.capacity_liters ? Math.floor(bin.fill_level || 50) : 50);
@@ -250,6 +252,7 @@ function renderMapMarkers(filteredList) {
         `;
 
         circle.bindPopup(popupHtml);
+        binMarkersMap[bin.bin_id || bin.id] = circle;
         markerGroup.addLayer(circle);
     });
 }
@@ -259,8 +262,8 @@ renderMapMarkers(activeBins);
 // Filter map markers
 function filterMapMarkers(type) {
     document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
-    if (event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
     }
 
     if (type === 'all') {
@@ -272,6 +275,350 @@ function filterMapMarkers(type) {
     } else if (type === 'compromised') {
         renderMapMarkers(activeBins.filter(b => b.status === 'compromised'));
     }
+}
+
+// ── Area Navigation & Vicinity Smart Bins Discovery ───────────────────────
+const CHENNAI_AREAS = {
+    'central station': { name: 'Central Railway Station', lat: 13.0827, lon: 80.2707, zone: 'Zone A', radius: 2.2 },
+    'chennai central': { name: 'Central Railway Station', lat: 13.0827, lon: 80.2707, zone: 'Zone A', radius: 2.2 },
+    'central': { name: 'Central Railway Station', lat: 13.0827, lon: 80.2707, zone: 'Zone A', radius: 2.2 },
+    
+    'marina beach': { name: 'Marina Beach Promenade', lat: 13.0900, lon: 80.2800, zone: 'Zone A', radius: 2.5 },
+    'marina': { name: 'Marina Beach Promenade', lat: 13.0900, lon: 80.2800, zone: 'Zone A', radius: 2.5 },
+    'triplicane': { name: 'Triplicane / Marina Coast', lat: 13.0585, lon: 80.2750, zone: 'Zone A', radius: 2.5 },
+    
+    't. nagar': { name: 'T. Nagar Commercial Hub', lat: 13.0700, lon: 80.2600, zone: 'Zone B', radius: 2.5 },
+    't nagar': { name: 'T. Nagar Commercial Hub', lat: 13.0700, lon: 80.2600, zone: 'Zone B', radius: 2.5 },
+    'thyagaraya nagar': { name: 'T. Nagar Commercial Hub', lat: 13.0700, lon: 80.2600, zone: 'Zone B', radius: 2.5 },
+    'pondy bazaar': { name: 'Pondy Bazaar Retail Sector', lat: 13.0416, lon: 80.2337, zone: 'Zone B', radius: 2.5 },
+    
+    'egmore': { name: 'Egmore Arterial Highway', lat: 13.0850, lon: 80.2750, zone: 'Zone A', radius: 2.0 },
+    
+    'nungambakkam': { name: 'Nungambakkam High Road', lat: 13.0780, lon: 80.2650, zone: 'Zone B', radius: 2.2 },
+    
+    'perambur': { name: 'Perambur Industrial Enclave', lat: 13.1000, lon: 80.2500, zone: 'Zone C', radius: 2.8 },
+    
+    'guindy': { name: 'Guindy Industrial & Metro Hub', lat: 13.0067, lon: 80.2025, zone: 'South Zone', radius: 3.0 },
+    
+    'adyar': { name: 'Adyar South Sector', lat: 13.0012, lon: 80.2565, zone: 'South Zone', radius: 3.0 },
+    
+    'velachery': { name: 'Velachery Urban Corridor', lat: 12.9815, lon: 80.2180, zone: 'South Zone', radius: 3.5 },
+    
+    'anna nagar': { name: 'Anna Nagar West Commercial Hub', lat: 13.0850, lon: 80.2100, zone: 'West Sector', radius: 3.0 },
+    
+    'mylapore': { name: 'Mylapore Heritage & Cultural Sector', lat: 13.0368, lon: 80.2676, zone: 'Zone B', radius: 2.5 },
+    
+    'alwarpet': { name: 'Alwarpet Central Business Area', lat: 13.0334, lon: 80.2504, zone: 'Zone B', radius: 2.5 },
+    
+    'vadapalani': { name: 'Vadapalani Transit Hub', lat: 13.0500, lon: 80.2120, zone: 'West Sector', radius: 3.0 },
+    
+    'omr': { name: 'OMR Cyber Highway Corridor', lat: 12.9010, lon: 80.2279, zone: 'IT Corridor', radius: 4.0 },
+    
+    'tambaram': { name: 'Tambaram Suburban Transit Center', lat: 12.9249, lon: 80.1000, zone: 'Outer South', radius: 4.5 },
+    
+    'airport': { name: 'Chennai International Airport Hub', lat: 12.9941, lon: 80.1709, zone: 'Airport Zone', radius: 3.5 }
+};
+
+let activeAreaCircle = null;
+let activeAreaMarker = null;
+let currentVicinityBins = [];
+let currentVicinityAreaName = '';
+
+function calcDistanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return parseFloat((R * c).toFixed(2));
+}
+
+function toggleSearchClearBtn() {
+    const input = document.getElementById('area-search-input');
+    const clearBtn = document.getElementById('search-clear-btn');
+    if (input && clearBtn) {
+        clearBtn.style.display = input.value.trim().length > 0 ? 'flex' : 'none';
+    }
+}
+
+function clearAreaSearch() {
+    const input = document.getElementById('area-search-input');
+    if (input) input.value = '';
+    toggleSearchClearBtn();
+    closeAreaVicinityCard();
+    if (activeAreaCircle) { map.removeLayer(activeAreaCircle); activeAreaCircle = null; }
+    if (activeAreaMarker) { map.removeLayer(activeAreaMarker); activeAreaMarker = null; }
+    document.querySelectorAll('.area-chip').forEach(c => c.classList.remove('active'));
+    renderMapMarkers(activeBins);
+}
+
+function closeAreaVicinityCard() {
+    const card = document.getElementById('area-vicinity-card');
+    if (card) card.style.display = 'none';
+}
+
+function selectQuickArea(areaName) {
+    const input = document.getElementById('area-search-input');
+    if (input) {
+        input.value = areaName;
+        toggleSearchClearBtn();
+    }
+    document.querySelectorAll('.area-chip').forEach(chip => {
+        if (chip.innerText.trim().toLowerCase() === areaName.trim().toLowerCase()) {
+            chip.classList.add('active');
+        } else {
+            chip.classList.remove('active');
+        }
+    });
+    searchAreaLocality();
+}
+
+function recenterMap() {
+    clearAreaSearch();
+    map.flyTo([13.0827, 80.2707], 13, { duration: 1.2 });
+    showToast("Map View Centered", "Reset viewport to Central Metropolitan Hub.", "info");
+}
+
+async function searchAreaLocality() {
+    const input = document.getElementById('area-search-input');
+    const query = input ? input.value.trim() : '';
+
+    if (!query) {
+        showToast("Enter Area Name", "Please type an area or neighborhood name to navigate.", "warning");
+        if (input) input.focus();
+        return;
+    }
+
+    const normQuery = query.toLowerCase();
+    let targetArea = null;
+
+    // 1. Direct or partial match in pre-mapped Chennai areas
+    for (const [key, areaData] of Object.entries(CHENNAI_AREAS)) {
+        if (normQuery.includes(key) || key.includes(normQuery)) {
+            targetArea = areaData;
+            break;
+        }
+    }
+
+    // 2. Fallback to OpenStreetMap Nominatim Geocoding API
+    if (!targetArea) {
+        try {
+            showToast("Searching Area", `Locating "${query}" via GIS geocoder...`, "info");
+            const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Chennai, Tamil Nadu')}&limit=1`);
+            if (geoRes.ok) {
+                const geoData = await geoRes.json();
+                if (geoData && geoData.length > 0) {
+                    targetArea = {
+                        name: geoData[0].display_name.split(',')[0] || query,
+                        lat: parseFloat(geoData[0].lat),
+                        lon: parseFloat(geoData[0].lon),
+                        zone: 'Metropolitan Sector',
+                        radius: 3.0
+                    };
+                }
+            }
+        } catch (err) {
+            console.warn("Geocoding fallback network notice:", err);
+        }
+    }
+
+    if (!targetArea) {
+        showToast("Area Not Found", `Could not pinpoint "${query}". Try Central Station, Marina Beach, or T. Nagar.`, "warning");
+        return;
+    }
+
+    navigateToAreaWithBins(targetArea);
+}
+
+function navigateToAreaWithBins(area) {
+    currentVicinityAreaName = area.name;
+    const { lat, lon, name } = area;
+
+    // Clean up previous search layers
+    if (activeAreaCircle) { map.removeLayer(activeAreaCircle); }
+    if (activeAreaMarker) { map.removeLayer(activeAreaMarker); }
+
+    // Calculate distance from area center to all bins
+    const binsWithDistance = activeBins.map(bin => {
+        const bLat = bin.location_lat || bin.lat;
+        const bLon = bin.location_lon || bin.lon;
+        const dist = calcDistanceKm(lat, lon, bLat, bLon);
+        return { ...bin, distanceKm: dist, bLat, bLon };
+    });
+
+    // Sort by proximity
+    binsWithDistance.sort((a, b) => a.distanceKm - b.distanceKm);
+
+    // Nearby threshold: within 3.5 km
+    const nearbyThresholdKm = 3.5;
+    const nearbyBins = binsWithDistance.filter(b => b.distanceKm <= nearbyThresholdKm);
+    currentVicinityBins = nearbyBins;
+
+    // Draw Coverage Radar Circle
+    activeAreaCircle = L.circle([lat, lon], {
+        radius: 2000,
+        color: '#059669',
+        fillColor: '#10b981',
+        fillOpacity: 0.12,
+        weight: 2,
+        dashArray: '6, 6'
+    }).addTo(map);
+
+    // Drop Custom Pulse Pin
+    const areaPulseIcon = L.divIcon({
+        className: 'custom-area-pin',
+        html: `
+            <div class="area-marker-pin">
+                <div class="area-marker-beacon"></div>
+                <div class="area-marker-pulse"></div>
+            </div>
+        `,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+    });
+
+    activeAreaMarker = L.marker([lat, lon], { icon: areaPulseIcon }).addTo(map);
+    activeAreaMarker.bindPopup(`
+        <div style="min-width: 170px; font-family: 'Plus Jakarta Sans', sans-serif;">
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                <svg style="width: 14px; height: 14px; color: #047857; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <strong style="color: #047857; font-size: 0.88rem;">${name}</strong>
+            </div>
+            <div style="font-size: 0.72rem; color: #475569;">Serviced Location Anchor</div>
+            <div style="font-size: 0.74rem; color: #059669; font-weight: 700; margin-top: 4px;">
+                ${nearbyBins.length > 0 ? `${nearbyBins.length} Bins Servicing Vicinity` : 'No direct bins within 3.5km'}
+            </div>
+        </div>
+    `);
+
+    // Smooth Navigation FlyTo
+    map.flyTo([lat, lon], 14, { duration: 1.2 });
+
+    // Open Popup on closest bin after animation completes
+    const closestBin = binsWithDistance[0];
+    if (closestBin && binMarkersMap[closestBin.bin_id]) {
+        setTimeout(() => {
+            if (binMarkersMap[closestBin.bin_id]) {
+                binMarkersMap[closestBin.bin_id].openPopup();
+            }
+        }, 1300);
+    }
+
+    // Render Floating Vicinity Overview Card
+    renderVicinityCard(area, nearbyBins, closestBin);
+
+    // Toast Notification
+    if (nearbyBins.length > 0) {
+        showToast(
+            `Navigated to ${name}`,
+            `Found ${nearbyBins.length} serviced bins in the vicinity perimeter. Nearest: ${closestBin.bin_id} (${closestBin.distanceKm} km away).`,
+            "success"
+        );
+    } else {
+        showToast(
+            `Navigated to ${name}`,
+            `No fixed bins within 3.5 km. Nearest active bin is ${closestBin.bin_id} (${closestBin.distanceKm} km away).`,
+            "warning"
+        );
+    }
+}
+
+function renderVicinityCard(area, nearbyBins, closestBin) {
+    const card = document.getElementById('area-vicinity-card');
+    const nameEl = document.getElementById('vicinity-area-name');
+    const badgeEl = document.getElementById('vicinity-coverage-badge');
+    const radiusInfoEl = document.getElementById('vicinity-radius-info');
+    const countEl = document.getElementById('vicinity-bins-count');
+    const listEl = document.getElementById('vicinity-bins-list');
+
+    if (!card) return;
+
+    if (nameEl) nameEl.innerText = area.name;
+    if (radiusInfoEl) radiusInfoEl.innerText = `Radius: 3.5 km`;
+
+    if (nearbyBins.length > 0) {
+        if (badgeEl) {
+            badgeEl.innerText = 'Active Coverage';
+            badgeEl.className = 'vicinity-badge';
+            badgeEl.style.background = 'var(--primary-100)';
+            badgeEl.style.color = 'var(--primary-800)';
+        }
+        if (countEl) countEl.innerText = `${nearbyBins.length} Serviced Bins in Vicinity`;
+
+        if (listEl) {
+            listEl.innerHTML = '';
+            nearbyBins.forEach(bin => {
+                const fill = bin.fill || (bin.capacity_liters ? Math.floor(bin.fill_level || 50) : 50);
+                let tagClass = 'badge-success';
+                let tagText = `${fill}% Fill`;
+                if (bin.status === 'compromised') {
+                    tagClass = 'badge-purple';
+                    tagText = 'Quarantined';
+                } else if (fill > 80) {
+                    tagClass = 'badge-danger';
+                    tagText = `${fill}% Critical`;
+                } else if (fill > 60) {
+                    tagClass = 'badge-warning';
+                    tagText = `${fill}% Warning`;
+                }
+
+                const item = document.createElement('div');
+                item.className = 'vicinity-bin-item';
+                item.onclick = () => {
+                    if (binMarkersMap[bin.bin_id]) {
+                        map.panTo([bin.bLat, bin.bLon]);
+                        binMarkersMap[bin.bin_id].openPopup();
+                    }
+                };
+                item.style.cursor = 'pointer';
+                item.title = 'Click to focus bin on map';
+                item.innerHTML = `
+                    <div>
+                        <div class="vicinity-bin-title">${bin.bin_id}</div>
+                        <div style="font-size: 0.68rem; color: var(--text-muted);">${bin.address || bin.zone || 'Local Node'}</div>
+                    </div>
+                    <div class="vicinity-bin-meta">
+                        <span class="badge-chip ${tagClass}" style="font-size: 0.65rem; padding: 2px 5px;">${tagText}</span>
+                        <span class="vicinity-bin-dist">${bin.distanceKm} km</span>
+                    </div>
+                `;
+                listEl.appendChild(item);
+            });
+        }
+    } else {
+        if (badgeEl) {
+            badgeEl.innerText = 'Extended Perimeter';
+            badgeEl.className = 'vicinity-badge';
+            badgeEl.style.background = 'var(--accent-warning-bg)';
+            badgeEl.style.color = 'var(--accent-warning-text)';
+        }
+        if (countEl) countEl.innerText = `0 Fixed Bins Inside 3.5 km Perimeter`;
+        if (listEl) {
+            listEl.innerHTML = `
+                <div class="vicinity-bin-item" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                    <div style="font-size: 0.72rem; color: var(--text-secondary);">Nearest Infrastructure Asset:</div>
+                    <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                        <strong style="color: var(--primary-700);">${closestBin.bin_id}</strong>
+                        <span class="vicinity-bin-dist">${closestBin.distanceKm} km away</span>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    card.style.display = 'block';
+}
+
+function dispatchRouteForArea() {
+    showSection('routes');
+    showToast(
+        `Fleet Dispatched to ${currentVicinityAreaName || 'Area'}`,
+        `Autonomous routing prioritized nearby bins for TRUCK-01. Route computation active.`,
+        "success"
+    );
 }
 
 // ── Chart.js Modern Green & White Configuration ─────────────────────────────
